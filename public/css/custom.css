@@ -1,0 +1,22 @@
+.navbar-brand,
+.navbar-default .navbar-brand,
+body.topnav-collapsed .navbar-default .navbar-brand,
+body.topnav-collapsed .navbar-brand {
+    background: url("../img/synchronosure_blue_trans_logo.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 40% !important;
+    background-position: center !important;
+}
+
+.login-logo > img,
+.login-link {
+    width: 100%;
+}
+
+#example > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.dropzone {
+    min-height: 160px !important;
+}
