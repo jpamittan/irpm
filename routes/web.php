@@ -29,7 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mods', [ModsController::class, 'index'])->name('mods.index');
 
     Route::get('/submissions', [SubmissionsController::class, 'index'])->name('submissions.index');
-    Route::get('/submissions/details', [SubmissionsController::class, 'details'])->name('submissions.details');
+    Route::get('/submissions/datatables', [SubmissionsController::class, 'datatables'])->name('submissions.datatables');
+    Route::get('/submissions/details/{submission}', [SubmissionsController::class, 'details'])->name('submissions.details');
 
     Route::middleware(['admin'])->group(function () {
         Route::get('/users', [UsersController::class, 'index'])->name('users.index');

@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="panel-body panel-no-padding">
-                            <table id="example" class="table table-striped table-bordered"
+                            <table id="submission" class="table table-striped table-bordered"
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -35,635 +35,6 @@
                                         <th style="width: 150px; text-align: center;">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td>GigBOP1</td>
-                                        <td>1</td>
-                                        <td>Orbitfish Research and Technology Inc.</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #37bf8d;">Quote</b></td>
-                                        <td>10-03-2020 06:52 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP2</td>
-                                        <td>1</td>
-                                        <td>Ell Lilly & Co</td>
-                                        <td>Andrew Hill</td>
-                                        <td><b style="color: #5394c9;">Refer</b></td>
-                                        <td>9-12-2020 05:11 am</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td>GigBOP3</td>
-                                        <td>1</td>
-                                        <td>Sanofi Aventis Medicine</td>
-                                        <td>Jay Josselyn</td>
-                                        <td><b style="color: #e36d4f;">Decline</b></td>
-                                        <td>9-01-2020 03:30 pm</td>
-                                        <td>
-                                            <a href="{{ route('submissions.details') }}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
                             </table>
                             <div class="panel-footer"></div>
                         </div>
@@ -697,11 +68,70 @@
    
     <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
-	<script src="{{ asset('demo/demo-datatables.js') }}"></script> <!-- Initialize scripts for this page-->
 
     <script>
         $(document).ready(function() {
-            
+            $('#submission').dataTable({
+                language: {
+                    lengthMenu: "_MENU_",
+                    searchPlaceholder: "Search..."
+                },
+                // responsive: true,
+                iDisplayLength: 20,
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('submissions.datatables') }}",
+                order: [
+                    [ 5, "desc" ]
+                ],
+                columns: [
+                    { data: 'submission_id', name: 'submissions.submission_id' },
+                    { data: 'version', name: 'submissions.version' },
+                    { data: 'business_name', name: 'submissions.business_name' },
+                    {
+                        data: 'agent',
+                        name: 'submissions.agent',
+                        render: function (data, type, row) {
+                            return (data) ? data : "N/A";
+                        }
+                    },
+                    {
+                        data: 'description',
+                        name: 'outcome_type.description',
+                        render: function (data, type, row) {
+                            if (data == 'Quote') {
+                                return `<b style="color: #37bf8d;">${data}</b>`;
+                            } else if (data == 'Refer') {
+                                return `<b style="color: #5394c9;">${data}</b>`;
+                            } else if (data == 'Decline') {
+                                return `<b style="color: #e36d4f;">${data}</b>`;
+                            } else {
+                                return data;
+                            }
+                        }
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'submissions.created_at',
+                        render: function (data, type, row) {
+                            return moment(data).format('MM/DD/YYYY hh:mm A');
+                        }
+                    },
+                    {
+                        data: 'id',
+                        name: 'submissions.id',
+                        render: function (data, type, row) {
+                            return `<a href="/submissions/details/${data}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>`;
+                        }
+                    }
+                ]
+            });
+            $('.panel-ctrls-limit').append("&nbsp;&nbsp;Page Limit");
+            $('.panel-ctrls').append($('.dataTables_filter').addClass("pull-right")).find("label").addClass("panel-ctrls-center");
+            $('.panel-ctrls').append("<i class='separator'></i>");
+            $('.panel-ctrls').append($('.dataTables_length').addClass("pull-left")).find("label").addClass("panel-ctrls-center");
+            $('.panel-footer').append($(".dataTable+.row"));
+            $('.dataTables_paginate>ul.pagination').addClass("pull-right m0");
         });
     </script>
 @endpush

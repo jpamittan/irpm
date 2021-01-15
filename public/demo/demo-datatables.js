@@ -3,12 +3,6 @@
 // -------------------------------
 
 $(document).ready(function() {
-    $('#example').dataTable({
-    	"language": {
-    		"lengthMenu": "_MENU_"
-		},
-		'iDisplayLength': 20
-	});
 	$('#submissionDetails').dataTable({
     	"language": {
     		"lengthMenu": "_MENU_"
@@ -36,5 +30,4 @@ $(document).ready(function() {
 
 	$('.panel-footer').append($(".dataTable+.row"));
 	$('.dataTables_paginate>ul.pagination').addClass("pull-right m0");
-
 });

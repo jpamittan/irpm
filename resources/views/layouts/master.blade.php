@@ -26,7 +26,7 @@
 	    <link href="{{ asset('plugins/dropzone/css/dropzone.css') }}" type="text/css" rel="stylesheet"> <!-- Dropzone Plugin -->
     </head>
     <body class="infobar-offcanvas">
-        <header id="topnav" class="navbar navbar-info navbar-fixed-top clearfix" role="banner">
+        <header id="topnav" class="navbar navbar-primary navbar-fixed-top clearfix" role="banner">
             <a id="leftmenu-trigger" class="" data-toggle="tooltip" data-placement="right" title="Toggle Sidebar"></a>
             <a class="navbar-brand" href="{{ route('dashboard.index') }}"></a>
             <ul class="nav navbar-nav toolbar pull-right">

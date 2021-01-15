@@ -2,7 +2,7 @@
 .navbar-default .navbar-brand,
 body.topnav-collapsed .navbar-default .navbar-brand,
 body.topnav-collapsed .navbar-brand {
-    background: url("../img/synchronosure_blue_trans_logo.png") !important;
+    background: url("../img/logo_white.png") !important;
     background-repeat: no-repeat !important;
     background-size: 100% 40% !important;
     background-position: center !important;
@@ -19,4 +19,14 @@ body.topnav-collapsed .navbar-brand {
 
 .dropzone {
     min-height: 160px !important;
+}
+
+#submission_processing {
+    padding-left: 20px !important;
+}
+
+@media only screen and (max-width: 802px) {
+    body.topnav-collapsed .navbar-brand {
+        background: none !important;
+    }
 }
