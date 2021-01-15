@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">{{ $quoteCount + $referCount + $declineCount }}</div>
+                            <div class="text-center">{{ number_format($quoteCount + $referCount + $declineCount) }}</div>
                         </div>
                         <div class="tiles-footer">
                             <div class="pull-left">Manage submissions</div>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">{{ $quoteCount }}</div>
+                            <div class="text-center">{{ number_format($quoteCount) }}</div>
                         </div>
                         <div class="tiles-footer">
                             <div class="pull-left">See all quotes</div>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">{{ $referCount }}</div>
+                            <div class="text-center">{{ number_format($referCount) }}</div>
                         </div>
                         <div class="tiles-footer">
                             <div class="pull-left">See all refer</div>
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">{{ $declineCount }}</div>
+                            <div class="text-center">{{ number_format($declineCount) }}</div>
                         </div>
                         <div class="tiles-footer">
                             <div class="pull-left">See all decline</div>

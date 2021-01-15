@@ -45,7 +45,7 @@ class SubmissionsController extends Controller
             ->count();
 
         // Fetch records
-        $records = Submission::orderBy($columnName, $columnSortOrder)
+        $records = Submission::orderBy('submissions.' . $columnName, $columnSortOrder)
             ->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
             ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
             ->orWhere('submissions.agent', 'like', '%' . $searchValue . '%')
@@ -100,7 +100,7 @@ class SubmissionsController extends Controller
         }
         $submission->operating_in = rtrim($concatStates, ", ");
         $submissionReviews = SubmissionReview::where('submissions_id', $submission->id)
-            ->where('question_text', 'NOT LIKE', 'API|%')
+            ->where('question_text', 'NOT LIKE', '%|%')
             ->get();
 
         return view('submissions.details', [
