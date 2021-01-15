@@ -26,7 +26,7 @@ Route::post('/reset-password', [LoginController::class, 'resetPassword'])->name(
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/mods', [ModsController::class, 'index'])->name('mods.index');
+    Route::get('/mods/{submission}', [ModsController::class, 'index'])->name('mods.index');
 
     Route::get('/submissions', [SubmissionsController::class, 'index'])->name('submissions.index');
     Route::get('/submissions/datatables', [SubmissionsController::class, 'datatables'])->name('submissions.datatables');

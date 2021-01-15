@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Submission;
+use App\Models\{
+    Submission,
+    SubmissionReview
+};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -89,8 +92,20 @@ class SubmissionsController extends Controller
 
     public function details(Submission $submission): View
     {
-        dd($submission);
+        $operatingInArr = json_decode($submission->operating_in);
+        sort($operatingInArr);
+        $concatStates = "";
+        foreach ($operatingInArr as $operatingIn) {
+            $concatStates .= $operatingIn . ', ';
+        }
+        $submission->operating_in = rtrim($concatStates, ", ");
+        $submissionReviews = SubmissionReview::where('submissions_id', $submission->id)
+            ->where('question_text', 'NOT LIKE', 'API|%')
+            ->get();
 
-        return view('submissions.details');
+        return view('submissions.details', [
+            'submission' => $submission,
+            'submissionReviews' => $submissionReviews,
+        ]);
     }
 }

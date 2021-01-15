@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SubmissionMod extends Model
+
+class Question extends Model
 {
     protected $connection= 'sqlsrv_uat';
 
@@ -25,8 +26,13 @@ class SubmissionMod extends Model
         
     ];
 
-    public function outcomeType(): ?HasOne
+    public function submissionReviews(): ?HasMany
     {
-        return $this->hasOne(OutcomeType::class, 'id', 'outcome_type_id');
+        return $this->hasMany(SubmissionReview::class, 'submissions_id', 'id');
+    }
+
+    public function answers(): ?HasMany
+    {
+        return $this->hasMany(Answer::class, 'questions_id', 'id');
     }
 }

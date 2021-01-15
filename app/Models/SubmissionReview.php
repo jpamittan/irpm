@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class SubmissionMod extends Model
+
+class SubmissionReview extends Model
 {
     protected $connection= 'sqlsrv_uat';
 
@@ -25,8 +26,8 @@ class SubmissionMod extends Model
         
     ];
 
-    public function outcomeType(): ?HasOne
+    public function question(): ?HasOne
     {
-        return $this->hasOne(OutcomeType::class, 'id', 'outcome_type_id');
+        return $this->hasMany(Question::class, 'id', 'question_id');
     }
 }

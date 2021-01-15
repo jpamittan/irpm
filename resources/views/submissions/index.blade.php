@@ -66,6 +66,7 @@
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/world_countries.js') }}"></script>
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/usa_states.js') }}"></script> <!-- Vector Data of USA States -->
    
+    <!-- DataTable -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
 
@@ -76,7 +77,6 @@
                     lengthMenu: "_MENU_",
                     searchPlaceholder: "Search..."
                 },
-                // responsive: true,
                 iDisplayLength: 20,
                 processing: true,
                 serverSide: true,

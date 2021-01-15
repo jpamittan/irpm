@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\{
+    HasOne,
+    HasMany
+};
 
 class Submission extends Model
 {
@@ -24,14 +28,19 @@ class Submission extends Model
         
     ];
 
-    public function submissionMods()
+    public function submissionMods(): ?HasMany
     {
         return $this->hasMany(SubmissionMod::class, 'submissions_id', 'id');
     }
 
-    public function latestSubmissionMods()
+    public function latestSubmissionMods(): ?HasOne
     {
         return $this->hasOne(SubmissionMod::class, 'submissions_id', 'id')
             ->latest();
+    }
+
+    public function submissionReviews(): ?HasMany
+    {
+        return $this->hasMany(SubmissionReview::class, 'submissions_id', 'id');
     }
 }

@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\{
+    HasOne,
+    HasMany
+};
 
-class SubmissionMod extends Model
+
+class Answer extends Model
 {
     protected $connection= 'sqlsrv_uat';
 
@@ -24,9 +28,4 @@ class SubmissionMod extends Model
     protected $casts = [
         
     ];
-
-    public function outcomeType(): ?HasOne
-    {
-        return $this->hasOne(OutcomeType::class, 'id', 'outcome_type_id');
-    }
 }

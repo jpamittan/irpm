@@ -22,27 +22,31 @@
                                         <tbody>
                                             <tr>
                                                 <td style="width: 120px;"><b>Submission ID: </b></td>
-                                                <td><span class="text-primary">2 - 1</span></td>
+                                                <td><span class="text-primary">{{ $submission->submission_id }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Version: </b></td>
+                                                <td><span class="text-primary">{{ $submission->version }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Insured: </b></td>
-                                                <td><span class="text-primary">Patrick Jones</span></td>
+                                                <td><span class="text-primary">{{ $submission->business_name ?? "N/A" }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Agency: </b></td>
-                                                <td><span class="text-primary">Test agency</span></td>
+                                                <td><span class="text-primary">{{ $submission->agency ??  "N/A" }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Agent: </b></td>
-                                                <td><span class="text-primary">Test agent</span></td>
+                                                <td><span class="text-primary">{{ $submission->agent ??  "N/A" }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Program: </b></td>
-                                                <td><span class="text-primary">gig-BOP</span></td>
+                                                <td><span class="text-primary">{{ $submission->line_of_business ??  "N/A" }}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><b>State: </b></td>
-                                                <td><span class="text-primary">ME</span></td>
+                                                <td><span class="text-primary">{{ $submission->operating_in }}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -51,7 +55,7 @@
                             <div class="col-md-4">
                                 <div class="options">
                                     <div class="btn-toolbar" style="text-align: right;">
-                                        <a href="{{ route('mods.index') }}" class="btn btn-default"><i class="fa fa-fw fa-cog"></i> Mods</a>
+                                        <a href="{{ route('mods.index', ['submission' => $submission->id]) }}" class="btn btn-default"><i class="fa fa-fw fa-cog"></i> Mods</a>
                                     </div>
                                 </div>
                             </div>
@@ -74,150 +78,17 @@
                                                         <th>Question Description</th>
                                                         <th style="width: 400px;">Answer</th>
                                                         <th style="width: 80px;">Score</th>
-                                                        <th style="width: 150px;">Outcome</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd">
-                                                        <td>uwq_002</td>
-                                                        <td>Management Experience</td>
-                                                        <td>Less than 3 years in Industry</td>
-                                                        <td>-1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_022</td>
-                                                        <td>ManufactureLabelUnderContract</td>
-                                                        <td>Others</td>
-                                                        <td>-1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_001</td>
-                                                        <td>YearsInBusiness</td>
-                                                        <td>12 months - 35 months</td>
-                                                        <td>0</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>API_018</td>
-                                                        <td>Sprinkler system</td>
-                                                        <td>false</td>
-                                                        <td>0</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_174</td>
-                                                        <td>RefrigerationContractSnackYN</td>
-                                                        <td>Y</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>API_012</td>
-                                                        <td># of liens & judgments</td>
-                                                        <td>0</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>API_013</td>
-                                                        <td>Prior litigation history</td>
-                                                        <td>0</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>API_014</td>
-                                                        <td>OSHA</td>
-                                                        <td>0</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_024</td>
-                                                        <td>AllergyIngredientsYN</td>
-                                                        <td>N</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_026</td>
-                                                        <td>CulinarySchoolTrainingYN</td>
-                                                        <td>Y</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_027</td>
-                                                        <td>RefrigerationEquipmentMaintainedServicedYN</td>
-                                                        <td>Y</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_028</td>
-                                                        <td>DiacetylYN</td>
-                                                        <td>N</td>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_031</td>
-                                                        <td>OnlineOverNinetyPCT</td>
-                                                        <td>N</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_032</td>
-                                                        <td>SellCannabisMarijuanaRelatedProductsYN</td>
-                                                        <td>N</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_033</td>
-                                                        <td>SellHempCBDRelatedProductsYN</td>
-                                                        <td>N</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_037</td>
-                                                        <td>SellVapingProductsSuppliesYN</td>
-                                                        <td>N</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_046</td>
-                                                        <td>OnlineSalesYN</td>
-                                                        <td>N</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_172</td>
-                                                        <td>SellAlcoholYN</td>
-                                                        <td>N</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="odd">
-                                                        <td>uwq_025</td>
-                                                        <td>ProductsLabelWarningYN</td>
-                                                        <td>Y</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr class="even">
-                                                        <td>uwq_023</td>
-                                                        <td>FoodBeverageHumanConsumptionYN</td>
-                                                        <td>Y</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
+                                                    @foreach($submissionReviews as $review)
+                                                        <tr class="odd">
+                                                            <td>{{ $review->question_id }}</td>
+                                                            <td>{{ $review->question_text }}</td>
+                                                            <td>{{ $review->answer_text }}</td>
+                                                            <td>{{ $review->answer_value }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             <div class="panel-footer"></div>
@@ -254,13 +125,26 @@
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/world_countries.js') }}"></script>
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/usa_states.js') }}"></script> <!-- Vector Data of USA States -->
    
+    <!-- Switchery -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
-	<script src="{{ asset('demo/demo-datatables.js') }}"></script> <!-- Initialize scripts for this page-->
 
     <script>
         $(document).ready(function() {
-            
+            $('#submissionDetails').dataTable({
+                "language": {
+                    "lengthMenu": "_MENU_"
+                },
+                'iDisplayLength': 20,
+                "paging": false,
+                "order": [[ 3, "desc" ]]
+            });
+            $('.panel-ctrls-limit').append("&nbsp;&nbsp;Limit");
+            $('.panel-ctrls').append($('.dataTables_filter').addClass("pull-right")).find("label").addClass("panel-ctrls-center");
+            $('.panel-ctrls').append("<i class='separator'></i>");
+            $('.panel-ctrls').append($('.dataTables_length').addClass("pull-left")).find("label").addClass("panel-ctrls-center");
+            $('.panel-footer').append($(".dataTable+.row"));
+            $('.dataTables_paginate>ul.pagination').addClass("pull-right m0");
         });
     </script>
 @endpush
