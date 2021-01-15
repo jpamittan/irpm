@@ -12,15 +12,15 @@
                         <div class="tiles-heading">
                             <div class="pull-left">Submissions</div>
                             <div class="pull-right">
-                                <div id="tileorders" class="sparkline-block"></div>
+                                <!-- <div id="tileorders" class="sparkline-block"></div> -->
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">1,249</div>
+                            <div class="text-center">{{ $quoteCount + $referCount + $declineCount }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <div class="pull-left">manage submissions</div>
-                            <div class="pull-right percent-change">+20.7%</div>
+                            <div class="pull-left">Manage submissions</div>
+                            <!-- <div class="pull-right percent-change">+20.7%</div> -->
                         </div>
                     </a>
                 </div>
@@ -29,15 +29,15 @@
                         <div class="tiles-heading">
                             <div class="pull-left">Quote</div>
                             <div class="pull-right">
-                                <div id="tilerevenues" class="sparkline-block"></div>
+                                <!-- <div id="tilerevenues" class="sparkline-block"></div> -->
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">250</div>
+                            <div class="text-center">{{ $quoteCount }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <div class="pull-left">see all quotes</div>
-                            <div class="pull-right percent-change">+17.2%</div>
+                            <div class="pull-left">See all quotes</div>
+                            <!-- <div class="pull-right percent-change">+17.2%</div> -->
                         </div>
                     </a>
                 </div>
@@ -46,15 +46,15 @@
                         <div class="tiles-heading">
                             <div class="pull-left">Refer</div>
                             <div class="pull-right">
-                                <div id="tiletickets" class="sparkline-block"></div>
+                                <!-- <div id="tiletickets" class="sparkline-block"></div> -->
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">598</div>
+                            <div class="text-center">{{ $referCount }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <div class="pull-left">see all refer</div>
-                            <div class="pull-right percent-change">+10.3%</div>
+                            <div class="pull-left">See all refer</div>
+                            <!-- <div class="pull-right percent-change">+10.3%</div> -->
                         </div>
                     </a>
                 </div>
@@ -63,15 +63,15 @@
                         <div class="tiles-heading">
                             <div class="pull-left">Decline</div>
                             <div class="pull-right">
-                                <div id="tilemembers" class="sparkline-block"></div>
+                                <!-- <div id="tilemembers" class="sparkline-block"></div> -->
                             </div>
                         </div>
                         <div class="tiles-body">
-                            <div class="text-center">120</div>
+                            <div class="text-center">{{ $declineCount }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <div class="pull-left">see all decline</div>
-                            <div class="pull-right percent-change">-11.1%</div>
+                            <div class="pull-left">See all decline</div>
+                            <!-- <div class="pull-right percent-change">-11.1%</div> -->
                         </div>
                     </a>
                 </div>
