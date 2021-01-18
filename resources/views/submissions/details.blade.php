@@ -55,7 +55,7 @@
                             <div class="col-md-4">
                                 <div class="options">
                                     <div class="btn-toolbar" style="text-align: right;">
-                                        <a href="{{ route('mods.index', ['submission' => $submission->id]) }}" class="btn btn-default"><i class="fa fa-fw fa-cog"></i> Mods</a>
+                                        <a href="{{ route('mods.index', ['submissionId' => $submission->id]) }}" class="btn btn-default"><i class="fa fa-fw fa-cog"></i> Mods</a>
                                     </div>
                                 </div>
                             </div>

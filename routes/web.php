@@ -28,7 +28,7 @@ Route::get('/forgot-password', [LoginController::class, 'forgotPassword'])->name
 Route::post('/reset-password', [LoginController::class, 'resetPassword'])->name('resetPassword');
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/mods/{submission}', [ModsController::class, 'index'])->name('mods.index');
+    Route::get('/mods/{submissionId}', [ModsController::class, 'index'])->name('mods.index');
     Route::prefix('settings')->group(function () {
         Route::get('/{user}', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/{user}', [SettingsController::class, 'save'])->name('settings.save');
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('submissions')->group(function () {
         Route::get('/', [SubmissionsController::class, 'index'])->name('submissions.index');
         Route::get('/datatables', [SubmissionsController::class, 'datatables'])->name('submissions.datatables');
-        Route::get('/details/{submission}', [SubmissionsController::class, 'details'])->name('submissions.details');
+        Route::get('/details/{submissionId}', [SubmissionsController::class, 'details'])->name('submissions.details');
     });
     Route::middleware(['admin'])->prefix('users')->group(function () {
         Route::get('/', [UsersController::class, 'index'])->name('users.index');

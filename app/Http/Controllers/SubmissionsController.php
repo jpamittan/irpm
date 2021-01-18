@@ -82,9 +82,10 @@ class SubmissionsController extends Controller
         exit;
     }
 
-    public function details(Submission $submission): View
+    public function details(string $submissionId): View
     {
         config(['sqlsvr.connection' => Auth::user()->db_connection]);
+        $submission = Submission::find($submissionId);
         $operatingInArr = json_decode($submission->operating_in);
         sort($operatingInArr);
         $concatStates = "";

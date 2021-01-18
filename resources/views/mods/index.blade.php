@@ -9,7 +9,7 @@
         <div class="row">
             <div class="row">
                 <div class="col-md-12" style="padding: 0px 20px 20px 20px;">
-                    <a href="{{ route('submissions.details', ['submission' => $submission->id]) }}"><button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button></a>
+                    <a href="{{ route('submissions.details', ['submissionId' => $submission->id]) }}"><button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button></a>
                 </div>
             </div>
             <div class="col-md-12">
