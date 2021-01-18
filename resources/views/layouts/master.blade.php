@@ -180,7 +180,6 @@
         <script src="{{ asset('js/application.js') }}"></script>
         <script src="{{ asset('demo/demo.js') }}"></script>
         <script src="{{ asset('demo/demo-switcher.js') }}"></script>
-        <script src="{{ asset('plugins/simpleWeather/jquery.simpleWeather.min.js') }}"></script>
         @stack('scripts')
     </body>
 </html>
