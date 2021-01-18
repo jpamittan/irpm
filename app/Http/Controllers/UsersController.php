@@ -12,6 +12,12 @@ use Illuminate\Http\{
 
 class UsersController extends Controller
 {
+    protected $environments = [
+        'sqlsrv_dev' => 'Development',
+        'sqlsrv_uat' => 'UAT',
+        'sqlsrv_preprod' => 'Pre Production'
+    ];
+
     public function index(): View
     {
         $users = User::orderBy('created_at', 'DESC')->get();
@@ -20,7 +26,9 @@ class UsersController extends Controller
 
     public function create(): View
     {
-        return view('users.create');
+        return view('users.create', [
+            'environments' => $this->environments
+        ]);
     }
 
     public function createPost(Request $request): RedirectResponse
@@ -31,6 +39,7 @@ class UsersController extends Controller
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
         $user->is_admin = $request->input('is_admin');
+        $user->db_connection = $request->input('db_connection');
         if ($user->save()) {
             return redirect('/users?created=1');
         } else {
@@ -40,7 +49,10 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('users.edit', [
+            'user' => $user,
+            'environments' => $this->environments
+        ]);
     }
 
     public function editPost(User $user, Request $request)
@@ -50,6 +62,7 @@ class UsersController extends Controller
         $user->email = $request->input('email');
         $user->is_admin = $request->input('is_admin');
         $user->status = ($request->input('status')) ? 1 : 0;
+        $user->db_connection = $request->input('db_connection');
         if ($user->save()) {
             return redirect('/users?updated=1');
         } else {
@@ -59,7 +72,7 @@ class UsersController extends Controller
 
     public function delete(User $user)
     {
-        if ($user->delete()) {
+        if ($user->id != 1 && $user->delete()) {
             return redirect('/users?deleted=1');
         } else {
             return redirect('/users?error=1');

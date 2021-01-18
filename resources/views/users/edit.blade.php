@@ -15,7 +15,7 @@
                 <form action="{{ route('users.editPost', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
                     @csrf
                     <div class="panel-heading">
-                        <h2>Edit User Form</h2>
+                        <h2><i class="fas fa-user-edit"></i> Edit User</h2>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
@@ -47,6 +47,22 @@
                                     <input type="radio" name="is_admin" value="1" {{ ($user->is_admin) ? 'checked' : '' }}>
                                     Yes
                                 </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="fas fa-database"></i> Environment Connection
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="db_connection" required>
+                                    @foreach ($environments as $key => $value)
+                                        @if ($key == $user->db_connection)
+                                            <option value="{{ $key }}" selected>{{ $value }}</option>
+                                        @else
+                                            <option value="{{ $key }}">{{ $value }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -84,7 +100,7 @@
                 <form action="{{ route('users.changepassword', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
                     @csrf
                     <div class="panel-heading">
-                        <h2>Change Password</h2>
+                        <h2><i class="fas fa-key"></i> Change Password</h2>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
@@ -119,7 +135,7 @@
                 <form id="deleteForm" action="{{ route('users.delete', ['user' => $user->id]) }}" class="form-horizontal row-border" method="get">
                     @csrf
                     <div class="panel-heading">
-                        <h2>Delete User Account</h2>
+                        <h2><i class="fas fa-trash-alt"></i> Delete User Account</h2>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">

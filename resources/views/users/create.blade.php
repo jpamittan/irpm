@@ -15,7 +15,7 @@
                 <form action="{{ route('users.createPost') }}" class="form-horizontal row-border" method="post">
                     @csrf
                     <div class="panel-heading">
-                        <h2>Create User Form</h2>
+                        <h2><i class="fas fa-user-plus"></i> Create User Form</h2>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
@@ -63,6 +63,18 @@
                                     <input type="radio" name="is_admin" value="1">
                                     Yes
                                 </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="fas fa-database"></i> Environment Connection
+                            </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="db_connection" required>
+                                    @foreach ($environments as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="panel-footer">
