@@ -8,23 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Question extends Model
 {
-    protected $connection= 'sqlsrv_uat';
+    public function __construct()
+    {
+        $this->connection = config('sqlsvr.connection');
+    }
 
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        
-    ];
+    protected $casts = [];
 
     public function submissionReviews(): ?HasMany
     {

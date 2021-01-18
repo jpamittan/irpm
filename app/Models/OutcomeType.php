@@ -6,22 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class OutcomeType extends Model
 {
-    protected $connection= 'sqlsrv_uat';
+    public function __construct()
+    {
+        $this->connection = config('sqlsvr.connection');
+    }
+
     protected $table= 'outcome_type';
-
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        
-    ];
+    protected $casts = [];
 }

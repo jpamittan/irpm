@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Auth, DB;
 use App\Models\SubmissionMod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -11,6 +11,7 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
+        config(['sqlsvr.connection' => Auth::user()->db_connection]);
         $submissionMod = SubmissionMod::groupBy('outcome_type_id')
             ->where('outcome_type_id', '!=', null)
             ->select([

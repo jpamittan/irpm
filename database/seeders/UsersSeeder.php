@@ -21,7 +21,8 @@ class UsersSeeder extends Seeder
             'email' => 'akhan@synchronogroup.com',
             'password' => Hash::make('password123'),
             'remember_token' => Str::random(60),
-            'is_admin' => 1
+            'is_admin' => 1,
+            'db_connection' => 'sqlsrv_uat'
         ]);
     }
 }

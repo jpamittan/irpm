@@ -86,13 +86,13 @@
                                     <li class="active">
                                         <a href="#tab-visitor" data-toggle="tab">
                                             <i class="fa fa-user visible-xs"></i> 
-                                            <span class="hidden-xs">Submission Per Month</span>
+                                            <span class="hidden-xs">Submissions Per Day</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#tab-revenues" data-toggle="tab">
                                             <i class="fa fa-bar-chart-o visible-xs"></i> 
-                                            <span class="hidden-xs">Outcomes</span>
+                                            <span class="hidden-xs">Submissions Per Month</span>
                                         </a>
                                     </li>
                                 </ul>

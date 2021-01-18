@@ -1,37 +1,30 @@
 jQuery(document).ready(function() {
-
     //------------------------------
     // Date Range Picker
     //------------------------------
-
     $('#daterangepicker2').daterangepicker({
-    ranges: {
-        'Today': [moment(), moment()],
-        'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-        'Last 7 Days': [moment().subtract('days', 6), moment()],
-        'Last 30 Days': [moment().subtract('days', 29), moment()],
-        'This Month': [moment().startOf('month'), moment().endOf('month')],
-        'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-    },
-    opens: 'right',
-    startDate: moment().subtract('days', 29),
-    endDate: moment()
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+            'Last 7 Days': [moment().subtract('days', 6), moment()],
+            'Last 30 Days': [moment().subtract('days', 29), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+        },
+        opens: 'right',
+        startDate: moment().subtract('days', 29),
+        endDate: moment()
     },
     function(start, end) {
         $('#daterangepicker2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     });
-
     //------------------------------
     // Switch
     //------------------------------
-
     Switchery(document.querySelector('.js-switch-success'), {color: Utility.getBrandColor('success')});
-
-
     //------------------------------
     // Easy Pie Charts
     //------------------------------
-
     try {
         $('.easypiechart#bandwidth').easyPieChart({
             barColor: "rgba(255, 255, 255, 0.6)",
@@ -45,7 +38,6 @@ jQuery(document).ready(function() {
                 $(this.el).find('.percent').text(Math.round(percent));
             }
         });
-
         $('.easypiechart#ramusage').easyPieChart({
             barColor: "rgba(255, 255, 255, 0.6)",
             trackColor: 'rgba(255, 255, 255, 0.2)',
@@ -58,7 +50,6 @@ jQuery(document).ready(function() {
                 $(this.el).find('.percent').text(Math.round(percent));
             }
         });
-
         $('.easypiechart#serverload').easyPieChart({
             barColor: "rgba(255, 255, 255, 0.6)",
             trackColor: 'rgba(255, 255, 255, 0.2)',
@@ -83,8 +74,6 @@ jQuery(document).ready(function() {
                 $(this.el).find('.percent').text(Math.round(percent));
             }
         });
-
-
         $('#updatePieCharts').on('click', function() {
             $('.easypiechart#bandwidth').data('easyPieChart').update(Math.random()*100);
             $('.easypiechart#ramusage').data('easyPieChart').update(Math.random()*100);
@@ -94,16 +83,10 @@ jQuery(document).ready(function() {
         });
     }
     catch(error) {}
-
-
-
-
-//------------------------------
-// Maps
-//------------------------------
-
+    //------------------------------
+    // Maps
+    //------------------------------
     $mapusa = $(".map-world");
-
  	$mapusa.mapael({
 		map : {
 			name : "usa_states",
@@ -157,7 +140,6 @@ jQuery(document).ready(function() {
             }
 		}
 	});
-
 	// Zoom on mousewheel with mousewheel jQuery plugin
 	// $mapusa.on("mousewheel", function(e) {
 	// 	if (e.deltaY > 0) {
@@ -169,228 +151,189 @@ jQuery(document).ready(function() {
 			
 	// 	return false;
 	// });
-
-
     //------------------------------
     // Flot
     //------------------------------
-
-        var d1 = [];
-        for (var i = 0; i <= 30; i += 1) {
-            d1.push([i, parseInt(Math.random() * 70 + 135)]);
-        }
-
-        var d2 = [];
-        for (var i = 0; i <= 30; i += 1) {
-            d2.push([i, parseInt(Math.random() * 20) + 5]);
-        }
-
-        var d3 = [];
-        for (var i = 0; i <= 30; i += 1) {
-            d3.push([i, parseInt(Math.random() * 70 + 40)]);
-        }
-
-        var stack = false,
-            bars = true,
-            lines = true,
-            steps = false;
-
-        function plotWithOptions() {
-            $.plot("#visitors-stats", [{
-                    data: d1, 
-                    label: "Quote",
-                    lines: {
-                        show: lines,
-                        fill: 0.1,
-                        //fillColor: {colors: [{opacity: 0.01}, {opacity: 0.2}]},
-                        steps: steps,
-                        lineWidth: 1.25
-                    },
-                    points: {
-                        show: true,
-                        radius: 1.875
-                    }
-                }, {
-                    data: d2, 
-                    label: "Decline",
-                    bars: {
-                        show: bars,
-                        barWidth: 0.2,
-                        fill: 0.4,
-                        lineWidth: 1,
-                        align: "center"
-                    },
-                    points: {
-                        show: false,
-                        radius: 2.5
-                    }
-                }, {
-                    data: d3, 
-                    label: "Refer",
-                    lines: {
-                        show: lines,
-                        fill: 0.1,
-                        //fillColor: {colors: [{opacity: 0.01}, {opacity: 0.2}]},
-                        steps: steps,
-                        lineWidth: 2.5
-                    },
-                    points: {
-                        show: true,
-                        radius: 2.5
-                    }
-
-                }], {
-                series: {
-                    shadowSize: 0,
-                    stack: stack
-
+    var d1 = [];
+    for (var i = 0; i <= 30; i += 1) {
+        d1.push([i, parseInt(Math.random() * 70 + 135)]);
+    }
+    var d2 = [];
+    for (var i = 0; i <= 30; i += 1) {
+        d2.push([i, parseInt(Math.random() * 20) + 5]);
+    }
+    var d3 = [];
+    for (var i = 0; i <= 30; i += 1) {
+        d3.push([i, parseInt(Math.random() * 70 + 40)]);
+    }
+    var stack = false,
+        bars = true,
+        lines = true,
+        steps = false;
+    function plotWithOptions() {
+        $.plot("#visitors-stats", [{
+                data: d1, 
+                label: "Quote",
+                lines: {
+                    show: lines,
+                    fill: 0.1,
+                    steps: steps,
+                    lineWidth: 1.25
                 },
-                grid: {
-                    labelMargin: 10,
-                    hoverable: true,
-                    clickable: true,
-                    borderWidth: 0,
-                    borderColor: 'rgba(0, 0, 0, 0.06)'
-                },
-                yaxis: { 
-                    tickColor: 'rgba(0, 0, 0, 0.04)', 
-                    font: {
-                        color: 'rgba(0, 0, 0, 0.4)'
-                    }
-                },
-                xaxis: { 
-                    tickColor: 'rgba(0, 0, 0, 0.04)',
-                    tickDecimals: 0,
-                    ticks: 20,
-                    //autoscaleMargin: 0.05,
-
-                    font: {
-                        color: 'rgba(0, 0, 0, 0.4)'
-                    }
-                },
-                //colors: [Utility.getBrandColor('gray'), Utility.getBrandColor('primary'), Utility.getBrandColor('success')],
-                // colors: ["#d0d2d6", "#34495e", "#b4c4d4"],
-                colors: ["#52cda0", "#e98a72", "#72a7d3"],
-                tooltip: true,
-                tooltipOpts: {
-                    content: "%s: %y"
+                points: {
+                    show: true,
+                    radius: 2.5
                 }
-                
-            });
-        }
-
-        plotWithOptions();
-
-        // flot 2
-
-        var do1 = [];
-        var do2 = [];
-        var do3 = [];
-
-        for (var i = 1; i < 13; i++) {
-            do1.push([i, parseInt(Math.random() * 30 + 20)]);
-            do2.push([i, parseInt(Math.random() * 30 + 10)]);
-            do3.push([i, parseInt(Math.random() * 10 + 10)]);
-        }
-
-     
-        var dos = new Array();
-
-        dos.push({
-            data:do1,
-            label: "Quote",
-            bars: {
-                show: true,
-                barWidth: 0.125,
-                lineWidth: 1,
-                fill: 0.4,
-                order: 1
-            }
-        });
-        dos.push({
-            data:do2,
-            label: "Refer",
-            bars: {
-                show: true,
-                barWidth: 0.125,
-                lineWidth: 1,
-                fill: 0.4,
-                order: 2,
-            }
-        });
-        dos.push({
-            data:do3,
-            label: "Decline",
-            bars: {
-                show: true,
-                barWidth: 0.1,
-                lineWidth: 1,
-                fill: 0.4,
-                order: 3,
-            }
-        });
-
-        var stack = false,
-            bars = true,
-            lines = true,
-            steps = false;
-
-        function plotWithOptions2() {
-            $.plot($("#revenues-stats"), dos, {
-                series: {
-                    bars: {
-                        show: true,
-                        //lineWidth: 0.75
-                    }
+            }, {
+                data: d2, 
+                label: "Refer",
+                lines: {
+                    show: lines,
+                    fill: 0.1,
+                    steps: steps,
+                    lineWidth: 1.25
                 },
-                grid: {
-                    labelMargin: 10,
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: 'rgba(0, 0, 0, 0.06)',
-                    borderWidth: 0,
-                    borderColor: 'rgba(0, 0, 0, 0.06)'
-                },
-                //colors: ["#cacfd7", "#959eb0", "#58d68d"], 
-                // colors: [Utility.getBrandColor('gray'), Utility.getBrandColor('midnightblue'), Utility.getBrandColor('info')],
-                colors: ["#52cda0", "#72a7d3", "#e98a72"],
-                tooltip: true,
-                tooltipOpts: {
-                    content: "%s: %y"
-                },
-                xaxis: {
-                    autoscaleMargin: 0.05,
-                    tickColor: 'rgba(0, 0, 0, 0.00)',
-                    ticks: [[1, "Jan"], [2, "Feb"], [3, "Mar"], [4, "Apr"],[5, "May"], [6, "Jun"], [7, "Jul"], [8, "Aug"],[9, "Sep"], [10, "Oct"], [11, "Nov"], [12, "Dec"]],
-                    tickDecimals: 0,
-                    font: {
-                        color: 'rgba(0, 0, 0, 0.4)'
-                    }
-                },
-                yaxis: {
-                    //ticks: [0, 25, 50, 75, 100, 125, 150],
-                    tickColor: 'rgba(0, 0, 0, 0.04)',
-                    font: {
-                        color: 'rgba(0, 0, 0, 0.4)'
-                    },
-                    tickFormatter: function (val, axis) {
-                        return "$" + val + "K";
-                    }
-                },
-                legend : {
-                    //labelBoxBorderColor: 'transparent'
+                points: {
+                    show: true,
+                    radius: 2.5
                 }
-            });
+            }, {
+                data: d3, 
+                label: "Decline",
+                lines: {
+                    show: lines,
+                    fill: 0.1,
+                    steps: steps,
+                    lineWidth: 1.25
+                },
+                points: {
+                    show: true,
+                    radius: 2.5
+                }
+            }], {
+            series: {
+                shadowSize: 0,
+                stack: stack
+            },
+            grid: {
+                labelMargin: 10,
+                hoverable: true,
+                clickable: true,
+                borderWidth: 0,
+                borderColor: 'rgba(0, 0, 0, 0.06)'
+            },
+            yaxis: { 
+                tickColor: 'rgba(0, 0, 0, 0.04)', 
+                font: {
+                    color: 'rgba(0, 0, 0, 0.4)'
+                }
+            },
+            xaxis: { 
+                tickColor: 'rgba(0, 0, 0, 0.04)',
+                tickDecimals: 0,
+                ticks: 20,
+                font: {
+                    color: 'rgba(0, 0, 0, 0.4)'
+                }
+            },
+            colors: ["#52cda0", "#72a7d3", "#e98a72"],
+            tooltip: true,
+            tooltipOpts: {
+                content: "%s: %y"
+            }
+        });
+    }
+    plotWithOptions();
+    // flot 2
+    var do1 = [];
+    var do2 = [];
+    var do3 = [];
+    for (var i = 1; i < 13; i++) {
+        do1.push([i, parseInt(Math.random() * 30 + 20)]);
+        do2.push([i, parseInt(Math.random() * 30 + 10)]);
+        do3.push([i, parseInt(Math.random() * 10 + 10)]);
+    }
+    var dos = new Array();
+    dos.push({
+        data:do1,
+        label: "Quote",
+        bars: {
+            show: true,
+            barWidth: 0.125,
+            lineWidth: 1,
+            fill: 0.4,
+            order: 1
         }
-
-        plotWithOptions2();
-
+    });
+    dos.push({
+        data:do2,
+        label: "Refer",
+        bars: {
+            show: true,
+            barWidth: 0.125,
+            lineWidth: 1,
+            fill: 0.4,
+            order: 2,
+        }
+    });
+    dos.push({
+        data:do3,
+        label: "Decline",
+        bars: {
+            show: true,
+            barWidth: 0.1,
+            lineWidth: 1,
+            fill: 0.4,
+            order: 3,
+        }
+    });
+    var stack = false,
+        bars = true,
+        lines = true,
+        steps = false;
+    function plotWithOptions2() {
+        $.plot($("#revenues-stats"), dos, {
+            series: {
+                bars: {
+                    show: true,
+                    //lineWidth: 0.75
+                }
+            },
+            grid: {
+                labelMargin: 10,
+                hoverable: true,
+                clickable: true,
+                tickColor: 'rgba(0, 0, 0, 0.06)',
+                borderWidth: 0,
+                borderColor: 'rgba(0, 0, 0, 0.06)'
+            },
+            colors: ["#52cda0", "#72a7d3", "#e98a72"],
+            tooltip: true,
+            tooltipOpts: {
+                content: "%s: %y"
+            },
+            xaxis: {
+                autoscaleMargin: 0.05,
+                tickColor: 'rgba(0, 0, 0, 0.00)',
+                ticks: [[1, "Jan"], [2, "Feb"], [3, "Mar"], [4, "Apr"],[5, "May"], [6, "Jun"], [7, "Jul"], [8, "Aug"],[9, "Sep"], [10, "Oct"], [11, "Nov"], [12, "Dec"]],
+                tickDecimals: 0,
+                font: {
+                    color: 'rgba(0, 0, 0, 0.4)'
+                }
+            },
+            yaxis: {
+                tickColor: 'rgba(0, 0, 0, 0.04)',
+                font: {
+                    color: 'rgba(0, 0, 0, 0.4)'
+                },
+                tickFormatter: function (val, axis) {
+                    return val;
+                }
+            },
+        });
+    }
+    plotWithOptions2();
 });
-
-
-
-
-
 //Info Tiles: Sparkline Variant
 $("#tileorders").sparkline([112,182,130,191,75,214,159,138,156,120], {
     type: 'bar',
@@ -399,7 +342,6 @@ $("#tileorders").sparkline([112,182,130,191,75,214,159,138,156,120], {
     height: '13',
     barWidth: 3
 });
-
 $("#tilemembers").sparkline([41,38,73,49,51,20,55,13,35,23], {
     type: 'bar',
     barColor: 'rgba(255, 255, 255, 0.3)',
@@ -407,14 +349,12 @@ $("#tilemembers").sparkline([41,38,73,49,51,20,55,13,35,23], {
     height: '13',
     barWidth: 3
 });
-
 $("#tiletickets").sparkline([50,100,78], { 
     type: 'pie',
     sliceColors: ['rgba(255, 255, 255, 0.75)','rgba(255, 255, 255, 0.5)','rgba(255, 255, 255, 0.25)'],
     height: '13',
     width: '13'
 });
-
 $("#tilerevenues").sparkline([11270,17257,15014,13107,15538,13439,17915,23874,16677,12003], {
     type: 'line',
     lineColor: 'rgba(255, 255, 255, 0.3)',
@@ -429,7 +369,6 @@ $("#tilerevenues").sparkline([11270,17257,15014,13107,15538,13439,17915,23874,16
     highlightLineColor: '#fff',
     width: '40'
 });
-
 $("#tileprofits").sparkline([412,382,130,191,215,204,559,738,456,239], {
     type: 'line',
     lineColor: 'rgba(255, 255, 255, 0.3)',
