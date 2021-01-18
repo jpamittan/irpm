@@ -18,22 +18,18 @@ class SubmissionsController extends Controller
 
     public function datatables(Request $request)
     {
-        ## Read value
+        config(['sqlsvr.connection' => Auth::user()->db_connection]);
         $draw = $request->get('draw');
         $start = $request->get("start");
-        $rowperpage = $request->get("length"); // Rows display per page
-
+        $rowperpage = $request->get("length");
         $columnIndex_arr = $request->get('order');
         $columnName_arr = $request->get('columns');
         $order_arr = $request->get('order');
         $search_arr = $request->get('search');
-
-        $columnIndex = $columnIndex_arr[0]['column']; // Column index
-        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
-        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
-        $searchValue = $search_arr['value']; // Search value
-
-        // Total records
+        $columnIndex = $columnIndex_arr[0]['column'];
+        $columnName = $columnName_arr[$columnIndex]['data'];
+        $columnSortOrder = $order_arr[0]['dir'];
+        $searchValue = $search_arr['value'];
         $totalRecords = Submission::select('count(*) as allcount')
             ->whereNotNull('modfactor_id')
             ->count();
@@ -43,8 +39,6 @@ class SubmissionsController extends Controller
             ->orWhere('agent', 'like', '%' . $searchValue . '%')
             ->whereNotNull('modfactor_id')
             ->count();
-
-        // Fetch records
         $records = Submission::orderBy('submissions.' . $columnName, $columnSortOrder)
             ->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
             ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
@@ -64,9 +58,7 @@ class SubmissionsController extends Controller
             ->skip($start)
             ->take($rowperpage)
             ->get();
-
         $data_arr = array();
-
         foreach ($records as $record) {
             $data_arr[] = array(
                 'id' => $record->id,
@@ -78,7 +70,6 @@ class SubmissionsController extends Controller
                 'created_at' => $record->created_at
             );
         }
-
         $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
@@ -92,6 +83,7 @@ class SubmissionsController extends Controller
 
     public function details(Submission $submission): View
     {
+        config(['sqlsvr.connection' => Auth::user()->db_connection]);
         $operatingInArr = json_decode($submission->operating_in);
         sort($operatingInArr);
         $concatStates = "";
