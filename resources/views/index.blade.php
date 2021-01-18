@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@push('css')
+    <link href="{{ asset('plugins/switchery/switchery.css') }}" type="text/css" rel="stylesheet"> <!-- Switchery -->
+@endpush
+
 @section('content')
     <div class="page-heading">
         <h1><i class="fa fa-home"></i> Dashboard</h1>
@@ -166,6 +170,7 @@
     <script src="{{ asset('plugins/form-daterangepicker/daterangepicker.js') }}"></script> <!-- Date Range Picker -->
 	<script src="{{ asset('plugins/form-daterangepicker/moment.min.js') }}"></script> <!-- Moment.js for Date Range Picker -->
 	<script src="{{ asset('plugins/easypiechart/jquery.easypiechart.js') }}"></script> <!-- EasyPieChart -->
+	<script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
 	<!-- Charts -->
 	<script src="{{ asset('plugins/charts-flot/jquery.flot.min.js') }}"></script> <!-- Flot Main File -->
 	<script src="{{ asset('plugins/charts-flot/jquery.flot.stack.min.js') }}"></script> <!-- Flot Stacked Charts Plugin -->

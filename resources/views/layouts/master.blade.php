@@ -22,6 +22,7 @@
         <link href="{{ asset('plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet"> <!-- DateRangePicker -->
         <link href="{{ asset('js/jqueryui.css') }}" type="text/css" rel="stylesheet">
 	    <link href="{{ asset('plugins/dropzone/css/dropzone.css') }}" type="text/css" rel="stylesheet"> <!-- Dropzone Plugin -->
+        @stack('css')
     </head>
     <body class="infobar-offcanvas">
         <header id="topnav" class="navbar navbar-primary navbar-fixed-top clearfix" role="banner">
