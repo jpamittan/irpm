@@ -20,8 +20,6 @@
         <link href="{{ asset('plugins/iCheck/skins/minimal/blue.css') }}" type="text/css" rel="stylesheet"> <!-- iCheck -->
         <link href="{{ asset('plugins/jScrollPane/style/jquery.jscrollpane.css') }}" type="text/css" rel="stylesheet"> <!-- jsTree -->
         <link href="{{ asset('plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet"> <!-- DateRangePicker -->
-        <link href="{{ asset('plugins/switchery/switchery.css') }}" type="text/css" rel="stylesheet"> <!-- Switchery -->
-        <link href="{{ asset('plugins/fullcalendar/fullcalendar.css') }}" type="text/css" rel="stylesheet"> <!-- FullCalendar -->
         <link href="{{ asset('js/jqueryui.css') }}" type="text/css" rel="stylesheet">
 	    <link href="{{ asset('plugins/dropzone/css/dropzone.css') }}" type="text/css" rel="stylesheet"> <!-- Dropzone Plugin -->
     </head>

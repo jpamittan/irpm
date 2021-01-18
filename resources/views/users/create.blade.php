@@ -92,7 +92,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
     <script>
         $(document).ready(function() {
             $("#password, #verify_password").keyup(checkPasswordMatch);

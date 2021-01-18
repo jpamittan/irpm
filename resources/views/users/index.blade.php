@@ -67,7 +67,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
     <!-- DataTable -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>

@@ -169,7 +169,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
     <script src="{{ asset('plugins/bootstrap-switch/bootstrap-switch.js') }}"></script> <!-- BS Switch -->
     <script>
         $(document).ready(function() {
