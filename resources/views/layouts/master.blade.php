@@ -9,7 +9,7 @@
         <meta name="apple-touch-fullscreen" content="yes">
         
         <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
 
         <!-- Styles -->
