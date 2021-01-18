@@ -178,8 +178,6 @@
         <script src="{{ asset('js/enquire.min.js') }}"></script>
         <script src="{{ asset('plugins/bootbox/bootbox.js') }}"></script>
         <script src="{{ asset('js/application.js') }}"></script>
-        <script src="{{ asset('demo/demo.js') }}"></script>
-        <script src="{{ asset('demo/demo-switcher.js') }}"></script>
         @stack('scripts')
     </body>
 </html>
