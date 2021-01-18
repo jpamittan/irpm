@@ -30,7 +30,7 @@
             <a id="leftmenu-trigger" class="" data-toggle="tooltip" data-placement="right" title="Toggle Sidebar"></a>
             <a class="navbar-brand" href="{{ route('dashboard.index') }}"></a>
             <ul class="nav navbar-nav toolbar pull-right">
-                <li class="dropdown toolbar-icon-bg">
+                <!-- <li class="dropdown toolbar-icon-bg">
                     <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
                         <span class="icon-bg"><i class="fa fa-fw fa-bell"></i></span>
                         <span class="badge badge-alizarin">5</span>
@@ -98,20 +98,20 @@
                             </span>
                         </div>
                     </div>
-                </li>
+                </li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
                         <span class="hidden-xs">{{ Auth::user()->full_name }}</span>
                         <img class="img-circle" src="{{ asset('demo/avatar/avatar_06.png') }} " alt="Dangerfield" />
                     </a>
                     <ul class="dropdown-menu userinfo">
-                        <li>
+                        <!-- <li>
                             <a href="#">
                                 <span class="pull-left">Edit Profile</span> <i class="pull-right fas fa-pencil-alt"></i>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
-                            <a href="#">
+                            <a href="{{ route('settings.index', ['user' => Auth::id()]) }}">
                                 <span class="pull-left">Account Settings</span> <i class="pull-right fas fa-cogs"></i>
                             </a>
                         </li>

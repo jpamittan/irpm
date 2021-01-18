@@ -4,17 +4,13 @@
     <div class="page-heading">
         <h1><i class="fas fa-users"></i> Users</h1>
     </div>
-
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 20px;">
                 <a href="{{ route('dashboard.index') }}"><button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button></a>
             </div>
         </div>
-
         <div id="user-msg"></div>
-
         <div id="panel-advancedoptions">
             <div class="row">
                 <div class="col-md-12">
@@ -72,11 +68,9 @@
 
 @push('scripts')
     <script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
-
     <!-- DataTable -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
-
     <script>
         $(document).ready(function() {
             $('#users').dataTable({

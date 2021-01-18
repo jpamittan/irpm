@@ -81,12 +81,10 @@
 
 @push('scripts')
     <script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
-
     <script>
         $(document).ready(function() {
             $("#password, #verify_password").keyup(checkPasswordMatch);
         });
-
         function checkPasswordMatch() {
             var password = $("#password").val();
             var confirmPassword = $("#verify_password").val();

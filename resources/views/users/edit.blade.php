@@ -155,7 +155,6 @@
 @push('scripts')
     <script src="{{ asset('plugins/switchery/switchery.js') }}"></script> <!-- Switchery -->
     <script src="{{ asset('plugins/bootstrap-switch/bootstrap-switch.js') }}"></script> <!-- BS Switch -->
-    
     <script>
         $(document).ready(function() {
             //Bootstrap Switch
@@ -165,7 +164,6 @@
                 $('#deleteForm').trigger('submit');
             })
         });
-
         function checkPasswordMatch() {
             var password = $("#password").val();
             var confirmPassword = $("#verify_password").val();
