@@ -40,7 +40,12 @@ class SubmissionsController extends Controller
             ->orWhere('agent', 'like', '%' . $searchValue . '%')
             ->whereNotNull('modfactor_id')
             ->count();
-        $records = Submission::orderBy('submissions.' . $columnName, $columnSortOrder)
+        if ($columnName == 'description') {
+            $columnName = 'outcome_type.' . $columnName;
+        } else {
+            $columnName = 'submissions.' . $columnName;
+        }
+        $records = Submission::orderBy($columnName, $columnSortOrder)
             ->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
             ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
             ->orWhere('submissions.agent', 'like', '%' . $searchValue . '%')

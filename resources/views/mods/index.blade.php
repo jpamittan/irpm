@@ -9,7 +9,9 @@
         <div class="row">
             <div class="row">
                 <div class="col-md-12" style="padding: 0px 20px 20px 20px;">
-                    <a href="{{ route('submissions.details', ['submissionId' => $submission->id]) }}"><button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button></a>
+                    <a href="{{ route('submissions.details', ['submissionId' => $submissionMod->submissions_id]) }}">
+                        <button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button>
+                    </a>
                 </div>
             </div>
             <div class="col-md-12">
@@ -40,7 +42,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        0.96
+                                        {{ $submissionMod->min }}
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min" class="slider danger"></div>
@@ -48,7 +50,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        1.08
+                                        {{ $submissionMod->max }}
                                     </div>
                                 </div>
                                 <br>
@@ -73,7 +75,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        0.97
+                                        {{ $submissionMod->min }}
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-2" class="slider danger"></div>
@@ -81,7 +83,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        1.07
+                                        {{ $submissionMod->max }}
                                     </div>
                                 </div>
                                 <br>
@@ -107,7 +109,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        0.99
+                                        {{ $submissionMod->min }}
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-3" class="slider danger"></div>
@@ -115,7 +117,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        1.05
+                                        {{ $submissionMod->max }}
                                     </div>
                                 </div>
                                 <br>
@@ -141,7 +143,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        0.99
+                                        {{ $submissionMod->min }}
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-4" class="slider danger"></div>
@@ -149,7 +151,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        1.05
+                                        {{ $submissionMod->max }}
                                     </div>
                                 </div>
                                 <br>
@@ -175,7 +177,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        0.99
+                                        {{ $submissionMod->min }}
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-5" class="slider danger"></div>
@@ -183,7 +185,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        1.03
+                                        {{ $submissionMod->max }}
                                     </div>
                                 </div>
                                 <br>
@@ -209,7 +211,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        1
+                                        {{ $submissionMod->min }}
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-6" class="slider danger"></div>
@@ -217,7 +219,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        1.02
+                                        {{ $submissionMod->max }}
                                     </div>
                                 </div>
                                 <br>
@@ -237,9 +239,9 @@
                                 <div class="col-md-12">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-4" style="text-align: center;">
-                                        <button class="btn btn-midnightblue"><i
-                                                class="fa fa-calculator"></i>
-                                            Calculate</button>
+                                        <button class="btn btn-midnightblue">
+                                            <i class="fa fa-calculator"></i> Calculate
+                                        </button>
                                     </div>
                                     <div class="col-md-4"></div>
                                 </div>
@@ -254,7 +256,15 @@
                                         <h3>
                                             Total Mods %:
                                             <br>
-                                            <span class="text-success"><b>0.98</b></span>
+                                            @if ($submissionMod->outcome_type_id == 1)
+                                                <span style="color: #37bf8d;"><b>{{ $submissionMod->overall_outcome }}</b></span>
+                                            @elseif ($submissionMod->outcome_type_id == 2)
+                                                <span style="color: #5394c9;"><b>{{ $submissionMod->overall_outcome }}</b></span>
+                                            @elseif ($submissionMod->outcome_type_id == 3)
+                                                <span style="color: #e36d4f;"><b>{{ $submissionMod->overall_outcome }}</b></span>
+                                            @else
+                                                <b>{{ $submissionMod->overall_outcome }}</b>
+                                            @endif
                                         </h3>
                                     </div>
                                     <div class="col-md-4"></div>
@@ -267,7 +277,15 @@
                                         <h3>
                                             Outcome:
                                             <br>
-                                            <span class="text-success"><b>Quote</b></span>
+                                            @if ($submissionMod->outcome_type_id == 1)
+                                                <span style="color: #37bf8d;"><b>{{ $submissionMod->outcomeType->description }}</b></span>
+                                            @elseif ($submissionMod->outcome_type_id == 2)
+                                                <span style="color: #5394c9;"><b>{{ $submissionMod->outcomeType->description }}</b></span>
+                                            @elseif ($submissionMod->outcome_type_id == 3)
+                                                <span style="color: #e36d4f;"><b>{{ $submissionMod->outcomeType->description }}</b></span>
+                                            @else
+                                                <b>{{ $submissionMod->outcomeType->description }}</b>
+                                            @endif
                                         </h3>
                                     </div>
                                     <div class="col-md-4"></div>
@@ -305,12 +323,12 @@
                                     <div class="col-md-6">
                                         First name:
                                         <br>
-                                        <input type="text" class="form-control" value="Jay" readonly>
+                                        <input type="text" class="form-control" value="{{ $underWriterFname }}" readonly>
                                     </div>
                                     <div class="col-md-6">
                                         Last name:
                                         <br>
-                                        <input type="text" class="form-control" value="Josselyn" readonly>
+                                        <input type="text" class="form-control" value="{{ $underWriterLname }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4"></div>
@@ -325,7 +343,15 @@
                                         <div class="options"></div>
                                     </div>
                                     <div class="panel-body">
-                                        <form action="mods.html" class="dropzone"></form>
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileinput-new">Select file</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                <input type="file" name="...">
+                                            </span>
+                                            <span class="fileinput-filename"></span>
+                                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +362,7 @@
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
                                     <div class="col-md-6">
-                                        <a href="submissionDetails.html" class="btn btn-danger"
+                                        <a href="{{ route('submissions.details', ['submissionId' => $submissionMod->submissions_id]) }}" class="btn btn-danger"
                                             style="float: left;"><i class="fa fa-times"></i>
                                             Cancel</a>
                                     </div>
@@ -357,28 +383,75 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('plugins/form-daterangepicker/daterangepicker.js') }}"></script> <!-- Date Range Picker -->
-	<script src="{{ asset('plugins/form-daterangepicker/moment.min.js') }}"></script> <!-- Moment.js for Date Range Picker -->
-	<script src="{{ asset('plugins/easypiechart/jquery.easypiechart.js') }}"></script> <!-- EasyPieChart -->
-	<!-- Charts -->
-	<script src="{{ asset('plugins/charts-flot/jquery.flot.min.js') }}"></script> <!-- Flot Main File -->
-	<script src="{{ asset('plugins/charts-flot/jquery.flot.stack.min.js') }}"></script> <!-- Flot Stacked Charts Plugin -->
-	<script src="{{ asset('plugins/charts-flot/jquery.flot.orderBars.min.js') }}"></script> <!-- Flot Ordered Bars Plugin-->
-	<script src="{{ asset('plugins/charts-flot/jquery.flot.resize.min.js') }}"></script> <!-- Flot Responsive -->
-	<script src="{{ asset('plugins/charts-flot/jquery.flot.tooltip.min.js') }}"></script> <!-- Flot Tooltips -->
-	<!-- Maps -->
-	<script src="{{ asset('plugins/jQuery-Mapael/js/raphael/raphael-min.js') }}"></script> <!-- Load Raphael as Dependency -->
-	<script src="{{ asset('plugins/jQuery-Mapael/js/jquery.mapael.js') }}"></script> <!-- jQuery Mapael -->
-	<script src="{{ asset('plugins/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script> <!-- MouseWheel Support -->
-	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/world_countries.js') }}"></script>
-	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/usa_states.js') }}"></script> <!-- Vector Data of USA States -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
-	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
-	<script src="{{ asset('demo/demo-jqueryui-slider.js') }}"></script>
-	<script src="{{ asset('plugins/dropzone/dropzone.min.js') }}"></script> <!-- Dropzone Plugin -->
+    <script src="{{ asset('plugins/form-jasnyupload/fileinput.min.js') }}"></script> <!-- Date Range Picker -->
     <script>
         $(document).ready(function() {
-            
+            $("#slider-range-min").slider({
+                range: "min",
+                value: {{ $submissionMod->management_outcome }},
+                min: {{ $submissionMod->min }},
+                max: {{ $submissionMod->max }},
+                step: 0.01,
+                slide: function (event, ui) {
+                    $("#slider-range-min-amount").text(ui.value);
+                }
+            });
+            $("#slider-range-min-amount").text($("#slider-range-min").slider("value"));
+            $("#slider-range-min-2").slider({
+                range: "min",
+                value: {{ $submissionMod->location_outcome }},
+                min: {{ $submissionMod->min }},
+                max: {{ $submissionMod->max }},
+                step: 0.01,
+                slide: function (event, ui) {
+                    $("#slider-range-min-amount-2").text(ui.value);
+                }
+            });
+            $("#slider-range-min-amount-2").text($("#slider-range-min-2").slider("value"));
+            $("#slider-range-min-3").slider({
+                range: "min",
+                value: {{ $submissionMod->building_features_outcome }},
+                min: {{ $submissionMod->min }},
+                max: {{ $submissionMod->max }},
+                step: 0.01,
+                slide: function (event, ui) {
+                    $("#slider-range-min-amount-3").text(ui.value);
+                }
+            });
+            $("#slider-range-min-amount-3").text($("#slider-range-min-3").slider("value"));
+            $("#slider-range-min-4").slider({
+                range: "min",
+                value: {{ $submissionMod->premises_equipment_outcome }},
+                min: {{ $submissionMod->min }},
+                max: {{ $submissionMod->max }},
+                step: 0.01,
+                slide: function (event, ui) {
+                    $("#slider-range-min-amount-4").text(ui.value);
+                }
+            });
+            $("#slider-range-min-amount-4").text($("#slider-range-min-4").slider("value"));
+            $("#slider-range-min-5").slider({
+                range: "min",
+                value: {{ $submissionMod->employees_outcome }},
+                min: {{ $submissionMod->min }},
+                max: {{ $submissionMod->max }},
+                step: 0.01,
+                slide: function (event, ui) {
+                    $("#slider-range-min-amount-5").text(ui.value);
+                }
+            });
+            $("#slider-range-min-amount-5").text($("#slider-range-min-5").slider("value"));
+            $("#slider-range-min-6").slider({
+                range: "min",
+                value: {{ $submissionMod->protection_outcome }},
+                min: {{ $submissionMod->min }},
+                max: {{ $submissionMod->max }},
+                step: 0.01,
+                slide: function (event, ui) {
+                    $("#slider-range-min-amount-6").text(ui.value);
+                }
+            });
+            $("#slider-range-min-amount-6").text($("#slider-range-min-6").slider("value"));
         });
     </script>
 @endpush

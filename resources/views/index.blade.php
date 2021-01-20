@@ -112,7 +112,7 @@
                                         </span> 
                                         <i class="fas fa-angle-down"></i>
                                     </button>
-                                    <div class="btn-toolbar pull-right">
+                                    <!-- <div class="btn-toolbar pull-right">
                                         <div class="btn-group">
                                             <a href='#' class="btn btn-default dropdown-toggle" data-toggle='dropdown'>
                                                 <i class="fa fa-cloud-download visible-xs"></i>
@@ -125,7 +125,7 @@
                                                 <li><a href="#">PDF File (*.pdf)</a></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div id="tab-visitor" class="tab-pane active">
                                     <div id="visitors-stats" style="height:250px;"

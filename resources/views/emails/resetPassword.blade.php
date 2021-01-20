@@ -1,7 +1,11 @@
 Hi {{ $name }},
 
 <p>
-    Your new password is <b>{{ $inputs['newPassword'] }}</b>
+    Your new password is:
+    <br>
+    <p>
+        <b>{{ $inputs['newPassword'] }}</b>
+    </p>
     <br>
     Please change your password afterwards.
 </p>
