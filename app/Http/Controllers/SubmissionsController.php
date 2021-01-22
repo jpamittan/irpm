@@ -9,6 +9,7 @@ use App\Models\{
 };
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SubmissionsController extends Controller
 {
@@ -50,7 +51,7 @@ class SubmissionsController extends Controller
             ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
             ->orWhere('submissions.agent', 'like', '%' . $searchValue . '%')
             ->whereNotNull('submissions.modfactor_id')
-            ->leftJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
+            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
             ->leftJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id')
             ->select([
                 'submissions.id',
@@ -101,10 +102,35 @@ class SubmissionsController extends Controller
         $submissionReviews = SubmissionReview::where('submissions_id', $submission->id)
             ->where('question_text', 'NOT LIKE', '%|%')
             ->get();
+        $nullAnswers = [];
+        $minusOneAnswers = [];
+        $zeroAnswers = [];
+        $oneAnswers = [];
+        $wordAnswers = [];
+        foreach ($submissionReviews as $review) {
+            if ($review->answer_value == '-1') {
+                $minusOneAnswers[] = $review;
+            } else if ($review->answer_value == '0') {
+                $zeroAnswers[] = $review;
+            } else if ($review->answer_value == '1') {
+                $oneAnswers[] = $review;
+            } else if ($review->answer_value == null) {
+                $nullAnswers[] = $review;
+            } else {
+                $wordAnswers[] = $review;
+            }
+        }
+        $sortedSubmissionReviews = Arr::collapse([
+            $wordAnswers,
+            $minusOneAnswers,
+            $zeroAnswers,
+            $oneAnswers,
+            $nullAnswers
+        ]);
 
         return view('submissions.details', [
             'submission' => $submission,
-            'submissionReviews' => $submissionReviews,
+            'submissionReviews' => $sortedSubmissionReviews,
         ]);
     }
 }

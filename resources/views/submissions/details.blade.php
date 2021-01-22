@@ -33,6 +33,10 @@
                                                 <td><span class="text-primary">{{ $submission->business_name ?? "N/A" }}</span></td>
                                             </tr>
                                             <tr>
+                                                <td><b>Program: </b></td>
+                                                <td><span class="text-primary">{{ $submission->line_of_business ??  "N/A" }}</span></td>
+                                            </tr>
+                                            <!-- <tr>
                                                 <td><b>Agency: </b></td>
                                                 <td><span class="text-primary">{{ $submission->agency ??  "N/A" }}</span></td>
                                             </tr>
@@ -41,13 +45,9 @@
                                                 <td><span class="text-primary">{{ $submission->agent ??  "N/A" }}</span></td>
                                             </tr>
                                             <tr>
-                                                <td><b>Program: </b></td>
-                                                <td><span class="text-primary">{{ $submission->line_of_business ??  "N/A" }}</span></td>
-                                            </tr>
-                                            <tr>
                                                 <td><b>State: </b></td>
                                                 <td><span class="text-primary">{{ $submission->operating_in }}</span></td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -116,7 +116,8 @@
                 },
                 'iDisplayLength': 20,
                 "paging": false,
-                "order": [[ 3, "desc" ]]
+                "ordering": false,
+                // "order": [[ 3, "desc" ]]
             });
             $('.panel-ctrls-limit').append("&nbsp;&nbsp;Limit");
             $('.panel-ctrls').append($('.dataTables_filter').addClass("pull-right")).find("label").addClass("panel-ctrls-center");

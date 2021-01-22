@@ -20,4 +20,9 @@ class SubmissionReview extends Model
     {
         return $this->hasMany(Question::class, 'id', 'question_id');
     }
+
+    public function getAnswerValueAttribute($value)
+    {
+        return (strtolower($value) == 'continue') ? null : $value;
+    }
 }

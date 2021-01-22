@@ -32,17 +32,16 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4" style="text-align: center;">
-                                <b>A. Management</b>
+                                <b>A. Location</b>
                                 <br>
-                                <small>Cooperation in matters of safeguarding and proper handling of
-                                    property covered</small>
+                                <small>Premises organization, housekeeping, yard protection</small>
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        {{ $submissionMod->min }}
+                                        0.90
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min" class="slider danger"></div>
@@ -50,7 +49,7 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        {{ $submissionMod->max }}
+                                        1.10
                                     </div>
                                 </div>
                                 <br>
@@ -66,16 +65,17 @@
                         <hr class="outsider">
                         <div class="row">
                             <div class="col-md-4" style="text-align: center;">
-                                <b>B. Location</b>
+                                <b>B. Premises</b>
                                 <br>
-                                <small>Accessibility, congestion, and exposures</small>
+                                <small>Cooperation in matters of safeguarding and proper handling of
+                                    property covered</small>
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        {{ $submissionMod->min }}
+                                        0.90
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-2" class="slider danger"></div>
@@ -83,14 +83,13 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        {{ $submissionMod->max }}
+                                        1.10
                                     </div>
                                 </div>
                                 <br>
                                 <div class="slider-value" style="text-align: center;">
                                     Value:
-                                    <span class="slider-value"
-                                        id="slider-range-min-amount-2"></span>
+                                    <span class="slider-value" id="slider-range-min-amount-2"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -100,7 +99,40 @@
                         <hr class="outsider">
                         <div class="row">
                             <div class="col-md-4" style="text-align: center;">
-                                <b>C. Building Features</b>
+                                <b>C. Equipment</b>
+                                <br>
+                                <small>Age, condition, scheduled maintenance</small>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <div class="col-md-1">
+                                        Min
+                                        <br>
+                                        0.90
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div id="slider-range-min-3" class="slider danger"></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        Max
+                                        <br>
+                                        1.10
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="slider-value" style="text-align: center;">
+                                    Value:
+                                    <span class="slider-value" id="slider-range-min-amount-3"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <textarea class="form-control autosize"></textarea>
+                            </div>
+                        </div>
+                        <hr class="outsider">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: center;">
+                                <b>D. Classification</b>
                                 <br>
                                 <small>Age, condition, and unusual structural features</small>
                             </div>
@@ -109,41 +141,7 @@
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        {{ $submissionMod->min }}
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div id="slider-range-min-3" class="slider danger"></div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        Max
-                                        <br>
-                                        {{ $submissionMod->max }}
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="slider-value" style="text-align: center;">
-                                    Value:
-                                    <span class="slider-value"
-                                        id="slider-range-min-amount-3"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <textarea class="form-control autosize"></textarea>
-                            </div>
-                        </div>
-                        <hr class="outsider">
-                        <div class="row">
-                            <div class="col-md-4" style="text-align: center;">
-                                <b>D. Premises &amp; Equipment</b>
-                                <br>
-                                <small>Care, condition, and type</small>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <div class="col-md-1">
-                                        Min
-                                        <br>
-                                        {{ $submissionMod->min }}
+                                        0.90
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-4" class="slider danger"></div>
@@ -151,14 +149,13 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        {{ $submissionMod->max }}
+                                        1.10
                                     </div>
                                 </div>
                                 <br>
                                 <div class="slider-value" style="text-align: center;">
                                     Value:
-                                    <span class="slider-value"
-                                        id="slider-range-min-amount-4"></span>
+                                    <span class="slider-value" id="slider-range-min-amount-4"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -170,14 +167,14 @@
                             <div class="col-md-4" style="text-align: center;">
                                 <b>E. Employees</b>
                                 <br>
-                                <small>Selection, training, supervision, and experience</small>
+                                <small>Selection, training, supervision and experience</small>
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        {{ $submissionMod->min }}
+                                        0.94
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-5" class="slider danger"></div>
@@ -185,14 +182,13 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        {{ $submissionMod->max }}
+                                        1.06
                                     </div>
                                 </div>
                                 <br>
                                 <div class="slider-value" style="text-align: center;">
                                     Value:
-                                    <span class="slider-value"
-                                        id="slider-range-min-amount-5"></span>
+                                    <span class="slider-value" id="slider-range-min-amount-5"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -202,16 +198,16 @@
                         <hr class="outsider">
                         <div class="row">
                             <div class="col-md-4" style="text-align: center;">
-                                <b>F. Protection</b>
+                                <b>F. Cooperation</b>
                                 <br>
-                                <small>Not otherwise recognized</small>
+                                <small>Care, condition, and type</small>
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
                                         Min
                                         <br>
-                                        {{ $submissionMod->min }}
+                                        0.96
                                     </div>
                                     <div class="col-md-10">
                                         <div id="slider-range-min-6" class="slider danger"></div>
@@ -219,14 +215,13 @@
                                     <div class="col-md-1">
                                         Max
                                         <br>
-                                        {{ $submissionMod->max }}
+                                        1.04
                                     </div>
                                 </div>
                                 <br>
                                 <div class="slider-value" style="text-align: center;">
                                     Value:
-                                    <span class="slider-value"
-                                        id="slider-range-min-amount-6"></span>
+                                    <span class="slider-value" id="slider-range-min-amount-6"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -388,9 +383,9 @@
         $(document).ready(function() {
             $("#slider-range-min").slider({
                 range: "min",
-                value: {{ $submissionMod->management_outcome }},
-                min: {{ $submissionMod->min }},
-                max: {{ $submissionMod->max }},
+                value: {{ $submissionMod->location_outcome }},
+                min: 0.90,
+                max: 1.10,
                 step: 0.01,
                 slide: function (event, ui) {
                     $("#slider-range-min-amount").text(ui.value);
@@ -399,9 +394,9 @@
             $("#slider-range-min-amount").text($("#slider-range-min").slider("value"));
             $("#slider-range-min-2").slider({
                 range: "min",
-                value: {{ $submissionMod->location_outcome }},
-                min: {{ $submissionMod->min }},
-                max: {{ $submissionMod->max }},
+                value: {{ $submissionMod->management_outcome }},
+                min: 0.90,
+                max: 1.10,
                 step: 0.01,
                 slide: function (event, ui) {
                     $("#slider-range-min-amount-2").text(ui.value);
@@ -410,9 +405,9 @@
             $("#slider-range-min-amount-2").text($("#slider-range-min-2").slider("value"));
             $("#slider-range-min-3").slider({
                 range: "min",
-                value: {{ $submissionMod->building_features_outcome }},
-                min: {{ $submissionMod->min }},
-                max: {{ $submissionMod->max }},
+                value: {{ $submissionMod->protection_outcome }},
+                min: 0.90,
+                max: 1.10,
                 step: 0.01,
                 slide: function (event, ui) {
                     $("#slider-range-min-amount-3").text(ui.value);
@@ -421,9 +416,9 @@
             $("#slider-range-min-amount-3").text($("#slider-range-min-3").slider("value"));
             $("#slider-range-min-4").slider({
                 range: "min",
-                value: {{ $submissionMod->premises_equipment_outcome }},
-                min: {{ $submissionMod->min }},
-                max: {{ $submissionMod->max }},
+                value: {{ $submissionMod->building_features_outcome }},
+                min: 0.90,
+                max: 1.10,
                 step: 0.01,
                 slide: function (event, ui) {
                     $("#slider-range-min-amount-4").text(ui.value);
@@ -433,8 +428,8 @@
             $("#slider-range-min-5").slider({
                 range: "min",
                 value: {{ $submissionMod->employees_outcome }},
-                min: {{ $submissionMod->min }},
-                max: {{ $submissionMod->max }},
+                min: 0.94,
+                max: 1.06,
                 step: 0.01,
                 slide: function (event, ui) {
                     $("#slider-range-min-amount-5").text(ui.value);
@@ -443,9 +438,9 @@
             $("#slider-range-min-amount-5").text($("#slider-range-min-5").slider("value"));
             $("#slider-range-min-6").slider({
                 range: "min",
-                value: {{ $submissionMod->protection_outcome }},
-                min: {{ $submissionMod->min }},
-                max: {{ $submissionMod->max }},
+                value: {{ $submissionMod->premises_equipment_outcome }},
+                min: 0.96,
+                max: 1.04,
                 step: 0.01,
                 slide: function (event, ui) {
                     $("#slider-range-min-amount-6").text(ui.value);
