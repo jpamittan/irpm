@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [SubmissionsController::class, 'index'])->name('submissions.index');
         Route::get('/datatables', [SubmissionsController::class, 'datatables'])->name('submissions.datatables');
         Route::get('/details/{submissionId}', [SubmissionsController::class, 'details'])->name('submissions.details');
+        Route::get('/filter/{outcomeTypeId}', [SubmissionsController::class, 'filter'])->name('submissions.filter');
     });
     Route::middleware(['admin'])->prefix('users')->group(function () {
         Route::get('/', [UsersController::class, 'index'])->name('users.index');

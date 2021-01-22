@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth, DB;
-use App\Models\SubmissionMod;
+use App\Models\{
+    Submission,
+    SubmissionMod
+};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -12,12 +15,22 @@ class DashboardController extends Controller
     public function index(): View
     {
         config(['sqlsvr.connection' => Auth::user()->db_connection]);
+        $latestSubmissions = Submission::groupBy('submission_id')
+            ->select([
+                'submission_id',
+                DB::raw('MAX(id) as id'),
+                DB::raw('MAX(version) as latest_version')
+            ]);
         $submissionMod = SubmissionMod::groupBy('outcome_type_id')
             ->where('outcome_type_id', '!=', null)
+            ->orderBy('outcome_type_id', 'DESC')
             ->select([
-                'outcome_type_id',
-                DB::raw('count(*) as outcome_type_count')
+                'submission_mods.outcome_type_id',
+                DB::raw('COUNT(submission_mods.outcome_type_id) as outcome_type_count')
             ])
+            ->rightJoinSub($latestSubmissions, 'sb', function ($query) {
+                $query->on('submission_mods.submissions_id', '=', 'sb.id');
+            })
             ->get();
         $quoteCount = 0;
         $referCount = 0;

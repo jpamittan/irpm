@@ -12,9 +12,9 @@
         <div id="panel-advancedoptions">
             <div class="row">
                 <div class="col-md-3">
-                    <a class="info-tiles tiles-inverse has-footer" href="#">
+                    <a class="info-tiles tiles-inverse has-footer" href="{{ route('submissions.index') }}">
                         <div class="tiles-heading">
-                            <div class="pull-left">Submissions</div>
+                            <div class="pull-left">Total Unique Submissions</div>
                             <div class="pull-right">
                             </div>
                         </div>
@@ -22,14 +22,14 @@
                             <div class="text-center">{{ number_format($quoteCount + $referCount + $declineCount) }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <!-- <div class="pull-left">Manage submissions</div> -->
+                            <div class="pull-left">Manage submissions</div>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3">
-                    <a class="info-tiles tiles-green has-footer" href="#">
+                    <a class="info-tiles tiles-green has-footer" href="{{ route('submissions.filter', ['outcomeTypeId' => 1]) }}">
                         <div class="tiles-heading">
-                            <div class="pull-left">Quote</div>
+                            <div class="pull-left">Total Latest Version Quote</div>
                             <div class="pull-right">
                             </div>
                         </div>
@@ -37,14 +37,14 @@
                             <div class="text-center">{{ number_format($quoteCount) }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <!-- <div class="pull-left">See all quotes</div> -->
+                            <div class="pull-left">See all quotes</div>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3">
-                    <a class="info-tiles tiles-blue has-footer" href="#">
+                    <a class="info-tiles tiles-blue has-footer" href="{{ route('submissions.filter', ['outcomeTypeId' => 2]) }}">
                         <div class="tiles-heading">
-                            <div class="pull-left">Refer</div>
+                            <div class="pull-left">Total Latest Version Refer</div>
                             <div class="pull-right">
                             </div>
                         </div>
@@ -52,14 +52,14 @@
                             <div class="text-center">{{ number_format($referCount) }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <!-- <div class="pull-left">See all refer</div> -->
+                            <div class="pull-left">See all refer</div>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3">
-                    <a class="info-tiles tiles-alizarin has-footer" href="#">
+                    <a class="info-tiles tiles-alizarin has-footer" href="{{ route('submissions.filter', ['outcomeTypeId' => 3]) }}">
                         <div class="tiles-heading">
-                            <div class="pull-left">Decline</div>
+                            <div class="pull-left">Total Latest Version Decline</div>
                             <div class="pull-right">
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                             <div class="text-center">{{ number_format($declineCount) }}</div>
                         </div>
                         <div class="tiles-footer">
-                            <!-- <div class="pull-left">See all decline</div> -->
+                            <div class="pull-left">See all decline</div>
                         </div>
                     </a>
                 </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Auth, DB;
 use App\Models\{
     Submission,
     SubmissionReview
@@ -15,10 +15,19 @@ class SubmissionsController extends Controller
 {
     public function index(): View
     {
+        session(['filterOutcomeTypeID' => null]);
+
         return view('submissions.index');
     }
 
-    public function datatables(Request $request)
+    public function filter(int $outcomeTypeId): View
+    {
+        session(['filterOutcomeTypeID' => $outcomeTypeId]);
+
+        return view('submissions.index');
+    }
+
+    public function datatables(Request $request): string
     {
         config(['sqlsvr.connection' => Auth::user()->db_connection]);
         $draw = $request->get('draw');
@@ -32,27 +41,35 @@ class SubmissionsController extends Controller
         $columnName = $columnName_arr[$columnIndex]['data'];
         $columnSortOrder = $order_arr[0]['dir'];
         $searchValue = $search_arr['value'];
-        $totalRecords = Submission::select('count(*) as allcount')
-            ->whereNotNull('modfactor_id')
-            ->count();
-        $totalRecordswithFilter = Submission::select('count(*) as allcount')
-            ->where('submission_id', 'like', '%' . $searchValue . '%')
-            ->orWhere('business_name', 'like', '%' . $searchValue . '%')
-            ->orWhere('agent', 'like', '%' . $searchValue . '%')
-            ->whereNotNull('modfactor_id')
-            ->count();
+        $queryTotalRecords = Submission::whereRaw('submissions.business_name IS NOT NULL')
+            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
+            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id');
+        if (session('filterOutcomeTypeID')) {
+            $queryTotalRecords->where('submission_mods.outcome_type_id', '=', session('filterOutcomeTypeID'));
+        }
+        $totalRecords = $queryTotalRecords->count();
+        $queryTotalRecordswithFilter = Submission::whereNotNull('submissions.business_name')
+            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
+            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id');
+        if ($searchValue) {
+            $queryTotalRecordswithFilter->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
+                ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
+                ->orWhere('submissions.agent', 'like', '%' . $searchValue . '%')
+                ->orWhere('outcome_type.description', 'like', '%' . $searchValue . '%');
+        }
+        if (session('filterOutcomeTypeID')) {
+            $queryTotalRecordswithFilter->where('submission_mods.outcome_type_id', '=', session('filterOutcomeTypeID'));
+        }
+        $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
         if ($columnName == 'description') {
             $columnName = 'outcome_type.' . $columnName;
         } else {
             $columnName = 'submissions.' . $columnName;
         }
-        $records = Submission::orderBy($columnName, $columnSortOrder)
-            ->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
-            ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
-            ->orWhere('submissions.agent', 'like', '%' . $searchValue . '%')
-            ->whereNotNull('submissions.modfactor_id')
+        $queryRecords = Submission::orderBy($columnName, $columnSortOrder)
+            ->whereNotNull('submissions.business_name')
             ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
-            ->leftJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id')
+            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id')
             ->select([
                 'submissions.id',
                 'submissions.submission_id',
@@ -63,8 +80,17 @@ class SubmissionsController extends Controller
                 'submissions.created_at'
             ])
             ->skip($start)
-            ->take($rowperpage)
-            ->get();
+            ->take($rowperpage);
+        if ($searchValue) {
+            $queryRecords->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
+                ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
+                ->orWhere('submissions.agent', 'like', '%' . $searchValue . '%')
+                ->orWhere('outcome_type.description', 'like', '%' . $searchValue . '%');
+        }
+        if (session('filterOutcomeTypeID')) {
+            $queryRecords->where('submission_mods.outcome_type_id', '=', session('filterOutcomeTypeID'));
+        }
+        $records = $queryRecords->get();
         $data_arr = array();
         foreach ($records as $record) {
             $data_arr[] = array(

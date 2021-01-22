@@ -26,7 +26,7 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width: 120px;">ID</th>
+                                        <th style="width: 120px;">Submission ID</th>
                                         <th style="width: 80px;">Version</th>
                                         <th>Business Name</th>
                                         <th style="width: 200px;">Underwriter Name</th>
