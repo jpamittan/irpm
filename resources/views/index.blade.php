@@ -188,12 +188,14 @@
             $.ajax({
                 type: 'GET',
                 url: `/api/${connection}/reports/map`,
-                accepts: { text: "application/json" },
+                accepts: {
+                    text: "application/json"
+                },
                 dataType: 'json',
                 success: function(res) {
                     let plotObj = {};
-                    res.map(loc => {
-                        plotObj[(loc.state).toLowerCase()] = {
+                    res.map((loc, index) => {
+                        plotObj[`${(loc.state).toLowerCase()}_${index}`] = {
                             latitude: parseFloat(loc.latitude),
                             longitude: parseFloat(loc.longitude),
                             value: parseFloat(loc.total),
@@ -208,6 +210,51 @@
                             name : "usa_states",
                             zoom: {
                                 enabled: false
+                            }
+                        },
+                        legend : {
+                            plot :{
+                                display : true,
+                                title: "Submissions..."
+                                , slices : [
+                                    {
+                                        max :50,
+                                        attrs : {
+                                            fill : "#9dfd9a"
+                                        },
+                                        attrsHover :{
+                                            transform : "s1.5",
+                                            "stroke-width" : 1
+                                        }, 
+                                        label :"Less than 50 submissions",
+                                        size : 5
+                                    },
+                                    {
+                                        min :50,
+                                        max :100,
+                                        attrs : {
+                                            fill : "#6ce7ff"
+                                        },
+                                        attrsHover :{
+                                            transform : "s1.5",
+                                            "stroke-width" : 1
+                                        },
+                                        label :"Between 50 and 100 submissions",
+                                        size : 15
+                                    },
+                                    {
+                                        min :100,
+                                        attrs : {
+                                            fill : "#d3baff"
+                                        },
+                                        attrsHover :{
+                                            transform : "s1.5",
+                                            "stroke-width" : 1
+                                        },
+                                        label :"More than 500 submissions",
+                                        size : 20
+                                    }
+                                ]
                             }
                         },
                         plots: plotObj
