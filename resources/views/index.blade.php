@@ -127,7 +127,7 @@
                                     <h2>Submission By State</h2>
                                 </div>
                                 <div class="panel-body bg-gray">
-                                    <div class="map-world">
+                                    <div class="map-usa">
                                         <div class="row mb20">
                                             <div class="map col-md-12">
                                                 <span>USA Map</span>
@@ -184,58 +184,37 @@
             //------------------------------
             // Maps
             //------------------------------
-            $mapusa = $(".map-world");
-            $mapusa.mapael({
-                map : {
-                    name : "usa_states",
-                    zoom: {
-                        enabled: false,
-                        maxLevel : 10
-                    }
+            let connection = '{{ $connection }}';
+            $.ajax({
+                type: 'GET',
+                url: `/api/${connection}/reports/map`,
+                accepts: { text: "application/json" },
+                dataType: 'json',
+                success: function(res) {
+                    let plotObj = {};
+                    res.map(loc => {
+                        plotObj[(loc.state).toLowerCase()] = {
+                            latitude: parseFloat(loc.latitude),
+                            longitude: parseFloat(loc.longitude),
+                            value: parseFloat(loc.total),
+                            tooltip: {
+                                content: `${loc.city}<br />Submissions: ${loc.total}`
+                            }
+                        }
+                    });
+                    $mapusa = $(".map-usa");
+                    $mapusa.mapael({
+                        map: {
+                            name : "usa_states",
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        plots: plotObj
+                    });
                 },
-                plots: {
-                    'ny' : {
-                        latitude: 40.717079,
-                        longitude: -74.00116,
-                        value : 200001,
-                        tooltip: {content : "New York<br />Submissions: 530,000,000"}
-                    },
-                    'io' : {
-                        latitude :42.032974, 
-                        longitude :-93.581543, 
-                        value : 500000000, 
-                        tooltip: {content : "Iowa<br />Submissions: 500,000,000"}
-                    },
-                    'sf' : {
-                        latitude: 37.792032,
-                        longitude: -122.394613,
-                        value : 12000, 
-                        tooltip: {content : "San Francisco<br />Submissions: 600,000"}
-                    },
-                    'pa' : {
-                        latitude: 19.493204,
-                        longitude: -154.8199569,
-                        value : 450, 
-                        tooltip: {content : "Pahoa<br />Submissions: 600,000"}
-                    },
-                    'lo' : {
-                        latitude :30.391830, 
-                        longitude :-92.329102, 
-                        value : 600000, 
-                        tooltip: {content : "Louisiana<br />Submissions: 600,000"}
-                    },
-                    'mo' : {
-                        latitude :46.965260, 
-                        longitude :-109.533691, 
-                        value : 200000001, 
-                        tooltip: {content : "Montana<br />Submissions: 200,000,001"}
-                    },
-                    'or': {
-                        latitude :44.000000, 
-                        longitude :-120.500000, 
-                        value : 200001, 
-                        tooltip: {content : "Oregon<br />Submissions: 200,001"}
-                    }
+                error: function(res) {
+                    console.log(res);
                 }
             });
             //------------------------------

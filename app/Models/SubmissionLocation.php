@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class SubmissionReview extends Model
+class SubmissionLocation extends Model
 {
     public function __construct()
     {
@@ -15,13 +15,8 @@ class SubmissionReview extends Model
     protected $guarded = [];
     protected $casts = [];
 
-    public function question(): ?HasOne
+    public function territory(): ?HasOne
     {
-        return $this->hasMany(Question::class, 'id', 'question_id');
-    }
-
-    public function getAnswerValueAttribute($value)
-    {
-        return (strtolower($value) == 'continue') ? null : $value;
+        return $this->hasOne(Territory::class, 'zip', 'zip');
     }
 }

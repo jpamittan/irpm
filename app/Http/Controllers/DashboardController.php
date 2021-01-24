@@ -46,9 +46,10 @@ class DashboardController extends Controller
         }
 
         return view('index', [
+            'connection' => Auth::user()->db_connection,
             'quoteCount' => $quoteCount,
             'referCount' => $referCount,
-            'declineCount' => $declineCount,
+            'declineCount' => $declineCount
         ]);
     }
 }
