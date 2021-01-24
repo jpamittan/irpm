@@ -25,12 +25,13 @@ class LoginController extends Controller
 
     public function auth(Request $request): RedirectResponse
     {
-        $user_data = array(
+        $userData = [
             'email' => $request->get('email'),
             'password' => $request->get('password')
-        );
+        ];
+        $rememberMe = ($request->get('remember_me')) ? true : false;
 
-        return (Auth::attempt($user_data)) ? redirect('/') : redirect('/login?authenticate=false');
+        return (Auth::attempt($userData, $rememberMe)) ? redirect('/') : redirect('/login?authenticate=false');
     }
 
     public function logout(): RedirectResponse

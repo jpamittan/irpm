@@ -21,13 +21,15 @@ use App\Http\Controllers\{
     UsersController
 };
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'auth'])->name('auth');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/forgot-password', [LoginController::class, 'forgotPassword'])->name('forgotPassword');
-Route::post('/reset-password', [LoginController::class, 'resetPassword'])->name('resetPassword');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'auth'])->name('auth');
+    Route::get('/forgot-password', [LoginController::class, 'forgotPassword'])->name('forgotPassword');
+    Route::post('/reset-password', [LoginController::class, 'resetPassword'])->name('resetPassword');
+});
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/mods/{submissionId}', [ModsController::class, 'index'])->name('mods.index');
     Route::prefix('settings')->group(function () {
         Route::get('/{user}', [SettingsController::class, 'index'])->name('settings.index');

@@ -189,7 +189,7 @@
                 map : {
                     name : "usa_states",
                     zoom: {
-                        enabled: true,
+                        enabled: false,
                         maxLevel : 10
                     }
                 },
@@ -197,7 +197,7 @@
                     'ny' : {
                         latitude: 40.717079,
                         longitude: -74.00116,
-                        value : 200001, 
+                        value : 200001,
                         tooltip: {content : "New York<br />Submissions: 530,000,000"}
                     },
                     'io' : {
