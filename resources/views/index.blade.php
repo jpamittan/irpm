@@ -3,6 +3,29 @@
 @push('css')
     <link href="{{ asset('plugins/switchery/switchery.css') }}" type="text/css" rel="stylesheet"> <!-- Switchery -->
     <link href="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <style>
+        .datepicker {
+            width: 200px !important;
+        }
+        #daterangepicker3 {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        #yearpicker {
+            background-color: transparent !important;
+            border: 0 !important;
+            padding: 0 !important;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            box-shadow: none !important;
+            width: 30px;
+            display: inline-block;
+            text-align: center;
+        }
+        input[readonly] {
+            cursor: pointer !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -106,7 +129,8 @@
                                         <i class="fas fa-angle-down"></i>
                                     </button>
                                     <button class="btn btn-default pull-left" id="daterangepicker3" style="display: none;">
-                                        <input type="text" class="form-control" id="yearpicker" value="<?php echo date("Y"); ?>">
+                                        YEAR
+                                        <input type="text" class="form-control" id="yearpicker" value="<?php echo date("Y"); ?>" readonly>
                                     </button>
                                 </div>
                                 <div id="tab-visitor" class="tab-pane active">
@@ -164,25 +188,27 @@
 	<script src="{{ asset('plugins/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script> <!-- MouseWheel Support -->
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/world_countries.js') }}"></script>
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/usa_states.js') }}"></script> <!-- Vector Data of USA States -->
-
+    <!-- Bootstrap Datepicker -->
     <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    
     <script>
         $(document).ready(function() {
             let lastDateRange = null;
             let lastYear = null;
             let connection = '{{ $connection }}';
             $('#tab-visitor-link').click(() => {
-                $("#daterangepicker2").toggle();
-                $("#daterangepicker3").toggle();
+                $("#daterangepicker2").show();
+                $("#daterangepicker3").hide();
             });
             $('#tab-revenues-link').click(() => {
-                $("#daterangepicker2").toggle();
-                $("#daterangepicker3").toggle();
+                $("#daterangepicker2").hide();
+                $("#daterangepicker3").show();
             });
             //------------------------------
             // Year Picker
             //------------------------------
+            $("#daterangepicker3").click(() => {
+                $("#yearpicker").focus();
+            });
             $("#yearpicker").datepicker({
                 autoclose: true,
                 format: " yyyy",
