@@ -17,5 +17,7 @@ use App\Http\Controllers\{
 };
 
 Route::middleware([])->group(function () {
+    Route::get('/{connection}/reports/line', [ReportsController::class, 'line'])->name('api.reports.line');
+    Route::get('/{connection}/reports/bar', [ReportsController::class, 'bar'])->name('api.reports.bar');
     Route::get('/{connection}/reports/map', [ReportsController::class, 'map'])->name('api.reports.map');
 });

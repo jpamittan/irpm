@@ -2,6 +2,7 @@
 
 @push('css')
     <link href="{{ asset('plugins/switchery/switchery.css') }}" type="text/css" rel="stylesheet"> <!-- Switchery -->
+    <link href="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 @endpush
 
 @section('content')
@@ -80,13 +81,13 @@
                             <h2>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#tab-visitor" data-toggle="tab">
+                                        <a href="#tab-visitor" id="tab-visitor-link" data-toggle="tab">
                                             <i class="fa fa-user visible-xs"></i> 
                                             <span class="hidden-xs">Submissions Per Day</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#tab-revenues" data-toggle="tab">
+                                        <a href="#tab-revenues" id="tab-revenues-link" data-toggle="tab">
                                             <i class="fa fa-bar-chart-o visible-xs"></i> 
                                             <span class="hidden-xs">Submissions Per Month</span>
                                         </a>
@@ -97,12 +98,15 @@
                         <div class="panel-body">
                             <div class="tab-content">
                                 <div class="clearfix">
-                                    <button class="btn btn-default pull-left" id="daterangepicker2">
+                                    <button class="btn btn-default pull-left" id="daterangepicker2" style="display: block;">
                                         <i class="fa fa-calendar visible-xs"></i>
                                         <span class="hidden-xs" style="text-transform: uppercase;">
                                             <?php echo date("F j, Y", strtotime('-30 day')); ?> - <?php echo date("F j, Y"); ?>
                                         </span> 
                                         <i class="fas fa-angle-down"></i>
+                                    </button>
+                                    <button class="btn btn-default pull-left" id="daterangepicker3" style="display: none;">
+                                        <input type="text" class="form-control" id="yearpicker" value="<?php echo date("Y"); ?>">
                                     </button>
                                 </div>
                                 <div id="tab-visitor" class="tab-pane active">
@@ -124,7 +128,7 @@
                         <div class="col-md-12">
                             <div class="panel panel-default panel-btn-focused" id="p2">
                                 <div class="panel-heading">
-                                    <h2>Submission By State</h2>
+                                    <h2>Submission By Location</h2>
                                 </div>
                                 <div class="panel-body bg-gray">
                                     <div class="map-usa">
@@ -160,31 +164,195 @@
 	<script src="{{ asset('plugins/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script> <!-- MouseWheel Support -->
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/world_countries.js') }}"></script>
 	<script src="{{ asset('plugins/jQuery-Mapael/js/maps/usa_states.js') }}"></script> <!-- Vector Data of USA States -->
+
+    <script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    
     <script>
         $(document).ready(function() {
+            let lastDateRange = null;
+            let lastYear = null;
+            let connection = '{{ $connection }}';
+            $('#tab-visitor-link').click(() => {
+                $("#daterangepicker2").toggle();
+                $("#daterangepicker3").toggle();
+            });
+            $('#tab-revenues-link').click(() => {
+                $("#daterangepicker2").toggle();
+                $("#daterangepicker3").toggle();
+            });
+            //------------------------------
+            // Year Picker
+            //------------------------------
+            $("#yearpicker").datepicker({
+                autoclose: true,
+                format: " yyyy",
+                viewMode: "years",
+                minViewMode: "years"
+            });
+
             //------------------------------
             // Date Range Picker
             //------------------------------
             $('#daterangepicker2').daterangepicker({
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                    'Last 7 Days': [moment().subtract('days', 6), moment()],
-                    'Last 30 Days': [moment().subtract('days', 29), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-                },
-                opens: 'right',
-                startDate: moment().subtract('days', 29),
-                endDate: moment()
+                showDropdowns: true,
+                // format: 'MM ,YYYY',
+                opens: 'down',
+                startDate: moment().startOf('month'),
+                endDate: moment().endOf('month')
             },
             function(start, end) {
-                $('#daterangepicker2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                lastDateRange = start.format('MMMM DD, YYYY') + ' - ' + end.format('MMMM DD, YYYY');
+                $('#daterangepicker2 span').html(lastDateRange);
+                //------------------------------
+                // Flot
+                //------------------------------
+                // flot 1 line
+                $.ajax({
+                    type: 'GET',
+                    url: `/api/${connection}/reports/line?month=${start.format('MM')}&year=${start.format('YYYY')}`,
+                    accepts: {
+                        text: "application/json"
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        let lineObj = {};
+                        res.map(rec => {
+                            if (!lineObj.hasOwnProperty(rec.day.toString())) {
+                                lineObj[rec.day.toString()] = {
+                                    quote: 0,
+                                    refer: 0,
+                                    decline: 0
+                                }
+                            }
+                            if (rec.outcome_type_id == 1) {
+                                lineObj[rec.day.toString()].quote += rec.total;
+                            }
+                            if (rec.outcome_type_id == 2) {
+                                lineObj[rec.day.toString()].refer += rec.total;
+                            }
+                            if (rec.outcome_type_id == 3) {
+                                lineObj[rec.day.toString()].decline += rec.total;
+                            }
+                        });
+                        var d1 = [],
+                            d2 = [],
+                            d3 = [];
+                        for (var key in lineObj) {
+                            if (lineObj.hasOwnProperty(key)) {
+                                d1.push([
+                                    parseInt(key),
+                                    lineObj[key].quote
+                                ]);
+                                d2.push([
+                                    parseInt(key),
+                                    lineObj[key].refer
+                                ]);
+                                d3.push([
+                                    parseInt(key),
+                                    lineObj[key].decline
+                                ]);
+                            }
+                        }
+                        function sortFunction(a, b) {
+                            if (a[0] === b[0]) {
+                                return 0;
+                            } else {
+                                return (a[0] < b[0]) ? -1 : 1;
+                            }
+                        }
+                        d1.sort(sortFunction);
+                        d2.sort(sortFunction);
+                        d3.sort(sortFunction);
+                        var stack = false,
+                            bars = true,
+                            lines = true,
+                            steps = false;
+                        function plotWithOptions() {
+                            $.plot("#visitors-stats", [{
+                                    data: d1, 
+                                    label: "Quote",
+                                    lines: {
+                                        show: lines,
+                                        fill: 0.1,
+                                        steps: steps,
+                                        lineWidth: 1.25
+                                    },
+                                    points: {
+                                        show: true,
+                                        radius: 2.5
+                                    }
+                                }, {
+                                    data: d2, 
+                                    label: "Refer",
+                                    lines: {
+                                        show: lines,
+                                        fill: 0.1,
+                                        steps: steps,
+                                        lineWidth: 1.25
+                                    },
+                                    points: {
+                                        show: true,
+                                        radius: 2.5
+                                    }
+                                }, {
+                                    data: d3, 
+                                    label: "Decline",
+                                    lines: {
+                                        show: lines,
+                                        fill: 0.1,
+                                        steps: steps,
+                                        lineWidth: 1.25
+                                    },
+                                    points: {
+                                        show: true,
+                                        radius: 2.5
+                                    }
+                                }], {
+                                series: {
+                                    shadowSize: 0,
+                                    stack: stack
+                                },
+                                grid: {
+                                    labelMargin: 10,
+                                    hoverable: true,
+                                    clickable: true,
+                                    borderWidth: 0,
+                                    borderColor: 'rgba(0, 0, 0, 0.06)'
+                                },
+                                yaxis: { 
+                                    tickColor: 'rgba(0, 0, 0, 0.04)', 
+                                    font: {
+                                        color: 'rgba(0, 0, 0, 0.4)'
+                                    }
+                                },
+                                xaxis: { 
+                                    tickColor: 'rgba(0, 0, 0, 0.04)',
+                                    tickDecimals: 0,
+                                    ticks: 20,
+                                    font: {
+                                        color: 'rgba(0, 0, 0, 0.4)'
+                                    }
+                                },
+                                colors: ["#52cda0", "#72a7d3", "#e98a72"],
+                                tooltip: true,
+                                tooltipOpts: {
+                                    content: "%s: %y"
+                                }
+                            });
+                        }
+                        plotWithOptions();
+                    },
+                    error: function(res) {
+                        console.log(res);
+                    }
+                });
+            }).on('hide.daterangepicker', function (ev, picker) {
+                $('.table-condensed tbody tr:nth-child(2) td').click();
+                alert(picker.startDate.format('MM/YYYY'));
             });
             //------------------------------
             // Maps
             //------------------------------
-            let connection = '{{ $connection }}';
             $.ajax({
                 type: 'GET',
                 url: `/api/${connection}/reports/map`,
@@ -212,11 +380,11 @@
                                 enabled: false
                             }
                         },
-                        legend : {
-                            plot :{
+                        legend: {
+                            plot: {
                                 display : true,
-                                title: "Submissions..."
-                                , slices : [
+                                title: "Submissions...",
+                                slices: [
                                     {
                                         max :50,
                                         attrs : {
@@ -264,99 +432,6 @@
                     console.log(res);
                 }
             });
-            //------------------------------
-            // Flot
-            //------------------------------
-            var d1 = [];
-            for (var i = 0; i <= 30; i += 1) {
-                d1.push([i, parseInt(Math.random() * 70 + 135)]);
-            }
-            var d2 = [];
-            for (var i = 0; i <= 30; i += 1) {
-                d2.push([i, parseInt(Math.random() * 20) + 5]);
-            }
-            var d3 = [];
-            for (var i = 0; i <= 30; i += 1) {
-                d3.push([i, parseInt(Math.random() * 70 + 40)]);
-            }
-            var stack = false,
-                bars = true,
-                lines = true,
-                steps = false;
-            function plotWithOptions() {
-                $.plot("#visitors-stats", [{
-                        data: d1, 
-                        label: "Quote",
-                        lines: {
-                            show: lines,
-                            fill: 0.1,
-                            steps: steps,
-                            lineWidth: 1.25
-                        },
-                        points: {
-                            show: true,
-                            radius: 2.5
-                        }
-                    }, {
-                        data: d2, 
-                        label: "Refer",
-                        lines: {
-                            show: lines,
-                            fill: 0.1,
-                            steps: steps,
-                            lineWidth: 1.25
-                        },
-                        points: {
-                            show: true,
-                            radius: 2.5
-                        }
-                    }, {
-                        data: d3, 
-                        label: "Decline",
-                        lines: {
-                            show: lines,
-                            fill: 0.1,
-                            steps: steps,
-                            lineWidth: 1.25
-                        },
-                        points: {
-                            show: true,
-                            radius: 2.5
-                        }
-                    }], {
-                    series: {
-                        shadowSize: 0,
-                        stack: stack
-                    },
-                    grid: {
-                        labelMargin: 10,
-                        hoverable: true,
-                        clickable: true,
-                        borderWidth: 0,
-                        borderColor: 'rgba(0, 0, 0, 0.06)'
-                    },
-                    yaxis: { 
-                        tickColor: 'rgba(0, 0, 0, 0.04)', 
-                        font: {
-                            color: 'rgba(0, 0, 0, 0.4)'
-                        }
-                    },
-                    xaxis: { 
-                        tickColor: 'rgba(0, 0, 0, 0.04)',
-                        tickDecimals: 0,
-                        ticks: 20,
-                        font: {
-                            color: 'rgba(0, 0, 0, 0.4)'
-                        }
-                    },
-                    colors: ["#52cda0", "#72a7d3", "#e98a72"],
-                    tooltip: true,
-                    tooltipOpts: {
-                        content: "%s: %y"
-                    }
-                });
-            }
-            plotWithOptions();
             // flot 2
             var do1 = [];
             var do2 = [];
