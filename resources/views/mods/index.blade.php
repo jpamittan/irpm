@@ -381,25 +381,27 @@
     <script src="{{ asset('plugins/form-jasnyupload/fileinput.min.js') }}"></script> <!-- Date Range Picker -->
     <script>
         // Mapping risks to currently labeled
-        // location = {{ $submissionMod->location_outcome }}
-        // premises = {{ $submissionMod->premises_equipment_outcome }}
-        // equipment = {{ $submissionMod->building_features_outcome }}
-        // classification = {{ $submissionMod->management_outcome }}
-        // employees = {{ $submissionMod->employees_outcome }}
-        // cooperation = {{ $submissionMod->protection_outcome }}
         $(document).ready(function() {
+            let locationOutcomeMinValue = parseFloat('{{ $submissionMod->location_outcome }}');
+            let premisesEquipmentOutcomeMinValue = parseFloat('{{ $submissionMod->premises_equipment_outcome }}');
+            let buildingFeaturesOutcomeMinValue = parseFloat('{{ $submissionMod->building_features_outcome }}');
+            let managementOutcomeMinValue = parseFloat('{{ $submissionMod->management_outcome }}');
+            let employeesOutcomeMinValue = parseFloat('{{ $submissionMod->employees_outcome }}');
+            let protectionOutcomeMinValue = parseFloat('{{ $submissionMod->protection_outcome }}');
+
+            let newlocationOutcome = parseFloat('{{ $submissionMod->location_outcome }}');
+            let newPremisesEquipmentOutcome = parseFloat('{{ $submissionMod->premises_equipment_outcome }}');
+            let newBuildingFeaturesOutcome = parseFloat('{{ $submissionMod->building_features_outcome }}');
+            let newManagementOutcome = parseFloat('{{ $submissionMod->management_outcome }}');
+            let newEmployeesOutcome = parseFloat('{{ $submissionMod->employees_outcome }}');
+            let newProtectionOutcome = parseFloat('{{ $submissionMod->protection_outcome }}');
+            
             let locationOutcomeMaxValue = 1.10;
-            let newlocationOutcome = 0;
             let premisesEquipmentOutcomeMaxValue = 1.10;
-            let newPremisesEquipmentOutcome = 0;
             let buildingFeaturesOutcomeMaxValue = 1.10;
-            let newBuildingFeaturesOutcome = 0;
             let managementOutcomeMaxValue = 1.10;
-            let newManagementOutcome = 0;
             let employeesOutcomeMaxValue = 1.06;
-            let newEmployeesOutcome = 0;
             let protectionOutcomeMaxValue = 1.04;
-            let newProtectionOutcome = 0;
             $("#slider-range-min").slider({
                 range: "min",
                 value: {{ $submissionMod->location_outcome }},
@@ -473,48 +475,77 @@
             });
             $("#slider-range-min-amount-6").text($("#slider-range-min-6").slider("value"));
             $("#btnCalculate").click(() => {
-                /*
-                o	If the mod factor for location is for example change from 0.95 to 0.97 
-                    because the location is in a bad part of town. You will subtract 97 from 100 and the answer is -3. 
-                o	Let’s say the other one is premises and the underwriter increased it from 0.93 to 0.94. 
-                    You will calculate this as 94-100=-6
-                o	Continue the same thing with other mod factors.
-                o	Add all the numbers, in this example add -3 and -6, total is -9. 
-                o	Next, subtract this from 100. So that would be 100-9=91. 
-                o	Make it a percent – so that becomes .91. 
-                o	Display this when the u/w clicks on rerate. 
-                o	Remove the Status:Quote or Status:Refer from that screen. The underwriter will make these changes in 
-                    the oneview system [whether to change from refer to quote]. 
-                o	Add a button to print to pdf. 
-                */
-                diffNewlocationOutcome = (100 - newlocationOutcome) % 1;
-                diffNewPremisesEquipmentOutcome = (100 - newPremisesEquipmentOutcome) % 1;
-                diffNewBuildingFeaturesOutcome = (100 - newBuildingFeaturesOutcome) % 1;
-                diffNewManagementOutcome = (100 - newManagementOutcome) % 1;
-                diffNewEmployeesOutcome = (100 - newEmployeesOutcome) % 1;
-                diffNewProtectionOutcome = (100 - newProtectionOutcome) % 1;
-
-                console.log("newlocationOutcome: " + diffNewlocationOutcome);
-                console.log("newPremisesEquipmentOutcome: " + diffNewPremisesEquipmentOutcome);
-                console.log("newBuildingFeaturesOutcome: " + diffNewBuildingFeaturesOutcome);
-                console.log("newManagementOutcome: " + diffNewManagementOutcome);
-                console.log("newEmployeesOutcome: " + diffNewEmployeesOutcome);
-                console.log("newProtectionOutcome: " + diffNewProtectionOutcome);
-
-                let total = diffNewlocationOutcome 
-                    + diffNewPremisesEquipmentOutcome 
-                    + diffNewBuildingFeaturesOutcome 
-                    + diffNewManagementOutcome 
-                    + diffNewEmployeesOutcome 
-                    + diffNewProtectionOutcome;
-
-                console.log("Sum: " + total);
-
-                total = (100 - total) / 100;
-
-                console.log("percentage: " + total);
-
-                $("#totalPercent").html(total.toFixed(2));
+                if (newlocationOutcome == locationOutcomeMinValue) {
+                    diffNewlocationOutcome = (locationOutcomeMinValue - 1);
+                    console.log("diffNewlocationOutcome: " + locationOutcomeMinValue + " - 1");
+                    console.log("= " + diffNewlocationOutcome.toFixed(2));
+                } else {
+                    diffNewlocationOutcome = (newlocationOutcome - 1);
+                    console.log("diffNewlocationOutcome: " + newlocationOutcome + " - 1");
+                    console.log("= " + diffNewlocationOutcome.toFixed(2));
+                }
+                console.log("-------------------------------------------------------");
+                if (newPremisesEquipmentOutcome == premisesEquipmentOutcomeMinValue) {
+                    diffNewPremisesEquipmentOutcome = (premisesEquipmentOutcomeMinValue - 1);
+                    console.log("diffNewPremisesEquipmentOutcome: " + premisesEquipmentOutcomeMinValue + " - 1");
+                    console.log("= " + diffNewPremisesEquipmentOutcome.toFixed(2));
+                } else {
+                    diffNewPremisesEquipmentOutcome = (newPremisesEquipmentOutcome - 1);
+                    console.log("diffNewPremisesEquipmentOutcome: " + newPremisesEquipmentOutcome + " - 1");
+                    console.log("= " + diffNewPremisesEquipmentOutcome.toFixed(2));
+                }
+                console.log("-----------------------------------");
+                if (newBuildingFeaturesOutcome == buildingFeaturesOutcomeMinValue) {
+                    diffNewBuildingFeaturesOutcome = (buildingFeaturesOutcomeMinValue - 1);
+                    console.log("diffNewBuildingFeaturesOutcome: " + buildingFeaturesOutcomeMinValue + " - 1");
+                    console.log("= " + diffNewBuildingFeaturesOutcome.toFixed(2));
+                } else {
+                    diffNewBuildingFeaturesOutcome = (newBuildingFeaturesOutcome  - 1);
+                    console.log("diffNewBuildingFeaturesOutcome: " + newBuildingFeaturesOutcome + " - 1");
+                    console.log("= " + diffNewBuildingFeaturesOutcome.toFixed(2));
+                }
+                console.log("-----------------------------------");
+                if (newManagementOutcome == managementOutcomeMinValue) {
+                    diffNewManagementOutcome = (managementOutcomeMinValue - 1);
+                    console.log("diffNewManagementOutcome: " + managementOutcomeMinValue + " - 1");
+                    console.log("= " + diffNewManagementOutcome.toFixed(2));
+                } else {
+                    diffNewManagementOutcome = (newManagementOutcome - 1);
+                    console.log("diffNewManagementOutcome: " + newManagementOutcome + " - 1");
+                    console.log("= " + diffNewManagementOutcome.toFixed(2));
+                }
+                console.log("-----------------------------------");
+                if (newEmployeesOutcome == employeesOutcomeMinValue) {
+                    diffNewEmployeesOutcome = (employeesOutcomeMinValue - 1);
+                    console.log("diffNewEmployeesOutcome: " + employeesOutcomeMinValue + " - 1");
+                    console.log("= " + diffNewEmployeesOutcome.toFixed(2));
+                } else {
+                    diffNewEmployeesOutcome = (newEmployeesOutcome - 1);
+                    console.log("diffNewEmployeesOutcome: " + newEmployeesOutcome + " - 1");
+                    console.log("= " + diffNewEmployeesOutcome.toFixed(2));
+                }
+                console.log("-----------------------------------");
+                if (newProtectionOutcome == protectionOutcomeMinValue) {
+                    diffNewProtectionOutcome = (protectionOutcomeMinValue - 1);
+                    console.log("diffNewProtectionOutcome: " + protectionOutcomeMinValue + " - 1");
+                    console.log("= " + diffNewProtectionOutcome.toFixed(2));
+                } else {
+                    diffNewProtectionOutcome = (newProtectionOutcome - 1);
+                    console.log("diffNewProtectionOutcome: " + newProtectionOutcome + " - 1");
+                    console.log("= " + diffNewProtectionOutcome.toFixed(2));
+                }
+                console.log("-----------------------------------");
+                let total = diffNewlocationOutcome
+                    + diffNewPremisesEquipmentOutcome
+                    + diffNewBuildingFeaturesOutcome
+                    + diffNewManagementOutcome
+                    + diffNewEmployeesOutcome
+                    + diffNewProtectionOutcome
+                console.log("Sum: " + diffNewlocationOutcome.toFixed(2) + " + " + diffNewPremisesEquipmentOutcome.toFixed(2) + " + " + diffNewBuildingFeaturesOutcome.toFixed(2) + " + " + diffNewManagementOutcome.toFixed(2) + " + " + diffNewEmployeesOutcome.toFixed(2) + " + " + diffNewProtectionOutcome.toFixed(2));
+                console.log("= " + total.toFixed(2));
+                total += 1;
+                console.log("Total Mods\%: " + total);
+                $("#totalPercent").html(total);
             });
         });
     </script>
