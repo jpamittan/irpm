@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@push('css')
+    <link href="{{ asset('plugins/iCheck/skins/square/_all.css') }}" type="text/css" rel="stylesheet">
+@endpush
+
 @section('content')
     <div class="page-heading">
         <h1><i class="fas fa-users"></i> Edit User</h1>
@@ -38,12 +42,12 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Admin</label>
-                            <div class="col-sm-8">
-                                <label class="radio icheck">
+                            <div class="col-sm-8 icheck-square">
+                                <label class="radio aero icheck">
                                     <input type="radio" name="is_admin" value="0" {{ (!$user->is_admin) ? 'checked' : '' }}>
                                     No
                                 </label>
-                                <label class="radio icheck">
+                                <label class="radio aero icheck">
                                     <input type="radio" name="is_admin" value="1" {{ ($user->is_admin) ? 'checked' : '' }}>
                                     Yes
                                 </label>
@@ -170,6 +174,7 @@
 
 @push('scripts')
     <script src="{{ asset('plugins/bootstrap-switch/bootstrap-switch.js') }}"></script> <!-- BS Switch -->
+    <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script> <!-- iCheck -->
     <script>
         $(document).ready(function() {
             //Bootstrap Switch
@@ -178,6 +183,13 @@
             $('#deleteYes').click(function() {
                 $('#deleteForm').trigger('submit');
             })
+            var myArr=["square"];
+            var aCol=['aero'];
+            for (var i = 0; i < myArr.length; ++i) {
+                for (var j = 0; j < aCol.length; ++j) {
+                    $('.icheck-' + myArr[i] + ' .' + aCol[j] + '.icheck input').iCheck({checkboxClass: 'icheckbox_' + myArr[i] + '-' + aCol[j],radioClass: 'iradio_' + myArr[i] + '-' + aCol[j]});
+                }
+            }
         });
         function checkPasswordMatch() {
             var password = $("#password").val();

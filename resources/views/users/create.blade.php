@@ -96,8 +96,7 @@
 @endsection
 
 @push('scripts')
-    <!-- iCheck -->
-    <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script> <!-- iCheck -->
     <script>
         $(document).ready(function() {
             $("#password, #verify_password").keyup(checkPasswordMatch);

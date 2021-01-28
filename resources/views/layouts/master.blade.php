@@ -21,7 +21,6 @@
         <link href="{{ asset('plugins/jScrollPane/style/jquery.jscrollpane.css') }}" type="text/css" rel="stylesheet"> <!-- jsTree -->
         <link href="{{ asset('plugins/form-daterangepicker/daterangepicker-bs3.css') }}" type="text/css" rel="stylesheet"> <!-- DateRangePicker -->
         <link href="{{ asset('js/jqueryui.css') }}" type="text/css" rel="stylesheet">
-	    <link href="{{ asset('plugins/dropzone/css/dropzone.css') }}" type="text/css" rel="stylesheet"> <!-- Dropzone Plugin -->
         @stack('css')
     </head>
     <body class="infobar-offcanvas">
@@ -101,7 +100,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
                         <span class="hidden-xs">{{ Auth::user()->full_name }}</span>
-                        <img class="img-circle" src="{{ asset('demo/avatar/avatar_06.png') }} " alt="Dangerfield" />
+                        <img 
+                            class="img-circle" 
+                            src="{{ asset('demo/avatar/avatar_06.png') }}" 
+                            alt="{{ substr(ucwords(Auth::user()->first_name), 0, 1) }}{{ substr(ucwords(Auth::user()->last_name), 0, 1) }}" 
+                        />
                     </a>
                     <ul class="dropdown-menu userinfo">
                         <!-- <li>
@@ -173,7 +176,6 @@
         <script src="{{ asset('plugins/codeprettifier/prettify.js') }}"></script>
         <script src="{{ asset('plugins/bootstrap-switch/bootstrap-switch.js') }}"></script>
         <script src="{{ asset('plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js') }}"></script>
-        <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
         <script src="{{ asset('js/enquire.min.js') }}"></script>
         <script src="{{ asset('plugins/bootbox/bootbox.js') }}"></script>
         <script src="{{ asset('js/application.js') }}"></script>

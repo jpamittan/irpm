@@ -17,10 +17,6 @@ body.topnav-collapsed .navbar-brand {
     vertical-align: middle;
 }
 
-.dropzone {
-    min-height: 160px !important;
-}
-
 #submission_processing {
     padding-left: 20px !important;
 }
