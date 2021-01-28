@@ -10,6 +10,7 @@
             <div class="row">
                 <div class="col-md-12" style="padding: 0px 20px 20px 20px;">
                     <a href="{{ route('submissions.index') }}"><button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button></a>
+                    <a href="#" style="float: right;"><button class="btn btn-small btn-danger"><i class="fas fa-file-pdf"></i> PDF</button></a>
                 </div>
             </div>
             <div class="col-md-12">
@@ -53,8 +54,13 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="options">
-                                    <div class="btn-toolbar" style="text-align: right;">
+                                <div class="options" style="text-align: right;">
+                                    <div class="btn-toolbar" style="display: inline-block;">
+                                        <a href="#apiLogsModal" id="apiLogsLink" data-toggle="modal" class="btn btn-default" data-backdrop="static" data-keyboard="false">
+                                            <i class="fas fa-clipboard-list"></i> API Logs
+                                        </a>
+                                    </div>
+                                    <div class="btn-toolbar" style="display: inline-block;">
                                         <a href="{{ route('mods.index', ['submissionId' => $submission->id]) }}" class="btn btn-default"><i class="fa fa-fw fa-cog"></i> Mods</a>
                                     </div>
                                 </div>
@@ -70,11 +76,10 @@
                                             </div>
                                         </div>
                                         <div class="panel-body panel-no-padding">
-                                            <table id="submissionDetails" class="table table-striped table-bordered"
-                                                cellspacing="0" width="100%">
+                                            <table id="submissionDetails" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 150px;">Question No</th>
+                                                        <th style="width: 120px;">Question No</th>
                                                         <th>Question Description</th>
                                                         <th style="width: 400px;">Answer</th>
                                                         <th style="width: 80px;">Score</th>
@@ -82,7 +87,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach($submissionReviews as $review)
-                                                        <tr class="odd">
+                                                        <tr>
                                                             <td>{{ $review->question_id }}</td>
                                                             <td>{{ $review->question_text }}</td>
                                                             <td>{{ $review->answer_text }}</td>
@@ -101,6 +106,37 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="apiLogsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:90%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="fas fa-clipboard-list"></i> API Logs</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="submissionAPILogs" class="table table-striped table-bordered" cellspacing="0" width="100%" style="table-layout: fixed;">
+                            <thead>
+                                <tr>
+                                    <th style="overflow-wrap: break-word;">API Endpoint</th>
+                                    <th style="overflow-wrap: break-word;">Response</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($submissionAPILogs as $log)
+                                    <tr>
+                                        <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
+                                        <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div> <!-- .container-fluid -->
 @endsection
 
@@ -111,20 +147,34 @@
     <script>
         $(document).ready(function() {
             $('#submissionDetails').dataTable({
-                "language": {
-                    "lengthMenu": "_MENU_"
+                language: {
+                    lengthMenu: "_MENU_",
+                    searchPlaceholder: "Search..."
                 },
-                'iDisplayLength': 20,
-                "paging": false,
-                "ordering": false,
+                iDisplayLength: 20,
+                paging: false,
+                ordering: false,
                 // "order": [[ 3, "desc" ]]
             });
-            $('.panel-ctrls-limit').append("&nbsp;&nbsp;Limit");
             $('.panel-ctrls').append($('.dataTables_filter').addClass("pull-right")).find("label").addClass("panel-ctrls-center");
             $('.panel-ctrls').append("<i class='separator'></i>");
             $('.panel-ctrls').append($('.dataTables_length').addClass("pull-left")).find("label").addClass("panel-ctrls-center");
             $('.panel-footer').append($(".dataTable+.row"));
             $('.dataTables_paginate>ul.pagination').addClass("pull-right m0");
+            $('#apiLogsLink').click(function() {
+                $('#submissionAPILogs').dataTable({
+                    language: {
+                        lengthMenu: "_MENU_",
+                        searchPlaceholder: "Search..."
+                    },
+                    paging: false,
+                    ordering: false
+                });
+                $('#submissionAPILogs_filter').addClass("pull-right");
+            });
+            $('#apiLogsModal').on('hidden.bs.modal', function() {
+                $('#submissionAPILogs').dataTable().fnDestroy();
+            });
         });
     </script>
 @endpush

@@ -128,6 +128,13 @@ class SubmissionsController extends Controller
         $submissionReviews = SubmissionReview::where('submissions_id', $submission->id)
             ->where('question_text', 'NOT LIKE', '%|%')
             ->get();
+        $submissionAPILogs = SubmissionReview::where('submissions_id', $submission->id)
+            ->where('question_text', 'LIKE', '%|%')
+            ->select([
+                'question_text',
+                'answer_text'
+            ])
+            ->get();
         $nullAnswers = [];
         $minusOneAnswers = [];
         $zeroAnswers = [];
@@ -156,6 +163,7 @@ class SubmissionsController extends Controller
 
         return view('submissions.details', [
             'submission' => $submission,
+            'submissionAPILogs' => $submissionAPILogs,
             'submissionReviews' => $sortedSubmissionReviews,
         ]);
     }
