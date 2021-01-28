@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-12" style="padding: 0px 20px 20px 20px;">
                     <a href="{{ route('submissions.index') }}"><button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button></a>
-                    <a href="#" style="float: right;"><button class="btn btn-small btn-danger"><i class="fas fa-file-pdf"></i> PDF</button></a>
+                    <a href="{{ route('export.pdf', ['submissionId' => $submission->id]) }}" style="float: right;"><button class="btn btn-small btn-danger"><i class="fas fa-file-pdf"></i> PDF</button></a>
                 </div>
             </div>
             <div class="col-md-12">

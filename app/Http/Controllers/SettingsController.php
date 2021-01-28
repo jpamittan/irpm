@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Auth, Hash;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{
@@ -25,8 +25,16 @@ class SettingsController extends Controller
             'environments' => $this->environments
         ]);
     }
+    
+    public function savePassword(User $user, Request $request): RedirectResponse
+    {
+        $user->password = Hash::make($request->input('password'));
+        $blnSave = ($user->save()) ? 1 : 0;
 
-    public function save(User $user, Request $request): RedirectResponse
+        return redirect('/settings/' . $user->id . '?save=' . $blnSave);
+    }
+
+    public function saveEnvironment(User $user, Request $request): RedirectResponse
     {
         $blnSave = false;
         $user->db_connection = $request->get('db_connection');

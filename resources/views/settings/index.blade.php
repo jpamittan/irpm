@@ -16,32 +16,32 @@
             <div class="col-md-12">
                 <div id="panel-advancedoptions">
                     <div class="panel panel-default" data-widget-editbutton="false" id="p1">
-                        <form action="{{ route('settings.save', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
+                        <form action="{{ route('settings.savePassword', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
                             @csrf
                             <div class="panel-heading">
-                                <h2>Account Settings Configuration</h2>
+                                <h2><i class="fas fa-key"></i> Change Password</h2>
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                        <i class="fas fa-database"></i> Environment Connection
-                                    </label>
+                                    <label class="col-sm-2 control-label">Password</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="db_connection" required>
-                                            @foreach ($environments as $key => $value)
-                                                @if ($key == $user->db_connection)
-                                                    <option value="{{ $key }}" selected>{{ $value }}</option>
-                                                @else
-                                                    <option value="{{ $key }}">{{ $value }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                        <input type="password" class="form-control" name="password" id="password" required>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Verify Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" name="verify_password" id="verify_password" required>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="pwd-msg-container" style="display: none;">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-8" id="password-msg-label"></div>
                                 </div>
                                 <div class="panel-footer">
                                     <div class="row">
                                         <div class="col-sm-8 col-sm-offset-2">
-                                            <button class="btn-primary btn"><i class="fas fa-save"></i> Update</button>
+                                            <button class="btn-primary btn" id="changepass-btn"><i class="fas fa-key"></i> Change Password</button>
                                         </div>
                                     </div>
                                 </div>
@@ -49,6 +49,43 @@
                         </form>
                     </div>
                 </div>
+                @if ($user->is_admin)
+                    <div id="panel-advancedoptions">
+                        <div class="panel panel-default" data-widget-editbutton="false" id="p1">
+                            <form action="{{ route('settings.saveEnvironment', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
+                                @csrf
+                                <div class="panel-heading">
+                                    <h2>Environment Configuration</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            <i class="fas fa-database"></i> Environment Connection
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" name="db_connection" required>
+                                                @foreach ($environments as $key => $value)
+                                                    @if ($key == $user->db_connection)
+                                                        <option value="{{ $key }}" selected>{{ $value }}</option>
+                                                    @else
+                                                        <option value="{{ $key }}">{{ $value }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-sm-offset-2">
+                                                <button class="btn-primary btn"><i class="fas fa-save"></i> Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div> <!-- .container-fluid -->
@@ -65,6 +102,7 @@
             } else if (save === "0") {
                 setNotif('danger', '<i class="fa fa-fw fa-times"></i>&nbsp; An error has occured. Please try again.');
             }
+            $("#password, #verify_password").keyup(checkPasswordMatch);
         });
         function setNotif(type, msg) {
             $('#user-msg').html(
@@ -81,6 +119,22 @@
                     '</div>'+
                 '</div>'
             );
+        }
+        function checkPasswordMatch() {
+            var password = $("#password").val();
+            var confirmPassword = $("#verify_password").val();
+            if (password && confirmPassword) {
+                if (password != confirmPassword) {
+                    $('#changepass-btn').prop('disabled', true);
+                    $('#pwd-msg-container').show();
+                    $("#password-msg-label").html("<span class='text-danger'><i class='fas fa-key'></i> Passwords do not match!</span>");
+                } else {
+                    $('#changepass-btn').prop('disabled', false);
+                    $("#password-msg-label").html("<span class='text-success'><i class='fas fa-key'></i> Passwords match.</span>");
+                }
+            } else {
+                $('#pwd-msg-container').hide();
+            }
         }
     </script>
 @endpush
