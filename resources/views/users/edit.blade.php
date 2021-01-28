@@ -97,7 +97,7 @@
         </div>
         <div id="panel-advancedoptions">
             <div class="panel panel-default" data-widget-editbutton="false" id="p1">
-                <form action="{{ route('users.changepassword', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
+                <form action="{{ route('users.savePassword', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
                     @csrf
                     <div class="panel-heading">
                         <h2><i class="fas fa-key"></i> Change Password</h2>

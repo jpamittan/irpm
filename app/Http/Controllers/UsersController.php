@@ -79,7 +79,7 @@ class UsersController extends Controller
         }
     }
 
-    public function changePassword(User $user, Request $request)
+    public function savePassword(User $user, Request $request)
     {
         $user->password = Hash::make($request->input('password'));
         if ($user->save()) {
