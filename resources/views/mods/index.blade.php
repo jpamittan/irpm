@@ -378,7 +378,8 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('plugins/form-jasnyupload/fileinput.min.js') }}"></script> <!-- Date Range Picker -->
+    <!-- Date Range Picker -->
+    <script src="{{ asset('plugins/form-jasnyupload/fileinput.min.js') }}"></script>
     <script>
         // Mapping risks to currently labeled
         $(document).ready(function() {

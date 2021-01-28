@@ -36,8 +36,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{user}', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/environment/{user}', [SettingsController::class, 'saveEnvironment'])->name('settings.saveEnvironment');
         Route::post('/password/{user}', [SettingsController::class, 'savePassword'])->name('settings.savePassword');
-
-        
     });
     Route::prefix('submissions')->group(function () {
         Route::get('/', [SubmissionsController::class, 'index'])->name('submissions.index');
