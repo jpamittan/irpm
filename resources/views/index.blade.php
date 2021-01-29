@@ -156,9 +156,16 @@
                                 </div>
                                 <div class="panel-body bg-gray">
                                     <div class="map-usa">
-                                        <div class="row mb20">
+                                        <div class="row">
                                             <div class="map col-md-12">
                                                 <span>USA Map</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mt20">
+                                                    <div class="plotLegend">
+                                                        <span></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -409,7 +416,7 @@
                         legend: {
                             plot: {
                                 display : true,
-                                title: "Submissions...",
+                                title :"Legend", 
                                 slices: [
                                     {
                                         max :50,
@@ -445,7 +452,7 @@
                                             transform : "s1.5",
                                             "stroke-width" : 1
                                         },
-                                        label :"More than 500 submissions",
+                                        label :"More than 100 submissions",
                                         size : 20
                                     }
                                 ]
