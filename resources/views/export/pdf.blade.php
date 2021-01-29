@@ -86,8 +86,8 @@
                 <tr>
                     <td style="width: 100px;"><b>Submission ID:</b></td>
                     <td>{{ $submission->submission_id }}</td>
-                    <td style="width: 50px;"><b>Version:</b></td>
-                    <td style="width: 50px;">{{ $submission->version }}</td>
+                    <td style="width: 75px;"><b>Version:</b></td>
+                    <td style="width: 100px;">{{ $submission->version }}</td>
                 </tr>
                 <tr>
                     <td><b>Insured:</b></td>
@@ -97,7 +97,9 @@
                 </tr>
                 <tr>
                     <td><b>Underwriter Name:</b></td>
-                    <td colspan=3>{{ $underWriter->full_name ?? "N/A" }}</td>
+                    <td>{{ $underWriter->full_name ?? "N/A" }}</td>
+                    <td><b>Generated as of:</b></td>
+                    <td>{{ date('m/d/Y h:i:s A') }}</td>
                 </tr>
             </table>
             <h5>Risk Characteristics</h5>
@@ -115,7 +117,7 @@
                         <small>Premises organization, housekeeping, yard protection</small>
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
-                    <td style="text-align: center;"><u>{{ $submissionMod->location_outcome }}</u></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->location_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_in_location }}</td>
                 </tr>
                 <tr>
@@ -125,7 +127,7 @@
                         <small>Cooperation in matters of safeguarding and proper handling of property covered</small>
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
-                    <td style="text-align: center;"><u>{{ $submissionMod->premises_equipment_outcome }}</u></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->premises_equipment_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_premises_equipment }}</td>
                 </tr>
                 <tr>
@@ -135,7 +137,7 @@
                         <small>Age, condition, scheduled maintenance</small>
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
-                    <td style="text-align: center;"><u>{{ $submissionMod->building_features_outcome }}</u></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->building_features_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_building_features }}</td>
                 </tr>
                 <tr>
@@ -145,7 +147,7 @@
                         <small>Age, condition, and unusual structural features</small>
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
-                    <td style="text-align: center;"><u>{{ $submissionMod->management_outcome }}</u></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->management_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_in_management }}</td>
                 </tr>
                 <tr>
@@ -155,7 +157,7 @@
                         <small>Selection, training, supervision and experience</small>
                     </td>
                     <td style="text-align: center;">(Min) 0.94 - 1.06 (Max)</td>
-                    <td style="text-align: center;"><u>{{ $submissionMod->employees_outcome }}</u></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->employees_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_employees }}</td>
                 </tr>
                 <tr>
@@ -165,7 +167,7 @@
                         <small>Care, condition, and type</small>
                     </td>
                     <td style="text-align: center;">(Min) 0.96 - 1.04 (Max)</td>
-                    <td style="text-align: center;"><u>{{ $submissionMod->protection_outcome }}</u></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->protection_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_protection }}</td>
                 </tr>
             </table>
@@ -186,26 +188,43 @@
                     </tr>
                 @endforeach
             </table>
-            <div class="page-break">
-                <h5>API Logs</h5>
-                <table id="submissionApiLogsTbl" cellspacing="0" width="100%" style="table-layout: fixed;">
-                    <thead>
+            <h5>API Logs</h5>
+            <table id="submissionApiLogsTbl" cellspacing="0" width="100%" style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th style="overflow-wrap: break-word; word-break:break-all; word-wrap:break-word;">
+                            API Endpoint
+                        </th>
+                        <th style="overflow-wrap: break-word; word-break:break-all; word-wrap:break-word;">
+                            Response
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($submissionAPILogs as $log)
                         <tr>
-                            <th style="overflow-wrap: break-word;">API Endpoint</th>
-                            <th style="overflow-wrap: break-word;">Response</th>
+                            <td style="overflow-wrap: break-word; word-break:break-all; word-wrap:break-word;">
+                                {{ $log->question_text }}
+                            </td>
+                            <td style="overflow-wrap: break-word; word-break:break-all; word-wrap:break-word;">
+                                {{ $log->answer_text }}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($submissionAPILogs as $log)
-                            <tr>
-                                <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
-                                <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            <div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "page {PAGE_NUM} / {PAGE_COUNT}";
+            $size = 8;
+            $font = $fontMetrics->getFont("Verdana");
+            $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+            $x = ($pdf->get_width() - $width) / 2;
+            $y = $pdf->get_height() - 35;
+            $pdf->page_text($x, $y, $text, $font, $size);
+        }
+    </script>
 </body>
 </html>
