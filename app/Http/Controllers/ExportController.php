@@ -59,7 +59,6 @@ class ExportController extends Controller
             $oneAnswers,
             $nullAnswers
         ]);
-
         $pdf = PDF::loadView('export.pdf', [
             'submission' => $submission,
             'underWriter' => $underWriter,
