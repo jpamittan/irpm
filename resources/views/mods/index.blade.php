@@ -545,9 +545,14 @@
                 console.log("Sum: " + diffNewlocationOutcome.toFixed(2) + " + " + diffNewPremisesEquipmentOutcome.toFixed(2) + " + " + diffNewBuildingFeaturesOutcome.toFixed(2) + " + " + diffNewManagementOutcome.toFixed(2) + " + " + diffNewEmployeesOutcome.toFixed(2) + " + " + diffNewProtectionOutcome.toFixed(2));
                 console.log("= " + total.toFixed(2));
                 total += 1;
+                console.log("Raw total: " + total);
+                total = round(total, 2);
                 console.log("Total Mods\%: " + total);
                 $("#totalPercent").html(total);
             });
         });
+        function round(value, decimals) {
+            return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+        }
     </script>
 @endpush
