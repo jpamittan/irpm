@@ -6,7 +6,8 @@ use Auth, PDF;
 use App\Models\{
     Submission,
     SubmissionReview,
-    SubmissionMod
+    SubmissionMod,
+    User
 };
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -18,6 +19,11 @@ class ExportController extends Controller
     {
         config(['sqlsvr.connection' => Auth::user()->db_connection]);
         $submission = Submission::find($submissionId);
+        $submissionMod = SubmissionMod::where('submissions_id', $submissionId)
+            ->with('submission')
+            ->with('outcomeType')
+            ->first();
+        $underWriter = User::find($submissionMod->underwriter_users_id);
         $submissionReviews = SubmissionReview::where('submissions_id', $submission->id)
             ->where('question_text', 'NOT LIKE', '%|%')
             ->get();
@@ -56,6 +62,8 @@ class ExportController extends Controller
 
         $pdf = PDF::loadView('export.pdf', [
             'submission' => $submission,
+            'underWriter' => $underWriter,
+            'submissionMod' => $submissionMod,
             'submissionAPILogs' => $submissionAPILogs,
             'submissionReviews' => $sortedSubmissionReviews,
         ]);

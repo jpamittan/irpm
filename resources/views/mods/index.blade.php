@@ -541,7 +541,7 @@
                     + diffNewBuildingFeaturesOutcome
                     + diffNewManagementOutcome
                     + diffNewEmployeesOutcome
-                    + diffNewProtectionOutcome
+                    + diffNewProtectionOutcome;
                 console.log("Sum: " + diffNewlocationOutcome.toFixed(2) + " + " + diffNewPremisesEquipmentOutcome.toFixed(2) + " + " + diffNewBuildingFeaturesOutcome.toFixed(2) + " + " + diffNewManagementOutcome.toFixed(2) + " + " + diffNewEmployeesOutcome.toFixed(2) + " + " + diffNewProtectionOutcome.toFixed(2));
                 console.log("= " + total.toFixed(2));
                 total += 1;

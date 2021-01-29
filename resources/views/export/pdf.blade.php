@@ -29,12 +29,31 @@
             background-color: #0AD2B0;
             font-weight: bold;
         }
-        #submissionTbl {
+        #submissionTbl, 
+        #submissionModTbl,
+        #submissionQuestionTbl,
+        #submissionApiLogsTbl {
             margin-top: 10px;
             border: 1px solid #000000;
         }
-        #submissionTbl td {
+        #submissionModTbl th, 
+        #submissionQuestionTbl th,
+        #submissionApiLogsTbl th {
+            border: 1px solid #000000;
+            background-color: #c6c6c6;
+        }
+        #submissionTbl td, 
+        #submissionModTbl th, 
+        #submissionQuestionTbl th,
+        #submissionApiLogsTbl th,
+        #submissionModTbl td,
+        #submissionQuestionTbl td,
+        #submissionApiLogsTbl td {
             padding: 5px;
+            border-bottom: 1px solid #000000;
+        }
+        #submissionApiLogsTbl td {
+            font-size: 8px;
         }
     </style>
 </head>
@@ -78,9 +97,114 @@
                 </tr>
                 <tr>
                     <td><b>Underwriter Name:</b></td>
-                    <td colspan=3></td>
+                    <td colspan=3>{{ $underWriter->full_name ?? "N/A" }}</td>
                 </tr>
             </table>
+            <h5>Risk Characteristics</h5>
+            <table id="submissionModTbl">
+                <tr>
+                    <th style="text-align: left;">MODS</th>
+                    <th>RANGE OF USED</th>
+                    <th>MODS</th>
+                    <th>COMMENTS</th>
+                </tr>
+                <tr>
+                    <td>
+                        <b>A. Location</b>
+                        <br>
+                        <small>Premises organization, housekeeping, yard protection</small>
+                    </td>
+                    <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
+                    <td style="text-align: center;"><u>{{ $submissionMod->location_outcome }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_in_location }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>B. Premises</b>
+                        <br>
+                        <small>Cooperation in matters of safeguarding and proper handling of property covered</small>
+                    </td>
+                    <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
+                    <td style="text-align: center;"><u>{{ $submissionMod->premises_equipment_outcome }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_premises_equipment }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>C. Equipment</b>
+                        <br>
+                        <small>Age, condition, scheduled maintenance</small>
+                    </td>
+                    <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
+                    <td style="text-align: center;"><u>{{ $submissionMod->building_features_outcome }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_building_features }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>D. Classification</b>
+                        <br>
+                        <small>Age, condition, and unusual structural features</small>
+                    </td>
+                    <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
+                    <td style="text-align: center;"><u>{{ $submissionMod->management_outcome }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_in_management }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>E. Employees</b>
+                        <br>
+                        <small>Selection, training, supervision and experience</small>
+                    </td>
+                    <td style="text-align: center;">(Min) 0.94 - 1.06 (Max)</td>
+                    <td style="text-align: center;"><u>{{ $submissionMod->employees_outcome }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_employees }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>F. Cooperation</b>
+                        <br>
+                        <small>Care, condition, and type</small>
+                    </td>
+                    <td style="text-align: center;">(Min) 0.96 - 1.04 (Max)</td>
+                    <td style="text-align: center;"><u>{{ $submissionMod->protection_outcome }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_protection }}</td>
+                </tr>
+            </table>
+            <h5>Question List</h5>
+            <table id="submissionQuestionTbl">
+                <tr>
+                    <th>No</th>
+                    <th>Question Description</th>
+                    <th>Answer</th>
+                    <th>Score</th>
+                </tr>
+                @foreach($submissionReviews as $review)
+                    <tr>
+                        <td>{{ $review->question_id }}</td>
+                        <td>{{ $review->question_text }}</td>
+                        <td>{{ $review->answer_text }}</td>
+                        <td>{{ $review->answer_value }}</td>
+                    </tr>
+                @endforeach
+            </table>
+            <div class="page-break">
+                <h5>API Logs</h5>
+                <table id="submissionApiLogsTbl" cellspacing="0" width="100%" style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th style="overflow-wrap: break-word;">API Endpoint</th>
+                            <th style="overflow-wrap: break-word;">Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($submissionAPILogs as $log)
+                            <tr>
+                                <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
+                                <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            <div>
         </div>
     </div>
 </body>
