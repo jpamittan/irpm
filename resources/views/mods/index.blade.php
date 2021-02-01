@@ -4,6 +4,8 @@
     <style>
         .slider-value-text {
             border: none;
+            width: 40px;
+            text-align: center;
         }
         #totalPercent {
             font-weight: bold;
