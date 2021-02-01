@@ -15,6 +15,7 @@
                     </a>
                 </div>
             </div>
+            <div id="submission-msg" style="padding: 10px;"></div>
             <div class="col-md-12">
                 <div class="panel panel-profile">
                     <div class="panel-body">
@@ -177,6 +178,31 @@
             $('#apiLogsModal').on('hidden.bs.modal', function() {
                 $('#submissionAPILogs').dataTable().fnDestroy();
             });
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const save = urlParams.get('save');
+            if (save === "1") {
+                setNotif('success', '<i class="fas fa-check"></i>&nbsp; New submission version created successfully.');
+            }
+            if (save === "0") {
+                setNotif('danger', '<i class="fa fa-fw fa-times"></i>&nbsp; An error has occured. Please try again.');
+            }
         });
+        function setNotif(type, msg) {
+            $('#submission-msg').html(
+                '<div class="row">'+
+                    '<div class="col-md-12" style="margin-bottom: 20px;">'+
+                        '<div class="form-group">'+
+                            '<div class="col-xs-12" style="padding: 0;">'+
+                                '<div class="alert alert-dismissable alert-'+type+'" style="margin: 0;">'+
+                                    msg +
+                                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'
+            );
+        }
     </script>
 @endpush

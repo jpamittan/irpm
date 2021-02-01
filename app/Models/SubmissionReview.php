@@ -14,6 +14,7 @@ class SubmissionReview extends Model
 
     protected $guarded = [];
     protected $casts = [];
+    const UPDATED_AT = 'updated_date';
 
     public function question(): ?HasOne
     {

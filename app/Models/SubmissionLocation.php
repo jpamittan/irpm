@@ -14,6 +14,7 @@ class SubmissionLocation extends Model
 
     protected $guarded = [];
     protected $casts = [];
+    const UPDATED_AT = 'updated_date';
 
     public function territory(): ?HasOne
     {
