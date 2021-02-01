@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Carbon\Carbon;
+use App\Jobs\ModifyModQueue;
 use App\Models\{
     Submission,
-    SubmissionLocation,
-    SubmissionMod,
-    SubmissionReview,
+    SubmissionMod
 };
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\{
+    RedirectResponse,
+    Request
+};
 use Illuminate\Support\Facades\Storage;
 
 class ModsController extends Controller
@@ -31,7 +33,7 @@ class ModsController extends Controller
         ]);
     }
 
-    public function save(Request $request, string $submissionId)
+    public function save(Request $request, string $submissionId): RedirectResponse
     {
         try {
             config(['sqlsvr.connection' => Auth::user()->db_connection]);
@@ -82,48 +84,24 @@ class ModsController extends Controller
             $newSubmissionMod->comments_protection = $request->input('cooperation-comm');
             $newSubmissionMod->underwriter_users_id = Auth::user()->id;
 
-            $filenameWithExt = $request->file('signature')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('signature')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . $newSubmission->id . '_' . $newSubmission->version . '.' . $extension;
-            $path = $request->file('signature')->storeAs('public/signatures', $fileNameToStore);
-            $newSubmissionMod->signature = $fileNameToStore;
+            if ($request->has('signature')) {
+                $filenameWithExt = $request->file('signature')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('signature')->getClientOriginalExtension();
+                $fileNameToStore = $filename . '_' . $newSubmission->id . '_' . $newSubmission->version . '.' . $extension;
+                $path = $request->file('signature')->storeAs('public/signatures', $fileNameToStore);
+                $newSubmissionMod->signature = $fileNameToStore;
+            }
 
             $newSubmissionMod->created_at = Carbon::now();
             $newSubmissionMod->updated_at = Carbon::now();
             $newSubmissionMod->save();
 
-            $submissionReviews = SubmissionReview::where('submissions_id', $submissionId)
-                ->get();
-            foreach ($submissionReviews as $review) {
-                $newSubmissionReviews = new SubmissionReview;
-                $newSubmissionReviews->submissions_id = $newSubmission->id;
-                $newSubmissionReviews->question_id = $review->question_id;
-                $newSubmissionReviews->question_text = $review->question_text;
-                $newSubmissionReviews->answer_text = $review->answer_text;
-                $newSubmissionReviews->answer_value = $review->answer_value;
-                $newSubmissionReviews->created_at = Carbon::now();
-                $newSubmissionReviews->save();
-            }
-            $submissionLocations = SubmissionLocation::where('submissions_id', $submissionId)
-                ->get();
-            foreach ($submissionLocations as $location) {
-                $newSubmissionLocation = new SubmissionLocation;
-                $newSubmissionLocation->submissions_id = $newSubmission->id;
-                $newSubmissionLocation->location_number = $review->location_number;
-                $newSubmissionLocation->highest_floor = $review->highest_floor;
-                $newSubmissionLocation->address_line_01 = $review->address_line_01;
-                $newSubmissionLocation->address_line_02 = $review->address_line_02;
-                $newSubmissionLocation->city = $review->city;
-                $newSubmissionLocation->state = $review->state;
-                $newSubmissionLocation->zip = $review->zip;
-                $newSubmissionLocation->county = $review->county;
-                $newSubmissionLocation->payroll = $review->payroll;
-                $newSubmissionLocation->include_terrorism_tria_cover = $review->include_terrorism_tria_cover;
-                $newSubmissionLocation->exclude_nbcr_terrorism = $review->exclude_nbcr_terrorism;
-                $newSubmissionLocation->created_at = Carbon::now();
-                $newSubmissionLocation->save();
-            }
+            $this->dispatch(new ModifyModQueue(
+                $submissionId,
+                $newSubmission->id
+            ));
+
             $redirect = '/submissions/details/' . $newSubmission->id . '?save=1';
         } catch (\Exception $e) {
             dd($e->getMessage());
