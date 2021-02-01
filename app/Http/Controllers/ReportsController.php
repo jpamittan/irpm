@@ -16,7 +16,7 @@ class ReportsController extends Controller
             if (in_array($mon, ['04', '06', '09', '11'])) {
                 $day = 30;
             } else if ($mon == '02') {
-                $day = 29;
+                $day = 28;
             } else {
                 $day = 31;
             }

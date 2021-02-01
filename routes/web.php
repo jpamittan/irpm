@@ -31,7 +31,10 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/mods/{submissionId}', [ModsController::class, 'index'])->name('mods.index');
+    Route::prefix('mods')->group(function () {
+        Route::get('/{submissionId}', [ModsController::class, 'index'])->name('mods.index');
+        Route::post('/{submissionId}', [ModsController::class, 'save'])->name('mods.save');
+    });
     Route::prefix('settings')->group(function () {
         Route::get('/{user}', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/environment/{user}', [SettingsController::class, 'saveEnvironment'])->name('settings.saveEnvironment');
