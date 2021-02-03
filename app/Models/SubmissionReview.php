@@ -31,6 +31,6 @@ class SubmissionReview extends Model
             'Decline'
         ];
 
-        return (!in_array($value, $scores)) ? $value : null;
+        return (in_array($value, $scores)) ? $value : null;
     }
 }
