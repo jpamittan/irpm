@@ -170,6 +170,14 @@
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->protection_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_protection }}</td>
                 </tr>
+                <tr>
+                    <td>
+                        <b>Total Mods %</b>
+                    </td>
+                    <td style="text-align: center;"></td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->overall_outcome, 2) }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_in_total }}</td>
+                </tr>
             </table>
             <h5>Question List</h5>
             <table id="submissionQuestionTbl">
