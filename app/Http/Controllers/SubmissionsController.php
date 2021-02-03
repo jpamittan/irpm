@@ -153,6 +153,9 @@ class SubmissionsController extends Controller
                 $wordAnswers[] = $review;
             }
         }
+        usort($wordAnswers, function($a, $b) {
+            return strcmp($a->answer_value, $b->answer_value);
+        });
         $sortedSubmissionReviews = Arr::collapse([
             $wordAnswers,
             $minusOneAnswers,
