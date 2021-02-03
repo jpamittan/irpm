@@ -23,6 +23,14 @@ class SubmissionReview extends Model
 
     public function getAnswerValueAttribute($value)
     {
-        return (strtolower($value) == 'continue') ? null : $value;
+        $scores = [
+            'continue',
+            'Continue',
+            '500/500',
+            '1,000/1,000',
+            'Continue as None'
+        ];
+
+        return (in_array($value, $scores)) ? null : $value;
     }
 }
