@@ -26,6 +26,7 @@ class SubmissionReview extends Model
         $scores = [
             'continue',
             'Continue',
+            'Continue ',
             '500/500',
             '1,000/1,000',
             'Continue as None'
