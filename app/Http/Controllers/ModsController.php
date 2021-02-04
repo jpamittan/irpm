@@ -73,6 +73,8 @@ class ModsController extends Controller
             $newSubmissionMod->premises_equipment_outcome = $request->input('premises-mod');
             $newSubmissionMod->employees_outcome = $request->input('employees-mod');
             $newSubmissionMod->protection_outcome = $request->input('cooperation-mod');
+            $newSubmissionMod->organization_outcome = $request->input('organization-mod');
+
             $newSubmissionMod->overall_outcome = $request->input('total-mod');
             $newSubmissionMod->outcome_type_id = $submissionMod->outcome_type_id;
             $newSubmissionMod->comments_in_total = $request->input('total-comm');
@@ -82,6 +84,8 @@ class ModsController extends Controller
             $newSubmissionMod->comments_premises_equipment = $request->input('premises-comm');
             $newSubmissionMod->comments_employees = $request->input('employees-comm');
             $newSubmissionMod->comments_protection = $request->input('cooperation-comm');
+            $newSubmissionMod->comments_organization = $request->input('organization-comm');
+
             $newSubmissionMod->underwriter_users_id = Auth::user()->id;
 
             if ($request->has('signature')) {

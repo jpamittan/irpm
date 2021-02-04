@@ -112,9 +112,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <b>A. Location</b>
+                        <!-- <b>A. Location</b> -->
+                        <b>A. Health</b>
                         <br>
-                        <small>Premises organization, housekeeping, yard protection</small>
+                        <!-- <small>Premises organization, housekeeping, yard protection</small> -->
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->location_outcome, 2) }}</u></td>
@@ -124,9 +125,10 @@
                     <td>
                         <b>B. Premises</b>
                         <br>
-                        <small>Cooperation in matters of safeguarding and proper handling of property covered</small>
+                        <!-- <small>Cooperation in matters of safeguarding and proper handling of property covered</small> -->
                     </td>
-                    <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
+                    <!-- <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td> -->
+                    <td style="text-align: center;">(Min) 0.95 - 1.05 (Max)</td>
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->premises_equipment_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_premises_equipment }}</td>
                 </tr>
@@ -134,7 +136,7 @@
                     <td>
                         <b>C. Equipment</b>
                         <br>
-                        <small>Age, condition, scheduled maintenance</small>
+                        <!-- <small>Age, condition, scheduled maintenance</small> -->
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->building_features_outcome, 2) }}</u></td>
@@ -142,9 +144,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <b>D. Classification</b>
+                        <!-- <b>D. Classification</b> -->
+                        <b>D. Management</b>
                         <br>
-                        <small>Age, condition, and unusual structural features</small>
+                        <!-- <small>Age, condition, and unusual structural features</small> -->
                     </td>
                     <td style="text-align: center;">(Min) 0.90 - 1.10 (Max)</td>
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->management_outcome, 2) }}</u></td>
@@ -154,21 +157,34 @@
                     <td>
                         <b>E. Employees</b>
                         <br>
-                        <small>Selection, training, supervision and experience</small>
+                        <!-- <small>Selection, training, supervision and experience</small> -->
                     </td>
-                    <td style="text-align: center;">(Min) 0.94 - 1.06 (Max)</td>
+                    <!-- <td style="text-align: center;">(Min) 0.94 - 1.06 (Max)</td> -->
+                    <td style="text-align: center;">(Min) 0.95 - 1.05 (Max)</td>
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->employees_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_employees }}</td>
                 </tr>
                 <tr>
                     <td>
-                        <b>F. Cooperation</b>
+                        <!-- <b>F. Cooperation</b> -->
+                        <b>F. Classification</b>
                         <br>
-                        <small>Care, condition, and type</small>
+                        <!-- <small>Care, condition, and type</small> -->
                     </td>
-                    <td style="text-align: center;">(Min) 0.96 - 1.04 (Max)</td>
+                    <!-- <td style="text-align: center;">(Min) 0.96 - 1.04 (Max)</td> -->
+                    <td style="text-align: center;">(Min) 0.95 - 1.05 (Max)</td>
                     <td style="text-align: center;"><u>{{ number_format($submissionMod->protection_outcome, 2) }}</u></td>
                     <td style="text-align: center;">{{ $submissionMod->comments_protection }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>G. Organization</b>
+                        <br>
+                        <!-- <small>Care, condition, and type</small> -->
+                    </td>
+                    <td style="text-align: center;">(Min) 0.95 - 1.05 (Max)</td>
+                    <td style="text-align: center;"><u>{{ number_format($submissionMod->organization_outcome, 2) }}</u></td>
+                    <td style="text-align: center;">{{ $submissionMod->comments_organization }}</td>
                 </tr>
                 <tr>
                     <td>
