@@ -34,6 +34,27 @@ class ExportController extends Controller
                 'answer_text'
             ])
             ->get();
+        if (! $submissionMod->underwriter_users_id) {
+            foreach ($submissionAPILogs as $review) {
+                if ($review->question_text == 'Modfactor|Final|Health') {
+                    $submissionMod->location_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Premises') {
+                    $submissionMod->premises_equipment_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Equipment') {
+                    $submissionMod->building_features_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Management') {
+                    $submissionMod->management_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Employees') {
+                    $submissionMod->employees_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Classification') {
+                    $submissionMod->protection_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Organization') {
+                    $submissionMod->organization_outcome = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Final|Overall') {
+                    $submissionMod->overall_outcome = $review->answer_text;
+                }
+            }
+        }
         $nullAnswers = [];
         $minusOneAnswers = [];
         $zeroAnswers = [];
