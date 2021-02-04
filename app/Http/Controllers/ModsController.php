@@ -46,7 +46,9 @@ class ModsController extends Controller
             } else if ($review->question_text == 'Modfactor|Final|Organization') {
                 $submissionMod->organization_outcome = $review->answer_text;
             } else if ($review->question_text == 'Modfactor|Final|Overall') {
-                $submissionMod->overall_outcome = $review->answer_text;
+                if (! $submissionMod->underwriter_users_id) {
+                    $submissionMod->overall_outcome = $review->answer_text;
+                }
             }
         }
 
@@ -61,6 +63,7 @@ class ModsController extends Controller
     {
         try {
             config(['sqlsvr.connection' => Auth::user()->db_connection]);
+
             $submission = Submission::find($submissionId);
             $newSubmission = new Submission;
             $newSubmission->submission_id = $submission->submission_id;
@@ -100,6 +103,7 @@ class ModsController extends Controller
             $newSubmissionMod->organization_outcome = $request->input('organization-mod');
 
             $newSubmissionMod->overall_outcome = $request->input('total-mod');
+
             $newSubmissionMod->outcome_type_id = $submissionMod->outcome_type_id;
             $newSubmissionMod->comments_in_total = $request->input('total-comm');
             $newSubmissionMod->comments_in_management = $request->input('classification-comm');
