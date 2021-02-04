@@ -315,7 +315,7 @@
                                                         <input type="text" class="slider-value-text" id="totalPercent" name="total-mod" value="{{ number_format($submissionMod->overall_outcome, 2) }}" readonly/>
                                                     </span>
                                                 @else
-                                                    <input type="text" class="slider-value-text" id="totalPercent" name="total-mod" value="{{ number_format($submissionMod->overall_outcome, 2) }}" readonly/>
+                                                    <input type="text" class="slider-value-text" id="totalPercent" name="total-mod" value="{{ bcdiv($submissionMod->overall_outcome, 1, 2) }}" readonly/>
                                                 @endif
                                             </h3>
                                         </div>
