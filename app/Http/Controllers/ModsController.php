@@ -45,7 +45,7 @@ class ModsController extends Controller
                 $submissionMod->protection_outcome = $review->answer_text;
             } else if ($review->question_text == 'Modfactor|Final|Organization') {
                 $submissionMod->organization_outcome = $review->answer_text;
-            } else if ($review->question_text == 'Modfactor|Final|Score|Average') {
+            } else if ($review->question_text == 'Modfactor|Final|Overall') {
                 $submissionMod->overall_outcome = $review->answer_text;
             }
         }
