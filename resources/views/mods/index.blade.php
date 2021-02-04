@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-12" style="padding: 0px 20px 20px 20px;">
                         <a href="{{ route('submissions.details', ['submissionId' => $submissionMod->submissions_id]) }}">
-                            <button class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn btn-small btn-light"><i class="fa fa-arrow-left"></i> Back</button>
                         </a>
                     </div>
                 </div>
