@@ -7,7 +7,8 @@ use Carbon\Carbon;
 use App\Jobs\ModifyModQueue;
 use App\Models\{
     Submission,
-    SubmissionMod
+    SubmissionMod,
+    SubmissionReview
 };
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{
@@ -25,6 +26,29 @@ class ModsController extends Controller
             ->with('submission')
             ->with('outcomeType')
             ->first();
+        // Map Risks to Submission Reviews
+        $submissionReviews = SubmissionReview::where('submissions_id', $submissionId)
+            ->where('question_text', 'LIKE', '%modfactor|final|%')
+            ->get();
+        foreach ($submissionReviews as $review) {
+            if ($review->question_text == 'Modfactor|Final|Health') {
+                $submissionMod->location_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Premises') {
+                $submissionMod->premises_equipment_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Equipment') {
+                $submissionMod->building_features_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Management') {
+                $submissionMod->management_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Employees') {
+                $submissionMod->employees_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Classification') {
+                $submissionMod->protection_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Organization') {
+                $submissionMod->organization_outcome = $review->answer_text;
+            } else if ($review->question_text == 'Modfactor|Final|Score|Average') {
+                $submissionMod->overall_outcome = $review->answer_text;
+            }
+        }
 
         return view('mods.index', [
             'submissionMod' => $submissionMod,
