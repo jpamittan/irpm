@@ -109,12 +109,12 @@
                                             <span class="hidden-xs">Submissions Per Day</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="#tab-revenues" id="tab-revenues-link" data-toggle="tab">
                                             <i class="fa fa-bar-chart-o visible-xs"></i> 
                                             <span class="hidden-xs">Submissions Per Month</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </h2>
                         </div>
