@@ -63,7 +63,6 @@ class ModsController extends Controller
     {
         try {
             config(['sqlsvr.connection' => Auth::user()->db_connection]);
-
             $submission = Submission::find($submissionId);
             $newSubmission = new Submission;
             $newSubmission->submission_id = $submission->submission_id;
@@ -94,6 +93,7 @@ class ModsController extends Controller
             $newSubmissionMod->submissions_id = $newSubmission->id;
             $newSubmissionMod->min = $submissionMod->min;
             $newSubmissionMod->max = $submissionMod->max;
+
             $newSubmissionMod->management_outcome = $request->input('classification-mod');
             $newSubmissionMod->location_outcome = $request->input('location-mod');
             $newSubmissionMod->building_features_outcome = $request->input('equipment-mod');

@@ -13,9 +13,11 @@ use Illuminate\Http\{
 class SettingsController extends Controller
 {
     protected $environments = [
-        'sqlsrv_dev' => 'Development',
-        'sqlsrv_uat' => 'UAT',
-        'sqlsrv_preprod' => 'Pre Production'
+        'sqlsrv_el' => 'EL - Development',
+        'sqlsrv_wc' => 'WC - Development',
+        'sqlsrv_dev' => 'TGL - Development',
+        'sqlsrv_uat' => 'TGL - UAT',
+        'sqlsrv_preprod' => 'TGL - Pre Production'
     ];
 
     public function index(User $user): View
