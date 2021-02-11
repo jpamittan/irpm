@@ -117,7 +117,7 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'sqlsrv_wc' => [
+        'sqlsrv_wcm' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('MS_DB_HOST', 'localhost'),
@@ -130,7 +130,7 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'sqlsrv_el' => [
+        'sqlsrv_exl' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('MS_DB_HOST', 'localhost'),

@@ -13,10 +13,10 @@ use Illuminate\Http\{
 class UsersController extends Controller
 {
     protected $environments = [
-        'sqlsrv_el' => 'Excess Liability',
-        'sqlsrv_wc' => 'Workers Compensation',
-        // 'sqlsrv_dev' => 'TGL - Development',
+        'sqlsrv_exl' => 'Excess Liability',
+        'sqlsrv_wcm' => 'Workers Compensation',
         'sqlsrv_uat' => 'Truckers General Liability',
+        // 'sqlsrv_dev' => 'TGL - Development',
         // 'sqlsrv_preprod' => 'TGL - Pre Production'
     ];
 
