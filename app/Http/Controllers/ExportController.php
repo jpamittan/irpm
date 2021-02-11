@@ -18,6 +18,7 @@ class ExportController extends Controller
     public function pdf(string $submissionId)
     {
         config(['sqlsvr.connection' => Auth::user()->db_connection]);
+        $view = 'export.cgl';
         $submission = Submission::find($submissionId);
         $submissionMod = SubmissionMod::where('submissions_id', $submissionId)
             ->with('submission')
@@ -34,24 +35,27 @@ class ExportController extends Controller
                 'answer_text'
             ])
             ->get();
-        if (! $submissionMod->underwriter_users_id) {
-            foreach ($submissionAPILogs as $review) {
-                if ($review->question_text == 'Modfactor|Final|Health') {
-                    $submissionMod->location_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Premises') {
-                    $submissionMod->premises_equipment_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Equipment') {
-                    $submissionMod->building_features_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Management') {
-                    $submissionMod->management_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Employees') {
-                    $submissionMod->employees_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Classification') {
-                    $submissionMod->protection_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Organization') {
-                    $submissionMod->organization_outcome = $review->answer_text;
-                } else if ($review->question_text == 'Modfactor|Final|Overall') {
-                    $submissionMod->overall_outcome = $review->answer_text;
+        if ($submissionMod->submission->line_of_business == 'WRKCMP') {
+            $view = 'export.wc';
+            if (! $submissionMod->underwriter_users_id) {
+                foreach ($submissionAPILogs as $review) {
+                    if ($review->question_text == 'Modfactor|Final|Health') {
+                        $submissionMod->location_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Premises') {
+                        $submissionMod->premises_equipment_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Equipment') {
+                        $submissionMod->building_features_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Management') {
+                        $submissionMod->management_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Employees') {
+                        $submissionMod->employees_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Classification') {
+                        $submissionMod->protection_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Organization') {
+                        $submissionMod->organization_outcome = $review->answer_text;
+                    } else if ($review->question_text == 'Modfactor|Final|Overall') {
+                        $submissionMod->overall_outcome = $review->answer_text;
+                    }
                 }
             }
         }
@@ -85,7 +89,7 @@ class ExportController extends Controller
         ]);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->loadView('export.pdf', [
+        $pdf->loadView($view, [
             'submission' => $submission,
             'underWriter' => $underWriter,
             'submissionMod' => $submissionMod,
