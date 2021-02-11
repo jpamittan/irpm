@@ -17,26 +17,6 @@ class SubmissionsController extends Controller
     {
         session(['filterOutcomeTypeID' => null]);
 
-        config(['sqlsvr.connection' => Auth::user()->db_connection]);
-        $queryRecords = Submission::orderBy('created_at', 'DESC')
-            ->whereNotNull('submissions.business_name')
-            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
-            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id')
-            ->select([
-                'submissions.id',
-                'submissions.submission_id',
-                'submissions.version',
-                'submissions.business_name',
-                'submissions.agent',
-                'outcome_type.description',
-                'submissions.created_at'
-            ])
-            ->skip(0)
-            ->take(10)
-            ->get();
-        dd($queryRecords);
-
-
         return view('submissions.index');
     }
 
