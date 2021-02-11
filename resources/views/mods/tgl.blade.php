@@ -10,6 +10,12 @@
         #totalPercent {
             font-weight: bold;
             text-align: center;
+            width: 80px;
+        }
+        #comment-total {
+            max-width: 100%;
+            min-width: 100%;
+            min-height: 100px;
         }
     </style>
 @endpush
@@ -48,8 +54,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-4" style="text-align: center;">
-                                    <!-- <b>A. Location</b> -->
-                                    <b>A. Health</b>
+                                    <b>A. Location</b>
                                     <br>
                                     <!-- <small>Premises organization, housekeeping, yard protection</small> -->
                                 </div>
@@ -99,7 +104,7 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            1.10
                                         </div>
                                     </div>
                                     <br>
@@ -148,8 +153,7 @@
                             <hr class="outsider">
                             <div class="row">
                                 <div class="col-md-4" style="text-align: center;">
-                                    <!-- <b>D. Classification</b> -->
-                                    <b>D. Management</b>
+                                    <b>D. Classification</b>
                                     <br>
                                     <!-- <small>Age, condition, and unusual structural features</small> -->
                                 </div>
@@ -199,7 +203,7 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            1.06
                                         </div>
                                     </div>
                                     <br>
@@ -215,8 +219,7 @@
                             <hr class="outsider">
                             <div class="row">
                                 <div class="col-md-4" style="text-align: center;">
-                                    <!-- <b>F. Cooperation</b> -->
-                                    <b>F. Classification</b>
+                                    <b>F. Cooperation</b>
                                     <br>
                                     <!-- <small>Care, condition, and type</small> -->
                                 </div>
@@ -233,7 +236,7 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            1.04
                                         </div>
                                     </div>
                                     <br>
@@ -244,39 +247,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <textarea class="form-control autosize" name="cooperation-comm"></textarea>
-                                </div>
-                            </div>
-                            <hr class="outsider">
-                            <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
-                                    <b>G. Organization</b>
-                                    <br>
-                                    <!-- <small></small> -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-12">
-                                        <div class="col-md-2">
-                                            Min
-                                            <br>
-                                            {{ ($submissionMod->organization_outcome) ? number_format($submissionMod->organization_outcome, 2, '.', '') : 0.95 }}
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div id="slider-range-min-7" class="slider danger"></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            Max
-                                            <br>
-                                            1.05
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="slider-value" style="text-align: center;">
-                                        Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-7" name="organization-mod" value="{{ ($submissionMod->organization_outcome) ? number_format($submissionMod->organization_outcome, 2, '.', '') : 0.95 }}" readonly/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="organization-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -349,7 +319,7 @@
                                         <div class="col-md-4" style="text-align: center;">
                                             Comments on Total %:
                                             <br><br>
-                                            <textarea class="form-control autosize" name="total-comm"></textarea>
+                                            <textarea class="form-control autosize" name="total-comm" id="comment-total"></textarea>
                                         </div>
                                         <div class="col-md-4"></div>
                                     </div>
@@ -471,7 +441,6 @@
             let managementOutcomeMinValue = parseFloat('{{ $submissionMod->management_outcome }}');
             let employeesOutcomeMinValue = parseFloat('{{ $submissionMod->employees_outcome }}');
             let protectionOutcomeMinValue = parseFloat('{{ $submissionMod->protection_outcome }}');
-            let organizationOutcomeMinValue = parseFloat('{{ $submissionMod->organization_outcome ?? 0.95 }}');
 
             let newlocationOutcome = parseFloat('{{ $submissionMod->location_outcome }}');
             let newPremisesEquipmentOutcome = parseFloat('{{ $submissionMod->premises_equipment_outcome }}');
@@ -479,23 +448,14 @@
             let newManagementOutcome = parseFloat('{{ $submissionMod->management_outcome }}');
             let newEmployeesOutcome = parseFloat('{{ $submissionMod->employees_outcome }}');
             let newProtectionOutcome = parseFloat('{{ $submissionMod->protection_outcome }}');
-            let newOrganizationOutcome = parseFloat('{{ $submissionMod->organization_outcome ?? 0.95 }}');
 
-            // TGL 
-            // let locationOutcomeMaxValue = 1.10;
-            // let premisesEquipmentOutcomeMaxValue = 1.10;
-            // let buildingFeaturesOutcomeMaxValue = 1.10;
-            // let managementOutcomeMaxValue = 1.10;
-            // let employeesOutcomeMaxValue = 1.06;
-            // let protectionOutcomeMaxValue = 1.04;
-               
-            let locationOutcomeMaxValue = 1.10; // Health
-            let premisesEquipmentOutcomeMaxValue = 1.05;
-            let buildingFeaturesOutcomeMaxValue = 1.10;
-            let managementOutcomeMaxValue = 1.10;
-            let employeesOutcomeMaxValue = 1.05;
-            let protectionOutcomeMaxValue = 1.05; // Classification
-            let organizationOutcomeMaxValue = 1.05;
+            // TGL
+            let locationOutcomeMaxValue = 1.10;
+            let premisesEquipmentOutcomeMaxValue = 1.10;
+            let buildingFeaturesOutcomeMaxValue = 1.10; // Equipment
+            let managementOutcomeMaxValue = 1.10; // classification
+            let employeesOutcomeMaxValue = 1.06;
+            let protectionOutcomeMaxValue = 1.04;  // Cooperation
 
             $("#slider-range-min").slider({
                 range: "min",
@@ -569,18 +529,6 @@
                 }
             });
             $("#slider-range-min-amount-6").text($("#slider-range-min-6").slider("value"));
-            $("#slider-range-min-7").slider({
-                range: "min",
-                value: {{ $submissionMod->organization_outcome ?? 0.95 }},
-                min: {{ $submissionMod->organization_outcome ?? 0.95 }},
-                max: organizationOutcomeMaxValue,
-                step: 0.01,
-                slide: function (event, ui) {
-                    newOrganizationOutcome = ui.value;
-                    $("#slider-range-min-amount-7").val(ui.value);
-                }
-            });
-            $("#slider-range-min-amount-7").text($("#slider-range-min-7").slider("value"));
             $("#btnCalculate").click(() => {
                 if (newlocationOutcome == locationOutcomeMinValue) {
                     diffNewlocationOutcome = (locationOutcomeMinValue - 1);
@@ -642,24 +590,13 @@
                     console.log("= " + diffNewProtectionOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                if (newOrganizationOutcome == organizationOutcomeMinValue) {
-                    diffnewOrganizationOutcome = (organizationOutcomeMinValue - 1);
-                    console.log("diffnewOrganizationOutcome: " + organizationOutcomeMinValue + " - 1");
-                    console.log("= " + diffnewOrganizationOutcome.toFixed(2));
-                } else {
-                    diffnewOrganizationOutcome = (newOrganizationOutcome - 1);
-                    console.log("diffnewOrganizationOutcome: " + newOrganizationOutcome + " - 1");
-                    console.log("= " + diffnewOrganizationOutcome.toFixed(2));
-                }
-                console.log("-----------------------------------");
                 let total = diffNewlocationOutcome
                     + diffNewPremisesEquipmentOutcome
                     + diffNewBuildingFeaturesOutcome
                     + diffNewManagementOutcome
                     + diffNewEmployeesOutcome
-                    + diffNewProtectionOutcome
-                    + diffnewOrganizationOutcome;
-                console.log("Sum: " + diffNewlocationOutcome.toFixed(2) + " + " + diffNewPremisesEquipmentOutcome.toFixed(2) + " + " + diffNewBuildingFeaturesOutcome.toFixed(2) + " + " + diffNewManagementOutcome.toFixed(2) + " + " + diffNewEmployeesOutcome.toFixed(2) + " + " + diffNewProtectionOutcome.toFixed(2) + " + " + diffnewOrganizationOutcome.toFixed(2));
+                    + diffNewProtectionOutcome;
+                console.log("Sum: " + diffNewlocationOutcome.toFixed(2) + " + " + diffNewPremisesEquipmentOutcome.toFixed(2) + " + " + diffNewBuildingFeaturesOutcome.toFixed(2) + " + " + diffNewManagementOutcome.toFixed(2) + " + " + diffNewEmployeesOutcome.toFixed(2) + " + " + diffNewProtectionOutcome.toFixed(2));
                 console.log("= " + total.toFixed(2));
                 total += 1;
                 console.log("Raw total: " + total);
