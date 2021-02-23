@@ -75,6 +75,7 @@ class SubmissionsController extends Controller
                 'submissions.submission_id',
                 'submissions.version',
                 'submissions.business_name',
+                'submissions.line_of_business',
                 'submissions.agent',
                 'outcome_type.description',
                 'submissions.created_at'
@@ -98,6 +99,7 @@ class SubmissionsController extends Controller
                 'submission_id' => $record->submission_id,
                 'version' => $record->version,
                 'business_name' => $record->business_name,
+                'line_of_business' => $record->line_of_business,
                 'agent' => $record->agent,
                 'description' => $record->description,
                 'created_at' => $record->created_at

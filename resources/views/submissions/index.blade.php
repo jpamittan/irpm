@@ -29,6 +29,7 @@
                                         <th style="width: 120px;">Submission ID</th>
                                         <th style="width: 80px;">Version</th>
                                         <th>Business Name</th>
+                                        <th style="width: 200px;">Line of Business</th>
                                         <th style="width: 200px;">Underwriter Name</th>
                                         <th style="width: 120px;">Outcome</th>
                                         <th style="width: 180px;">Date submission</th>
@@ -62,12 +63,13 @@
                 serverSide: true,
                 ajax: "{{ route('submissions.datatables') }}",
                 order: [
-                    [ 5, "desc" ]
+                    [ 6, "desc" ]
                 ],
                 columns: [
                     { data: 'submission_id', name: 'submissions.submission_id' },
                     { data: 'version', name: 'submissions.version' },
                     { data: 'business_name', name: 'submissions.business_name' },
+                    { data: 'line_of_business', name: 'submissions.line_of_business' },
                     {
                         data: 'agent',
                         name: 'submissions.agent',
@@ -94,7 +96,10 @@
                         data: 'created_at',
                         name: 'submissions.created_at',
                         render: function (data, type, row) {
-                            return moment(data).format('MM/DD/YYYY hh:mm A');
+                            if (data) {
+                                return moment(data).format('MM/DD/YYYY hh:mm A');
+                            }
+                            return data;
                         }
                     },
                     {
