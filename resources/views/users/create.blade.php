@@ -75,8 +75,12 @@
                             </label>
                             <div class="col-sm-8">
                                 <select class="form-control" name="db_connection" required>
-                                    @foreach ($environments as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @foreach ($environments as $env)
+                                        <optgroup label="{{ $env['name'] }}">
+                                            @foreach ($env['connections'] as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </optgroup>
                                     @endforeach
                                 </select>
                             </div>

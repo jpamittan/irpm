@@ -13,11 +13,26 @@ use Illuminate\Http\{
 class UsersController extends Controller
 {
     protected $environments = [
-        'sqlsrv_exl' => 'Excess Liability',
-        'sqlsrv_wcm' => 'Workers Compensation',
-        'sqlsrv_uat' => 'Truckers General Liability',
-        // 'sqlsrv_dev' => 'TGL - Development',
-        // 'sqlsrv_preprod' => 'TGL - Pre Production'
+        [
+            'name' => 'Excess Liability',
+            'connections' => [
+                'sqlsrv_exl' => 'Development',
+            ]
+        ],
+        [
+            'name' => 'Workers Compensation',
+            'connections' => [
+                'sqlsrv_wcm' => 'Development',
+            ]
+        ],
+        [
+            'name' => 'Truckers General Liability',
+            'connections' => [
+                'sqlsrv_uat' => 'UAT',
+                'sqlsrv_pre' => 'PreProd',
+                'sqlsrv_prd' => 'Production'
+            ]
+        ]
     ];
 
     public function index(): View

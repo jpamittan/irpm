@@ -64,12 +64,16 @@
                                         </label>
                                         <div class="col-sm-8">
                                             <select class="form-control" name="db_connection" required>
-                                                @foreach ($environments as $key => $value)
-                                                    @if ($key == $user->db_connection)
-                                                        <option value="{{ $key }}" selected>{{ $value }}</option>
-                                                    @else
-                                                        <option value="{{ $key }}">{{ $value }}</option>
-                                                    @endif
+                                                @foreach ($environments as $env)
+                                                    <optgroup label="{{ $env['name'] }}">
+                                                        @foreach ($env['connections'] as $key => $value)
+                                                            @if ($key == $user->db_connection)
+                                                                <option value="{{ $key }}" selected>{{ $value }} *</option>
+                                                            @else
+                                                                <option value="{{ $key }}">{{ $value }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </optgroup>
                                                 @endforeach
                                             </select>
                                         </div>
