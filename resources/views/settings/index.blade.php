@@ -49,47 +49,45 @@
                         </form>
                     </div>
                 </div>
-                @if ($user->is_admin)
-                    <div id="panel-advancedoptions">
-                        <div class="panel panel-default" data-widget-editbutton="false" id="p1">
-                            <form action="{{ route('settings.saveEnvironment', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
-                                @csrf
-                                <div class="panel-heading">
-                                    <h2>Environment Configuration</h2>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                            <i class="fas fa-database"></i> Environment Connection
-                                        </label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control" name="db_connection" required>
-                                                @foreach ($environments as $env)
-                                                    <optgroup label="{{ $env['name'] }}">
-                                                        @foreach ($env['connections'] as $key => $value)
-                                                            @if ($key == $user->db_connection)
-                                                                <option value="{{ $key }}" selected>{{ $value }} *</option>
-                                                            @else
-                                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </optgroup>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                <div id="panel-advancedoptions">
+                    <div class="panel panel-default" data-widget-editbutton="false" id="p1">
+                        <form action="{{ route('settings.saveEnvironment', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
+                            @csrf
+                            <div class="panel-heading">
+                                <h2>Environment Configuration</h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        <i class="fas fa-database"></i> Environment Connection
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="db_connection" required>
+                                            @foreach ($environments as $env)
+                                                <optgroup label="{{ $env['name'] }}">
+                                                    @foreach ($env['connections'] as $key => $value)
+                                                        @if ($key == $user->db_connection)
+                                                            <option value="{{ $key }}" selected>{{ $value }} *</option>
+                                                        @else
+                                                            <option value="{{ $key }}">{{ $value }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-8 col-sm-offset-2">
-                                                <button class="btn-primary btn"><i class="fas fa-save"></i> Update</button>
-                                            </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <button class="btn-primary btn"><i class="fas fa-save"></i> Update</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-                @endif
+                </div>
             </div>
         </div>
     </div> <!-- .container-fluid -->

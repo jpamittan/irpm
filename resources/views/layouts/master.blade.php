@@ -100,11 +100,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
                         <span class="hidden-xs">{{ Auth::user()->full_name }}</span>
-                        <img 
+                        <!-- <img 
                             class="img-circle" 
                             src="{{ asset('demo/avatar/avatar_06.png') }}" 
                             alt="{{ substr(ucwords(Auth::user()->first_name), 0, 1) }}{{ substr(ucwords(Auth::user()->last_name), 0, 1) }}" 
-                        />
+                        /> -->
                     </a>
                     <ul class="dropdown-menu userinfo">
                         <!-- <li>
