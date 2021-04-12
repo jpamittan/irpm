@@ -100,6 +100,7 @@
                         <div id="panel-attachments">
                             <div class="panel panel-default">
                                 <form 
+                                    id="frm-gen-attachments"
                                     action="{{ 
                                         route('submissions.upload', [
                                             'lob' => $submission->line_of_business, 
@@ -119,10 +120,10 @@
                                         <div class="form-group" style="padding-bottom: 0;">
                                             <label class="col-sm-2 control-label">Attachment:</label>
                                             <div class="col-sm-8" style="padding-top: 5px;">
-                                                <input type="file" name="attachment">
+                                                <input type="file" id="attachment" name="attachment">
                                                 <small><i>(25mb filesize limit)</i></small>
-                                                <br>
-                                                <button type="submit" class="btn-primary btn" style="margin-top: 10px;">
+                                                <div id="upload-err" style="color: #e64433;"></div>
+                                                <button type="submit" id="btn-attach" class="btn-primary btn" style="margin-top: 10px;">
                                                     <i class="fas fa-paperclip"></i> Attach
                                                 </button>
                                             </div>
@@ -264,6 +265,24 @@
                     }, 10000);
                 }
             });
+            $('#attachment').on('change', function(evt) {
+                if (exceedsFileSize(this.files[0].size)) {
+                    $('#btn-attach').prop("disabled", true);
+                    $('#upload-err').html("File size exceeds limit.");
+                } else {
+                    $('#btn-attach').prop("disabled", false);
+                    $('#upload-err').html("");
+                }
+            });
+            $("#frm-gen-attachments").submit(function(e) {
+                if (!$('#attachment').val()) {
+                    e.preventDefault();
+                } else {
+                    if (!confirm('Are you sure you want to attach the file?')) {
+                        e.preventDefault();
+                    }
+                }
+            });
         });
         function setNotif(type, msg) {
             $('#submission-msg').html(
@@ -280,6 +299,16 @@
                     '</div>'+
                 '</div>'
             );
+        }
+        function bytesToSize(bytes) {
+            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            if (bytes == 0) return '0 Byte';
+            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+        }
+        function exceedsFileSize(size) {
+            var FileSize = size / 1024 / 1024; // in MB
+            return (FileSize > 25);
         }
     </script>
 @endpush
