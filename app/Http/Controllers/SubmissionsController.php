@@ -7,9 +7,11 @@ use App\Models\{
     Submission,
     SubmissionReview
 };
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class SubmissionsController extends Controller
 {
@@ -137,6 +139,12 @@ class SubmissionsController extends Controller
                 'answer_text'
             ])
             ->get();
+        $ONEviewContextToken = null;
+        foreach ($submissionAPILogs as $log) {
+            if ($log->question_text == "API|Finalize Quote Token") {
+                $ONEviewContextToken = $log->answer_text;
+            }
+        }
         $nullAnswers = [];
         $minusOneAnswers = [];
         $zeroAnswers = [];
@@ -170,6 +178,29 @@ class SubmissionsController extends Controller
             'submission' => $submission,
             'submissionAPILogs' => $submissionAPILogs,
             'submissionReviews' => $sortedSubmissionReviews,
+            'lob' => Auth::user()->db_connection,
+            'ONEviewContextToken' => $ONEviewContextToken
+        ]);
+    }
+
+    public function upload(string $lob, int $submissionId, int $version, Request $request): View
+    {
+        $attachment = $request->file('attachment');
+        $path = "/" . $lob . "/" . $submissionId . "/" . $version;
+        $file_name = str_replace(" ", "_", $attachment->getClientOriginalName());
+        $storage = Storage::disk('public')->putFileAs($path, $attachment, $file_name);
+        dd([
+            'lob' => $lob,
+            'submissionId' => $submissionId,
+            'version' => $version,
+            'path' => $storage,
+            'url' => env('APP_URL') . '/storage/' . $storage,
+            'file_name' => $file_name,
+            'file_ext' => $attachment->getClientOriginalExtension(),
+            'file_size' => $attachment->getSize(),
+            'size_unit' => "bytes",
+            'uploaded_by' => Auth::user()->full_name,
+            'created_at' => Carbon::now()
         ]);
     }
 }

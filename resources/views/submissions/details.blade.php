@@ -58,6 +58,21 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="options" style="text-align: right;">
+                                    @if($lob == "sqlsrv_exl")
+                                        <div class="btn-toolbar" style="display: inline-block;">
+                                            <form 
+                                                id="frm-worksheet"
+                                                action="https://uat-wc.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}" 
+                                                method="post" 
+                                                target="worksheet_iframe"
+                                            >
+                                                <input type="hidden" name="ONEviewContextToken" value="{{ $ONEviewContextToken }}" />
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-file-alt"></i> Worksheet
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
                                     <div class="btn-toolbar" style="display: inline-block;">
                                         <a href="#apiLogsModal" id="apiLogsLink" data-toggle="modal" class="btn btn-default" data-backdrop="static" data-keyboard="false">
                                             <i class="fas fa-clipboard-list"></i> API Logs
@@ -70,11 +85,58 @@
                             </div>
                         </div>
                         <hr class="outsider">
+                        <div id="iframe-loader" class="text-center" style="margin-top: 20px; margin-bottom: 20px; display: none;">
+                            <i class="fa fa-spinner fa-spin"></i> 
+                            <br>
+                            Loading. Please wait...
+                        </div>
+                        <iframe 
+                            id="worksheet_iframe" 
+                            name="worksheet_iframe" 
+                            src="#" 
+                            style="width:100%;height:800px;border:1px solid #999999;display: none;"
+                        >
+                        </iframe>
+                        <div id="panel-attachments">
+                            <div class="panel panel-default">
+                                <form 
+                                    action="{{ 
+                                        route('submissions.upload', [
+                                            'lob' => $submission->line_of_business, 
+                                            'submissionId' => $submission->submission_id, 
+                                            'version' => $submission->version
+                                        ]) 
+                                    }}" 
+                                    class="form-horizontal row-border" 
+                                    method="post" 
+                                    enctype="multipart/form-data"
+                                >
+                                    @csrf
+                                    <div class="panel-heading">
+                                        <h2><i class="fas fa-paperclip"></i> General Attachments</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group" style="padding-bottom: 0;">
+                                            <label class="col-sm-2 control-label">Attachment:</label>
+                                            <div class="col-sm-8" style="padding-top: 5px;">
+                                                <input type="file" name="attachment">
+                                                <small><i>(25mb filesize limit)</i></small>
+                                                <br>
+                                                <button type="submit" class="btn-primary btn" style="margin-top: 10px;">
+                                                    <i class="fas fa-paperclip"></i> Attach
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <div id="panel-advancedoptions">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
+                                            <h2><i class="fas fa-question-circle"></i> Question & Answer</h2>
                                             <div class="panel-ctrls">
                                             </div>
                                         </div>
@@ -187,6 +249,21 @@
             if (save === "0") {
                 setNotif('danger', '<i class="fa fa-fw fa-times"></i>&nbsp; An error has occured. Please try again.');
             }
+            var isWorksheetOn = false;
+            $("#frm-worksheet").submit(function(e) {
+                $('#panel-advancedoptions').toggle();
+                isWorksheetOn = !isWorksheetOn;
+                if (!isWorksheetOn) {
+                    e.preventDefault();
+                    $('#worksheet_iframe').hide();
+                } else {
+                    $('#iframe-loader').show();
+                    setTimeout(() => {
+                        $('#iframe-loader').hide();
+                        $('#worksheet_iframe').show();
+                    }, 10000);
+                }
+            });
         });
         function setNotif(type, msg) {
             $('#submission-msg').html(
