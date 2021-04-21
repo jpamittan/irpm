@@ -22,7 +22,9 @@ class UsersController extends Controller
         [
             'name' => 'Workers Compensation',
             'connections' => [
-                'sqlsrv_wcm' => 'Development',
+                'sqlsrv_wcm' => 'UAT',
+                'sqlsrv_wcm_pre' => 'PreProd',
+                'sqlsrv_wcm_prd' => 'Production',
             ]
         ],
         [

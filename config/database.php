@@ -130,6 +130,32 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'sqlsrv_wcm_pre' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('MS_DB_HOST', 'localhost'),
+            'port' => env('MS_DB_PORT', '1433'),
+            'database' => 'Synchrono_PrePRD_WC',
+            'username' => 'aws-77PrePRD',
+            'password' => 'aws-77PrePRD',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
+        'sqlsrv_wcm_prd' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('MS_DB_HOST', 'localhost'),
+            'port' => env('MS_DB_PORT', '1433'),
+            'database' => 'SynchronoWC',
+            'username' => 'aws-77PRD',
+            'password' => 'aws-77PRD',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
         'sqlsrv_exl' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
