@@ -78,6 +78,19 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'sqlsrv_attachment' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('MS_DB_HOST', 'localhost'),
+            'port' => env('MS_DB_PORT', '1433'),
+            'database' => 'GeneralAttachment',
+            'username' => env('MS_DB_USERNAME', 'forge'),
+            'password' => env('MS_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
         'sqlsrv_uat' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/datatables', [SubmissionsController::class, 'datatables'])->name('submissions.datatables');
         Route::get('/details/{submissionId}', [SubmissionsController::class, 'details'])->name('submissions.details');
         Route::get('/filter/{outcomeTypeId}', [SubmissionsController::class, 'filter'])->name('submissions.filter');
-        Route::post('/upload/{lob}/{submissionId}/{version}', [SubmissionsController::class, 'upload'])->name('submissions.upload');
+        Route::post('/upload/{lob}/{id}/{submissionId}/{version}', [SubmissionsController::class, 'upload'])->name('submissions.upload');
     });
     Route::prefix('export')->group(function () {
         Route::get('/pdf/{submissionId}', [ExportController::class, 'pdf'])->name('export.pdf');

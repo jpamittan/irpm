@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Auth, DB;
 use App\Models\{
+    Attachment,
     Submission,
     SubmissionReview
 };
-use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\{
+    RedirectResponse,
+    Request
+};
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -174,33 +177,44 @@ class SubmissionsController extends Controller
             $nullAnswers
         ]);
 
+        $attachments = Attachment::where('version', $submission->version)
+            ->where('line_of_business', $submission->line_of_business)
+            ->where('submission_id', $submission->submission_id)
+            ->get();
+
         return view('submissions.details', [
+            'attachments' => $attachments,
+            'lob' => Auth::user()->db_connection,
             'submission' => $submission,
             'submissionAPILogs' => $submissionAPILogs,
             'submissionReviews' => $sortedSubmissionReviews,
-            'lob' => Auth::user()->db_connection,
             'ONEviewContextToken' => $ONEviewContextToken
         ]);
     }
 
-    public function upload(string $lob, int $submissionId, int $version, Request $request): View
+    public function upload(string $lob, string $id, int $submissionId, int $version, Request $request): RedirectResponse
     {
-        $attachment = $request->file('attachment');
+        $file = $request->file('attachment');
         $path = "/" . $lob . "/" . $submissionId . "/" . $version;
-        $file_name = str_replace(" ", "_", $attachment->getClientOriginalName());
-        $storage = Storage::disk('public')->putFileAs($path, $attachment, $file_name);
-        dd([
-            'lob' => $lob,
-            'submissionId' => $submissionId,
-            'version' => $version,
-            'path' => $storage,
-            'url' => env('APP_URL') . '/storage/' . $storage,
-            'file_name' => $file_name,
-            'file_ext' => $attachment->getClientOriginalExtension(),
-            'file_size' => $attachment->getSize(),
-            'size_unit' => "bytes",
-            'uploaded_by' => Auth::user()->full_name,
-            'created_at' => Carbon::now()
-        ]);
+        $file_name = str_replace(" ", "_", $file->getClientOriginalName());
+        $storage = Storage::disk('public')->putFileAs($path, $file, $file_name);
+        $attachment = new Attachment;
+        $attachment->submission_id = $submissionId;
+        $attachment->version = $version;
+        $attachment->line_of_business = $lob;
+        $attachment->path = $storage;
+        $attachment->url = env('APP_URL') . '/storage/' . $storage;
+        $attachment->file_name = $file_name;
+        $attachment->file_ext = $file->getClientOriginalExtension();
+        $attachment->file_size = $file->getSize();
+        $attachment->size_unit = "bytes";
+        $attachment->uploaded_by = Auth::user()->full_name;
+        $attachment->save();
+
+        return redirect(
+            route('submissions.details', [
+                'submissionId' => $id
+            ])
+        );
     }
 }

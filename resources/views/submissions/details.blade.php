@@ -104,6 +104,7 @@
                                     action="{{ 
                                         route('submissions.upload', [
                                             'lob' => $submission->line_of_business, 
+                                            'id' => $submission->id,
                                             'submissionId' => $submission->submission_id, 
                                             'version' => $submission->version
                                         ]) 
@@ -124,10 +125,23 @@
                                                 <small><i>(25mb filesize limit)</i></small>
                                                 <div id="upload-err" style="color: #e64433;"></div>
                                                 <button type="submit" id="btn-attach" class="btn-primary btn" style="margin-top: 10px;">
-                                                    <i class="fas fa-paperclip"></i> Attach
+                                                    Attach
                                                 </button>
                                             </div>
                                         </div>
+                                        @if(count($attachments))
+                                            <div class="form-group" style="padding-top: 0; padding-bottom: 0; margin-top: 10px;">
+                                                <div class="col-sm-12" style="padding-top: 5px;">
+                                                    @foreach($attachments as $attachment)
+                                                        <a href="{{ $attachment->url }}" download="{{ $attachment->file_name }}">
+                                                            <i class="fas fa-paperclip"></i> 
+                                                            {{ $attachment->file_name }}
+                                                            <small>({{ $attachment->file_size }})</small>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </form>
                             </div>
