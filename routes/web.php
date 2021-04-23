@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    AchController,
     DashboardController,
     ExportController,
     LoginController,
@@ -46,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/details/{submissionId}', [SubmissionsController::class, 'details'])->name('submissions.details');
         Route::get('/filter/{outcomeTypeId}', [SubmissionsController::class, 'filter'])->name('submissions.filter');
         Route::post('/upload/{lob}/{id}/{submissionId}/{version}', [SubmissionsController::class, 'upload'])->name('submissions.upload');
+    });
+    Route::prefix('ach')->group(function () {
+        Route::get('/', [AchController::class, 'index'])->name('ach.index');
     });
     Route::prefix('export')->group(function () {
         Route::get('/pdf/{submissionId}', [ExportController::class, 'pdf'])->name('export.pdf');

@@ -267,6 +267,7 @@
             var isWorksheetOn = false;
             $("#frm-worksheet").submit(function(e) {
                 $('#panel-advancedoptions').toggle();
+                $('#panel-attachments').toggle();
                 isWorksheetOn = !isWorksheetOn;
                 if (!isWorksheetOn) {
                     e.preventDefault();
