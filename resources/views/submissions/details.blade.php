@@ -138,6 +138,7 @@
                                                             {{ $attachment->file_name }}
                                                             <small>({{ $attachment->file_size }})</small>
                                                         </a>
+                                                        &nbsp;
                                                     @endforeach
                                                 </div>
                                             </div>
