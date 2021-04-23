@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('ach')->group(function () {
         Route::get('/', [AchController::class, 'index'])->name('ach.index');
+        Route::get('/datatables', [AchController::class, 'datatables'])->name('ach.datatables');
+        Route::get('/details/{entityId}', [AchController::class, 'details'])->name('ach.details');
     });
     Route::prefix('export')->group(function () {
         Route::get('/pdf/{submissionId}', [ExportController::class, 'pdf'])->name('export.pdf');

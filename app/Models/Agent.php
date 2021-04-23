@@ -11,7 +11,7 @@ class Agent extends Model
         $this->connection = 'sqlsrv_ach';
     }
 
-    protected $table= 'agent';
+    protected $table= 'Meta_BrokerAgent';
     protected $guarded = [];
     protected $casts = [];
 }

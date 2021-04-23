@@ -27,6 +27,8 @@
                                 <thead>
                                     <tr>
                                         <th>Agent Name</th>
+                                        <th>NIPR</th>
+                                        <th>FEIN</th>
                                         <th>Agent Routing Number</th>
                                         <th>Account Number</th>
                                         <th>Modified By</th>
@@ -51,64 +53,35 @@
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // $('#ach').dataTable({
-            //     language: {
-            //         lengthMenu: "_MENU_",
-            //         searchPlaceholder: "Search..."
-            //     },
-            //     iDisplayLength: 20,
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: "{{ route('submissions.datatables') }}",
-            //     order: [
-            //         [ 6, "desc" ]
-            //     ],
-            //     columns: [
-            //         { data: 'submission_id', name: 'submissions.submission_id' },
-            //         { data: 'version', name: 'submissions.version' },
-            //         { data: 'business_name', name: 'submissions.business_name' },
-            //         { data: 'line_of_business', name: 'submissions.line_of_business' },
-            //         {
-            //             data: 'agent',
-            //             name: 'submissions.agent',
-            //             render: function (data, type, row) {
-            //                 return (data) ? data : "N/A";
-            //             }
-            //         },
-            //         {
-            //             data: 'description',
-            //             name: 'outcome_type.description',
-            //             render: function (data, type, row) {
-            //                 if (data == 'Quote') {
-            //                     return `<b style="color: #37bf8d;">${data}</b>`;
-            //                 } else if (data == 'Refer') {
-            //                     return `<b style="color: #5394c9;">${data}</b>`;
-            //                 } else if (data == 'Decline') {
-            //                     return `<b style="color: #e36d4f;">${data}</b>`;
-            //                 } else {
-            //                     return data;
-            //                 }
-            //             }
-            //         },
-            //         {
-            //             data: 'created_at',
-            //             name: 'submissions.created_at',
-            //             render: function (data, type, row) {
-            //                 if (data) {
-            //                     return moment(data).format('MM/DD/YYYY hh:mm A');
-            //                 }
-            //                 return data;
-            //             }
-            //         },
-            //         {
-            //             data: 'id',
-            //             name: 'submissions.id',
-            //             render: function (data, type, row) {
-            //                 return `<a href="/submissions/details/${data}"><button class="btn btn-small btn-primary" style="width: 100%;">View</button></a>`;
-            //             }
-            //         }
-            //     ]
-            // });
+            $('#ach').dataTable({
+                language: {
+                    lengthMenu: "_MENU_",
+                    searchPlaceholder: "Search..."
+                },
+                iDisplayLength: 20,
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('ach.datatables') }}",
+                order: [
+                    [ 0, "asc" ]
+                ],
+                columns: [
+                    { data: 'agent_name', name: 'AgentName' },
+                    { data: 'nipr', name: 'NIPR' },
+                    { data: 'fein', name: 'FEIN' },
+                    { data: 'agent_routing_number' },
+                    { data: 'account_number' },
+                    { data: 'modified_by' },
+                    { data: 'modified_at' },
+                    {
+                        data: 'id',
+                        name: 'EntityId',
+                        render: function (data, type, row) {
+                            return `<a href="/ach/details/${data}"><button class="btn btn-small btn-info" style="width: 100%;">Update</button></a>`;
+                        }
+                    }
+                ]
+            });
             $('.panel-ctrls-limit').append("&nbsp;&nbsp;Page Limit");
             $('.panel-ctrls').append($('.dataTables_filter').addClass("pull-right")).find("label").addClass("panel-ctrls-center");
             $('.panel-ctrls').append("<i class='separator'></i>");
