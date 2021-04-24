@@ -29,10 +29,10 @@
                                         <th>Agent Name</th>
                                         <th>NIPR</th>
                                         <th>FEIN</th>
-                                        <th>Routing Number</th>
-                                        <th>Account Number</th>
                                         <th>Modified By</th>
                                         <th>Date Modified</th>
+                                        <th style="width: 50px;">Routing Number</th>
+                                        <th style="width: 50px;">Account Number</th>
                                         <th style="width: 150px; text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -69,10 +69,41 @@
                     { data: 'agent_name', name: 'AgentName' },
                     { data: 'nipr', name: 'NIPR' },
                     { data: 'fein', name: 'FEIN' },
-                    { data: 'routing_number' },
-                    { data: 'account_number' },
-                    { data: 'modified_by' },
-                    { data: 'modified_at' },
+                    { data: 'modified_by', name: 'ModifiedBy' },
+                    {
+                        data: 'modified_at',
+                        name: 'DateTimeModified',
+                        render: function (data, type, row) {
+                            if (data) {
+                                return moment(data).format('MM/DD/YYYY hh:mm A');
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'routing_number',
+                        name: 'AgentRoutingNumber',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            if (data) {
+                                return "<i class='fas fa-check text-success'></i>";
+                            } else {
+                                return "<i class='fa fa-fw fa-times text-danger'></i>";
+                            }
+                        }
+                    },
+                    {
+                        data: 'account_number',
+                        name: 'AccountNumber',
+                        className: 'text-center',
+                        render: function (data, type, row) {
+                            if (data) {
+                                return "<i class='fas fa-check text-success text-center'></i>";
+                            } else {
+                                return "<i class='fa fa-fw fa-times text-danger text-center'></i>";
+                            }
+                        }
+                    },
                     {
                         data: 'id',
                         name: 'EntityId',

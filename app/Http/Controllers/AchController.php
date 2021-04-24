@@ -39,18 +39,19 @@ class AchController extends Controller
         $totalRecords = BrokerAgent::count();
         $queryTotalRecordswithFilter = BrokerAgent::whereNotNull('AgentName');
         if ($searchValue) {
-            $queryTotalRecordswithFilter = BrokerAgent::where('AgentName', 'like', '%' . $searchValue . '%')
-                ->orWhere('NIPR', 'like', '%' . $searchValue . '%')
-                ->orWhere('FEIN', 'like', '%' . $searchValue . '%');
+            $queryTotalRecordswithFilter = BrokerAgent::where('CodeEast.dbo.Meta_BrokerAgent.AgentName', 'like', '%' . $searchValue . '%')
+                ->orWhere('CodeEast.dbo.Meta_BrokerAgent.NIPR', 'like', '%' . $searchValue . '%')
+                ->orWhere('CodeEast.dbo.Meta_BrokerAgent.FEIN', 'like', '%' . $searchValue . '%');
         }
         $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
-        $queryRecords = BrokerAgent::orderBy($columnName, $columnSortOrder)
+        $queryRecords = BrokerAgent::orderBy('CodeEast.dbo.Meta_BrokerAgent.' . $columnName, $columnSortOrder)
+            ->leftJoin('ACH.dbo.Agents', 'ACH.dbo.Agents.AgentKey', '=', 'CodeEast.dbo.Meta_BrokerAgent.EntityId')
             ->skip($start)
             ->take($rowperpage);
         if ($searchValue) {
-            $queryRecords->where('AgentName', 'like', '%' . $searchValue . '%')
-                ->orWhere('NIPR', 'like', '%' . $searchValue . '%')
-                ->orWhere('FEIN', 'like', '%' . $searchValue . '%');
+            $queryRecords->where('CodeEast.dbo.Meta_BrokerAgent.AgentName', 'like', '%' . $searchValue . '%')
+                ->orWhere('CodeEast.dbo.Meta_BrokerAgent.NIPR', 'like', '%' . $searchValue . '%')
+                ->orWhere('CodeEast.dbo.Meta_BrokerAgent.FEIN', 'like', '%' . $searchValue . '%');
         }
         $records = $queryRecords->get();
         $data_arr = array();
@@ -60,10 +61,10 @@ class AchController extends Controller
                 'agent_name' => $record->AgentName,
                 'nipr' => $record->NIPR,
                 'fein' => $record->FEIN,
-                'routing_number' => "",
-                'account_number' => "",
-                'modified_by' => "",
-                'modified_at' => ""
+                'routing_number' => ($record->AgentRoutingNumber) ? true : false,
+                'account_number' => ($record->AccountNumber) ? true : false,
+                'modified_by' => $record->ModifiedBy,
+                'modified_at' => $record->DateTimeModified,
             );
         }
         $response = array(

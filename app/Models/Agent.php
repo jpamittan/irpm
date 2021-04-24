@@ -12,6 +12,7 @@ class Agent extends Model
         $this->connection = 'sqlsrv_ach';
     }
 
+    protected $table = 'ACH.dbo.Agents';
     protected $guarded = [];
     protected $casts = [];
     const CREATED_AT = 'DateTimeCreated';

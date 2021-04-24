@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\{
+    HasMany,
+    HasOne
+};
 
 class BrokerAgent extends Model
 {
@@ -12,7 +15,7 @@ class BrokerAgent extends Model
         $this->connection = 'sqlsrv_codeeast';
     }
 
-    protected $table = 'Meta_BrokerAgent';
+    protected $table = 'CodeEast.dbo.Meta_BrokerAgent';
     protected $guarded = [];
     protected $casts = [];
 
@@ -26,5 +29,10 @@ class BrokerAgent extends Model
     {
         return $this->hasMany(BrokerAgentContacts::class, 'EntityId', 'EntityId')
             ->orderBy('ContactType');
+    }
+
+    public function agent(): ?HasOne
+    {
+        return $this->hasOne(Agent::class, 'AgentKey', 'EntityId');
     }
 }
