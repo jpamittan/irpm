@@ -59,6 +59,12 @@ class UsersController extends Controller
         $user->password = Hash::make($request->input('password'));
         $user->is_admin = $request->input('is_admin');
         $user->db_connection = $request->input('db_connection');
+        $permissions = [];
+        if ($request->input('permissions')) {
+            foreach ($request->input('permissions') as $permission) {
+                $permissions[] = $permission;
+            }
+        }
         if ($user->save()) {
             return redirect('/users?created=1');
         } else {
@@ -82,6 +88,13 @@ class UsersController extends Controller
         $user->is_admin = $request->input('is_admin');
         $user->status = ($request->input('status')) ? 1 : 0;
         $user->db_connection = $request->input('db_connection');
+        $permissions = [];
+        if ($request->input('permissions')) {
+            foreach ($request->input('permissions') as $permission) {
+                $permissions[] = $permission;
+            }
+        }
+        $user->permissions = json_encode($permissions);
         if ($user->save()) {
             return redirect('/users?updated=1');
         } else {

@@ -85,6 +85,12 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Permissions</label>
+                            <div class="col-sm-8" style="padding-top: 6px;">
+                                <input type="checkbox" name="permissions[]" value="ach"> ACH
+                            </div>
+                        </div>
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-sm-8 col-sm-offset-2">

@@ -74,6 +74,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">Permissions</label>
+                            <div class="col-sm-8" style="padding-top: 6px;">
+                                <input type="checkbox" name="permissions[]" value="ach" {{ in_array("ach", json_decode($user->permissions, true)) ? 'checked' : '' }}> ACH
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">Active</label>
                             <div class="col-sm-8">
                                 <ul class="demo-btns mb-10 xs">

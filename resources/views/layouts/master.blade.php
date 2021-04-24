@@ -138,7 +138,12 @@
                                     <ul class="acc-menu">
                                         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
                                         <li><a href="{{ route('submissions.index') }}"><i class="fa fa-briefcase"></i><span>Submissions</span></a></li>
-                                        <li><a href="{{ route('ach.index') }}"><i class="fas fa-university"></i><span>ACH</span></a></li>
+                                        @if (
+                                            Auth::user()->is_admin || 
+                                            in_array('ach', json_decode(Auth::user()->permissions, true))
+                                        )
+                                            <li><a href="{{ route('ach.index') }}"><i class="fas fa-university"></i><span>ACH</span></a></li>
+                                        @endif
                                         @if (Auth::user()->is_admin)
                                             <li><a href="{{ route('users.index') }}"><i class="fas fa-users"></i><span>Users</span></a></li>
                                         @endif

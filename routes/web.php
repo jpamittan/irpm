@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/filter/{outcomeTypeId}', [SubmissionsController::class, 'filter'])->name('submissions.filter');
         Route::post('/upload/{lob}/{id}/{submissionId}/{version}', [SubmissionsController::class, 'upload'])->name('submissions.upload');
     });
-    Route::prefix('ach')->group(function () {
+    Route::prefix('ach')->middleware(['ach'])->group(function () {
         Route::get('/', [AchController::class, 'index'])->name('ach.index');
         Route::get('/datatables', [AchController::class, 'datatables'])->name('ach.datatables');
         Route::get('/details/{entityId}', [AchController::class, 'details'])->name('ach.details');
