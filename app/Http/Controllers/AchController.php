@@ -120,7 +120,8 @@ class AchController extends Controller
         
         return redirect(
             route('ach.details', [
-                'entityId' => $entityId
+                'entityId' => $entityId,
+                'save' => $result
             ])
         );
     }
