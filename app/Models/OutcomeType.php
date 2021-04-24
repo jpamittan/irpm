@@ -11,7 +11,7 @@ class OutcomeType extends Model
         $this->connection = config('sqlsvr.connection');
     }
 
-    protected $table= 'outcome_type';
+    protected $table = 'outcome_type';
     protected $guarded = [];
     protected $casts = [];
 }

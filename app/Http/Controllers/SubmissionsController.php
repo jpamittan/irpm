@@ -111,10 +111,10 @@ class SubmissionsController extends Controller
             );
         }
         $response = array(
-            "draw" => intval($draw),
-            "iTotalRecords" => $totalRecords,
-            "iTotalDisplayRecords" => $totalRecordswithFilter,
-            "aaData" => $data_arr
+            'draw' => intval($draw),
+            'iTotalRecords' => $totalRecords,
+            'iTotalDisplayRecords' => $totalRecordswithFilter,
+            'aaData' => $data_arr
         );
 
         echo json_encode($response);

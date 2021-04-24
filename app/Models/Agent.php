@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Agent extends Model
 {
@@ -11,7 +12,8 @@ class Agent extends Model
         $this->connection = 'sqlsrv_ach';
     }
 
-    protected $table= 'Meta_BrokerAgent';
     protected $guarded = [];
     protected $casts = [];
+    const CREATED_AT = 'DateTimeCreated';
+    const UPDATED_AT = 'DateTimeModified';
 }

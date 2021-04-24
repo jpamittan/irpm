@@ -29,7 +29,7 @@
                                         <th>Agent Name</th>
                                         <th>NIPR</th>
                                         <th>FEIN</th>
-                                        <th>Agent Routing Number</th>
+                                        <th>Routing Number</th>
                                         <th>Account Number</th>
                                         <th>Modified By</th>
                                         <th>Date Modified</th>
@@ -69,7 +69,7 @@
                     { data: 'agent_name', name: 'AgentName' },
                     { data: 'nipr', name: 'NIPR' },
                     { data: 'fein', name: 'FEIN' },
-                    { data: 'agent_routing_number' },
+                    { data: 'routing_number' },
                     { data: 'account_number' },
                     { data: 'modified_by' },
                     { data: 'modified_at' },

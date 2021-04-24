@@ -5,21 +5,22 @@ namespace App\Http\Controllers;
 use Auth, DB;
 use App\Models\{
     Agent,
+    BrokerAgent,
+    BrokerAgentAllStates,
     Submission,
     SubmissionMod
 };
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\{
+    RedirectResponse,
+    Request
+};
 
 class AchController extends Controller
 {
     public function index(): View
     {
-        config(['sqlsvr.connection' => Auth::user()->db_connection]);
-        
-        return view('ach.index', [
-            
-        ]);
+        return view('ach.index');
     }
 
     public function datatables(Request $request): string
@@ -35,15 +36,15 @@ class AchController extends Controller
         $columnName = $columnName_arr[$columnIndex]['name'];
         $columnSortOrder = $order_arr[0]['dir'];
         $searchValue = $search_arr['value'];
-        $totalRecords = Agent::count();
-        $queryTotalRecordswithFilter = Agent::whereNotNull('AgentName');
+        $totalRecords = BrokerAgent::count();
+        $queryTotalRecordswithFilter = BrokerAgent::whereNotNull('AgentName');
         if ($searchValue) {
-            $queryTotalRecordswithFilter = Agent::where('AgentName', 'like', '%' . $searchValue . '%')
+            $queryTotalRecordswithFilter = BrokerAgent::where('AgentName', 'like', '%' . $searchValue . '%')
                 ->orWhere('NIPR', 'like', '%' . $searchValue . '%')
                 ->orWhere('FEIN', 'like', '%' . $searchValue . '%');
         }
         $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
-        $queryRecords = Agent::orderBy($columnName, $columnSortOrder)
+        $queryRecords = BrokerAgent::orderBy($columnName, $columnSortOrder)
             ->skip($start)
             ->take($rowperpage);
         if ($searchValue) {
@@ -59,7 +60,7 @@ class AchController extends Controller
                 'agent_name' => $record->AgentName,
                 'nipr' => $record->NIPR,
                 'fein' => $record->FEIN,
-                'agent_routing_number' => "",
+                'routing_number' => "",
                 'account_number' => "",
                 'modified_by' => "",
                 'modified_at' => ""
@@ -76,8 +77,51 @@ class AchController extends Controller
         exit;
     }
 
-    public function details(string $entityId)
+    public function details(string $entityId): View
     {
-        dd($entityId);
+        $brokerAgent = BrokerAgent::where('EntityId', $entityId)
+            ->with('allStates')
+            ->with('contacts')
+            ->first();
+        $ach = DB::connection('sqlsrv_ach')
+            ->select("
+                EXEC dbo.[usp_DataDecrypt] @table = 'Agents',
+                    @whereclause = '[AgentKey] = ''{$brokerAgent->EntityId}'' AND [AgentName] = ''{$brokerAgent->AgentName}'''
+            ");
+        $AgentRoutingNumber = ($ach[0]->AgentRoutingNumber) ? "******" . substr($ach[0]->AgentRoutingNumber, -3) : "N/A";
+        $AccountNumber = ($ach[0]->AccountNumber) ? "******" . substr($ach[0]->AccountNumber, -3) : "N/A";
+
+        return view('ach.details', [
+            'brokerAgent' => $brokerAgent,
+            'AgentRoutingNumber' => $AgentRoutingNumber,
+            'AccountNumber' => $AccountNumber
+        ]);
+    }
+
+    public function update(string $entityId, Request $request): RedirectResponse
+    {
+        $agent = Agent::where('AgentKey', $entityId)
+            ->first();
+        $user = Auth::user()->full_name;
+        if (!$agent) {
+            $agent = new Agent;
+            $agent->AgentKey = $entityId;
+            $agent->AgentName = $request->get('agent_name');
+            $agent->CreatedBy = $user;
+            $agent->save();
+        }
+        $result = DB::connection('sqlsrv_ach')
+            ->statement("
+                EXEC dbo.[usp_UpdateEncryptedTable] 
+                @table = 'Agents',
+                @UpdateFilter = '[AgentKey] = ''{$entityId}'' AND [AgentName] = ''{$request->get('agent_name')}''',
+                @UpdateColumn = '[AgentRoutingNumber] = ''{$request->get('routing_number')}'' AND [AccountNumber] = ''{$request->get('account_number')}'' AND [ModifiedBy] = ''{$user}'''
+            ");
+        
+        return redirect(
+            route('ach.details', [
+                'entityId' => $entityId
+            ])
+        );
     }
 }
