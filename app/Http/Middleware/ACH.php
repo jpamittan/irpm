@@ -16,7 +16,10 @@ class ACH
      */
     public function handle(Request $request, Closure $next)
     {
-        if (in_array('ach', json_decode(Auth::user()->permissions, true))) {
+        if (
+            Auth::user()->is_admin || 
+            in_array('ach', json_decode(Auth::user()->permissions, true))
+        ) {
             return $next($request);
         } else {
             return abort(403, 'Unauthorized action.');
