@@ -14,7 +14,7 @@ class AddUserPermissions extends Migration
     public function up()
     {
         Schema::table('users', function(Blueprint $table) {
-            $table->text('permissions')->after('remember_token')->default("[]");
+            $table->string('permissions')->after('remember_token')->default("[]");
         });
     }
 
