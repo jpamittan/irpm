@@ -10,6 +10,7 @@ use App\Models\{
     Submission,
     SubmissionMod
 };
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{
     RedirectResponse,
@@ -89,21 +90,25 @@ class AchController extends Controller
                 EXEC dbo.[usp_DataDecrypt] @table = 'Agents',
                     @whereclause = '[AgentKey] = ''{$brokerAgent->EntityId}'' AND [AgentName] = ''{$brokerAgent->AgentName}'''
             ");
+        $achDetails = Agent::where('AgentKey', $entityId)
+            ->first();
         $AgentRoutingNumber = ($ach[0]->AgentRoutingNumber) ? "******" . substr($ach[0]->AgentRoutingNumber, -3) : "N/A";
         $AccountNumber = ($ach[0]->AccountNumber) ? "******" . substr($ach[0]->AccountNumber, -3) : "N/A";
 
         return view('ach.details', [
-            'brokerAgent' => $brokerAgent,
             'AgentRoutingNumber' => $AgentRoutingNumber,
-            'AccountNumber' => $AccountNumber
+            'AccountNumber' => $AccountNumber,
+            'achDetails' => $achDetails,
+            'brokerAgent' => $brokerAgent
         ]);
     }
 
     public function update(string $entityId, Request $request): RedirectResponse
-    {
+    {        
         $agent = Agent::where('AgentKey', $entityId)
             ->first();
         $user = Auth::user()->full_name;
+        $now = Carbon::now();
         if (!$agent) {
             $agent = new Agent;
             $agent->AgentKey = $entityId;
@@ -111,6 +116,14 @@ class AchController extends Controller
             $agent->CreatedBy = $user;
             $agent->save();
         }
+        $agent->BankName = $request->get('bank_name');
+        $agent->AccountType = $request->get('type_of_account');
+        $agent->BankStreetAddressLine1 = $request->get('address_line_1');
+        $agent->BankStreetAddressLine2 = $request->get('address_line_2');
+        $agent->BankCity = $request->get('address_city');
+        $agent->BankState = $request->get('address_state');
+        $agent->BankZIP = $request->get('address_zip');
+        $agent->save();
         $result = DB::connection('sqlsrv_ach')
             ->statement("
                 EXEC dbo.[usp_UpdateEncryptedTable] 

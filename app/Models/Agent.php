@@ -13,8 +13,13 @@ class Agent extends Model
     }
 
     protected $table = 'ACH.dbo.Agents';
+    protected $primaryKey = 'AgentKey';
     protected $guarded = [];
     protected $casts = [];
+    protected $hidden = [
+        'AgentRoutingNumber',
+        'AccountNumber'
+    ];
     const CREATED_AT = 'DateTimeCreated';
     const UPDATED_AT = 'DateTimeModified';
 }
