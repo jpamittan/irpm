@@ -126,25 +126,29 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label"><b>Bank Name</b></label>
                                             <div class="col-sm-8" style="padding-top: 7px;">
-                                                {{ $achDetails->BankName }}
+                                                {{ $achDetails->BankName ?? "N/A" }}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label"><b>Bank Address</b></label>
                                             <div class="col-sm-8" style="padding-top: 7px;">
-                                                {{ $achDetails->BankStreetAddressLine1 }} 
-                                                @if ($achDetails->BankStreetAddressLine2)
-                                                    {{ $achDetails->BankStreetAddressLine2 }} 
+                                                @if ($achDetails->BankStreetAddressLine1)
+                                                    {{ $achDetails->BankStreetAddressLine1 }} 
+                                                    @if ($achDetails->BankStreetAddressLine2)
+                                                        {{ $achDetails->BankStreetAddressLine2 }} 
+                                                    @endif
+                                                    {{ $achDetails->BankCity }}, 
+                                                    {{ $achDetails->BankState }}, 
+                                                    {{ $achDetails->BankZIP }}
+                                                @else
+                                                    N/A
                                                 @endif
-                                                {{ $achDetails->BankCity }}, 
-                                                {{ $achDetails->BankState }}, 
-                                                {{ $achDetails->BankZIP }}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label"><b>Type of Account</b></label>
                                             <div class="col-sm-8" style="padding-top: 7px;">
-                                                {{ $achDetails->AccountType }}
+                                                {{ $achDetails->AccountType ?? "N/A" }}
                                             </div>
                                         </div>
                                     </div>
@@ -179,8 +183,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Account Number</label>
                                             <div class="col-sm-6">
-                                                <input type="password" class="form-control alphaonly" name="account_number" id="account_number" required>
-                                                <small><i>(Alpha only)</i></small>
+                                                <input type="password" class="form-control" name="account_number" id="account_number" required>
                                             </div>
                                             <label class="col-sm-2 reveal" field="account_number" style="padding-top: 7px;">
                                                 <i class="fas fa-eye"></i> Show
@@ -207,7 +210,9 @@
                                                 <input type="text" class="form-control" name="address_line_1" id="address_line_1"  placeholder="Address line 1" required>
                                                 <input type="text" class="form-control" name="address_line_2" id="address_line_2"  placeholder="Address line 2">
                                                 <input type="text" class="form-control" name="address_city" id="address_city"  placeholder="City" required>
-                                                <input type="text" class="form-control typeahead us-states" name="address_state" id="address_state"  placeholder="State" required>
+                                                <select class="form-control" name="address_state" id="address_state" required>
+                                                    <option value="" selected>Please select...</option>
+                                                </select>
                                                 <input type="text" class="form-control" name="address_zip" id="address_zip"  placeholder="Zip" required>
                                             </div>
                                         </div>
@@ -254,8 +259,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('plugins/form-typeahead/typeahead.bundle.min.js') }}"></script> <!-- Typeahead for Autocomplete -->
-    <script src="{{ asset('plugins/numeric/jquery.numeric.js') }}"></script> <!-- Date Range Picker -->
+    <script src="{{ asset('plugins/numeric/jquery.numeric.js') }}"></script> <!-- Numeric Only -->
     <script>    
         $(document).ready(function() {
             var updateAchBln = true;
@@ -268,8 +272,7 @@
                 setNotif('danger', '<i class="fa fa-fw fa-times"></i>&nbsp; An error has occured. Please try again.');
             }
             $("#routing_number, #verify_routing_number, #account_number, #verify_account_number").keyup(checkACHMatch);
-            $("#routing_number").numeric();
-            $("#verify_routing_number").numeric();
+            $("#routing_number, #verify_routing_number, #account_number, #verify_account_number").numeric();
             $(".reveal").click(function() {
                 let field = $(this).attr("field");
                 if ($(`#${field}`).attr("type") == "password") {
@@ -288,32 +291,6 @@
                 $("#ach-details").show();
                 $("#ach-frm").hide();
             });
-            $('.alphaonly').bind('keyup blur',function(){ 
-                var node = $(this);
-                node.val(node.val().replace(/[^a-z]/g,'') ); }
-            );
-            $(".alphaonly").on("keydown", function(event){
-                var arr = [8,9,16,17,20,35,36,37,38,39,40,45,46];
-                for(var i = 65; i <= 90; i++){
-                    arr.push(i);
-                }
-                if(jQuery.inArray(event.which, arr) === -1){
-                    event.preventDefault();
-                }
-            });
-            var substringMatcher = function(strs) {
-                return function findMatches(q, cb) {
-                    var matches, substrRegex;
-                    matches = [];
-                    substrRegex = new RegExp(q, 'i');
-                    $.each(strs, function(i, str) {
-                    if (substrRegex.test(str)) {
-                        matches.push({ value: str });
-                    }
-                    });
-                    cb(matches);
-                };
-            };
             var states = [
                 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
                 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
@@ -325,16 +302,11 @@
                 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
                 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
             ];
-            
-            $('.us-states').typeahead({
-                hint: true,
-                highlight: true,
-                minLength: 1
-            },
-            {
-                name: 'states',
-                displayKey: 'value',
-                source: substringMatcher(states)
+            $.each(states, function (i, state) {
+                $('#address_state').append($('<option>', { 
+                    value: state,
+                    text : state
+                }));
             });
         });
         function setNotif(type, msg) {
