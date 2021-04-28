@@ -201,25 +201,56 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Bank Name</label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" name="bank_name" id="bank_name" required>
+                                                <input type="text" class="form-control" name="bank_name" id="bank_name" value="{{ $achDetails->BankName }}" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Bank Address</label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" name="address_line_1" id="address_line_1"  placeholder="Address line 1" required>
-                                                <input type="text" class="form-control" name="address_line_2" id="address_line_2"  placeholder="Address line 2">
-                                                <input type="text" class="form-control" name="address_city" id="address_city"  placeholder="City" required>
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="address_line_1"
+                                                    id="address_line_1"
+                                                    placeholder="Address line 1"
+                                                    value="{{ $achDetails->BankStreetAddressLine1 }}"
+                                                    required
+                                                >
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="address_line_2"
+                                                    id="address_line_2"
+                                                    placeholder="Address line 2"
+                                                    value="{{ $achDetails->BankStreetAddressLine2 }}"
+                                                >
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="address_city"
+                                                    id="address_city"
+                                                    placeholder="City"
+                                                    value="{{ $achDetails->BankCity }}"
+                                                    required
+                                                >
                                                 <select class="form-control" name="address_state" id="address_state" required>
                                                     <option value="" selected>Please select...</option>
                                                 </select>
-                                                <input type="text" class="form-control" name="address_zip" id="address_zip"  placeholder="Zip" required>
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="address_zip"
+                                                    id="address_zip"
+                                                    placeholder="Zip"
+                                                    value="{{ $achDetails->BankZIP }}"
+                                                    required
+                                                >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Type of Account</label>
                                             <div class="col-sm-6">
-                                                <select class="form-control" name="type_of_account" required>
+                                                <select class="form-control" name="type_of_account" id="type_of_account" required>
                                                     <option value="" selected>Please select...</option>
                                                     <option value="Checking">Checking</option>
                                                     <option value="Savings">Savings</option>
@@ -291,6 +322,8 @@
                 $("#ach-details").show();
                 $("#ach-frm").hide();
             });
+            var BankState = '{{ $achDetails->BankState }}';
+            var AccountType = '{{ $achDetails->AccountType }}';
             var states = [
                 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
                 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
@@ -308,6 +341,12 @@
                     text : state
                 }));
             });
+            if (BankState) {
+                $("#address_state").val(BankState);
+            }
+            if (AccountType) {
+                $("#type_of_account").val(AccountType);
+            }
         });
         function setNotif(type, msg) {
             $('#ach-msg').html(
