@@ -45,22 +45,22 @@ class AchController extends Controller
                 ->orWhere('CodeEast.dbo.Meta_BrokerAgent.FEIN', 'like', '%' . $searchValue . '%');
         }
         if (in_array($columnName, ['AgentRoutingNumber', 'AccountNumber', 'ModifiedBy', 'DateTimeModified'])) {
-            $columnName = 'ACH.dbo.Agents.' . $columnName;
+            $columnName = 'ACH_UAT.dbo.Agents.' . $columnName;
         } else {
             $columnName = 'CodeEast.dbo.Meta_BrokerAgent.' . $columnName;
         }
         $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
         $queryRecords = BrokerAgent::orderBy($columnName, $columnSortOrder)
-            ->leftJoin('ACH.dbo.Agents', 'ACH.dbo.Agents.AgentKey', '=', 'CodeEast.dbo.Meta_BrokerAgent.EntityId')
+            ->leftJoin('ACH_UAT.dbo.Agents', 'ACH_UAT.dbo.Agents.AgentKey', '=', 'CodeEast.dbo.Meta_BrokerAgent.EntityId')
             ->select([
                 'CodeEast.dbo.Meta_BrokerAgent.EntityId',
                 'CodeEast.dbo.Meta_BrokerAgent.AgentName',
                 'CodeEast.dbo.Meta_BrokerAgent.NIPR',
                 'CodeEast.dbo.Meta_BrokerAgent.FEIN',
-                'ACH.dbo.Agents.AgentRoutingNumber',
-                'ACH.dbo.Agents.AccountNumber',
-                'ACH.dbo.Agents.ModifiedBy',
-                'ACH.dbo.Agents.DateTimeModified'
+                'ACH_UAT.dbo.Agents.AgentRoutingNumber',
+                'ACH_UAT.dbo.Agents.AccountNumber',
+                'ACH_UAT.dbo.Agents.ModifiedBy',
+                'ACH_UAT.dbo.Agents.DateTimeModified'
             ])
             ->skip($start)
             ->take($rowperpage);

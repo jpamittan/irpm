@@ -78,12 +78,12 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'sqlsrv_ach' => [
+        'sqlsrv_ach_uat' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('MS_DB_HOST', 'localhost'),
             'port' => env('MS_DB_PORT', '1433'),
-            'database' => 'ACH',
+            'database' => 'ACH_UAT',
             'username' => 'aws-codeeast',
             'password' => 'XhLEN>6t',
             'charset' => 'utf8',
