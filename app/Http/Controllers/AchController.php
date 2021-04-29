@@ -44,8 +44,13 @@ class AchController extends Controller
                 ->orWhere('CodeEast.dbo.Meta_BrokerAgent.NIPR', 'like', '%' . $searchValue . '%')
                 ->orWhere('CodeEast.dbo.Meta_BrokerAgent.FEIN', 'like', '%' . $searchValue . '%');
         }
+        if (in_array($columnName, ['AgentRoutingNumber', 'AccountNumber', 'ModifiedBy', 'DateTimeModified'])) {
+            $columnName = 'ACH.dbo.Agents.' . $columnName;
+        } else {
+            $columnName = 'CodeEast.dbo.Meta_BrokerAgent.' . $columnName;
+        }
         $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
-        $queryRecords = BrokerAgent::orderBy('CodeEast.dbo.Meta_BrokerAgent.' . $columnName, $columnSortOrder)
+        $queryRecords = BrokerAgent::orderBy($columnName, $columnSortOrder)
             ->leftJoin('ACH.dbo.Agents', 'ACH.dbo.Agents.AgentKey', '=', 'CodeEast.dbo.Meta_BrokerAgent.EntityId')
             ->select([
                 'CodeEast.dbo.Meta_BrokerAgent.EntityId',
