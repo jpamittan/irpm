@@ -47,6 +47,16 @@ class AchController extends Controller
         $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
         $queryRecords = BrokerAgent::orderBy('CodeEast.dbo.Meta_BrokerAgent.' . $columnName, $columnSortOrder)
             ->leftJoin('ACH.dbo.Agents', 'ACH.dbo.Agents.AgentKey', '=', 'CodeEast.dbo.Meta_BrokerAgent.EntityId')
+            ->select([
+                'CodeEast.dbo.Meta_BrokerAgent.EntityId',
+                'CodeEast.dbo.Meta_BrokerAgent.AgentName',
+                'CodeEast.dbo.Meta_BrokerAgent.NIPR',
+                'CodeEast.dbo.Meta_BrokerAgent.FEIN',
+                'ACH.dbo.Agents.AgentRoutingNumber',
+                'ACH.dbo.Agents.AccountNumber',
+                'ACH.dbo.Agents.ModifiedBy',
+                'ACH.dbo.Agents.DateTimeModified'
+            ])
             ->skip($start)
             ->take($rowperpage);
         if ($searchValue) {
