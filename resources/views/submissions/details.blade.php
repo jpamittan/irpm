@@ -40,18 +40,6 @@
                                                 <td><b>Program: </b></td>
                                                 <td><span class="text-primary">{{ $submission->line_of_business ??  "N/A" }}</span></td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td><b>Agency: </b></td>
-                                                <td><span class="text-primary">{{ $submission->agency ??  "N/A" }}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Agent: </b></td>
-                                                <td><span class="text-primary">{{ $submission->agent ??  "N/A" }}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>State: </b></td>
-                                                <td><span class="text-primary">{{ $submission->operating_in }}</span></td>
-                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -62,7 +50,7 @@
                                         <div class="btn-toolbar" style="display: inline-block;">
                                             <form 
                                                 id="frm-worksheet"
-                                                action="https://uat-wc.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}" 
+                                                action="https://uat-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}" 
                                                 method="post" 
                                                 target="worksheet_iframe"
                                             >
@@ -278,7 +266,7 @@
                     setTimeout(() => {
                         $('#iframe-loader').hide();
                         $('#worksheet_iframe').show();
-                    }, 10000);
+                    }, 20000);
                 }
             });
             $('#attachment').on('change', function(evt) {
