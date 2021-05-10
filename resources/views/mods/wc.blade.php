@@ -40,31 +40,40 @@
                     <div class="panel panel-sky">
                         <div class="panel-heading ">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
+                                <div class="col-md-3" style="text-align: center;">
                                     <b>Risk Characteristics</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <b>UW Engine</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <b>Gradient AI</b>
                                 </div>
                                 <div class="col-md-4" style="text-align: center;">
                                     <b>Used</b>
                                 </div>
-                                <div class="col-md-4" style="text-align: center;">
+                                <div class="col-md-3" style="text-align: center;">
                                     <b>Comments</b>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
-                                    <!-- <b>A. Location</b> -->
-                                    <b>A. Health</b>
-                                    <br>
-                                    <!-- <small>Premises organization, housekeeping, yard protection</small> -->
+                                <div class="col-md-3" style="text-align: center;">
+                                    <b>A. Premises</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['premises'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['premises'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ number_format($submissionMod->location_outcome, 2, '.', '') }}
+                                            {{ number_format($ncci['premises']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min" class="slider danger"></div>
@@ -72,32 +81,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.10
+                                            {{ number_format($ncci['premises']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount" name="location-mod" value="{{ number_format($submissionMod->location_outcome, 2, '.', '') }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount" 
+                                            name="premises-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['premises']) - 1) + (floatval($uwEngine['premises']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="location-comm"></textarea>
+                                <div class="col-md-3">
+                                    <textarea class="form-control autosize" name="premises-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
-                                    <b>B. Premises</b>
-                                    <br>
-                                    <!-- <small>Cooperation in matters of safeguarding and proper handling of property covered</small> -->
+                                <div class="col-md-3" style="text-align: center;">
+                                    <b>B. Classification</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['classification'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['classification'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ number_format($submissionMod->premises_equipment_outcome, 2, '.', '') }}
+                                            {{ number_format($ncci['classification']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min-2" class="slider danger"></div>
@@ -105,32 +132,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            {{ number_format($ncci['classification']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-2" name="premises-mod" value="{{ number_format($submissionMod->premises_equipment_outcome, 2, '.', '') }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount-2" 
+                                            name="classification-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['classification']) - 1) + (floatval($uwEngine['classification']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="premises-comm"></textarea>
+                                <div class="col-md-3">
+                                    <textarea class="form-control autosize" name="classification-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
-                                    <b>C. Equipment</b>
-                                    <br>
-                                    <!-- <small>Age, condition, scheduled maintenance</small> -->
+                                <div class="col-md-3" style="text-align: center;">
+                                    <b>C. Health</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['health'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['health'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ number_format($submissionMod->building_features_outcome, 2, '.', '') }}
+                                            {{ number_format($ncci['health']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min-3" class="slider danger"></div>
@@ -138,33 +183,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.10
+                                            {{ number_format($ncci['health']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-3" name="equipment-mod" value="{{ number_format($submissionMod->building_features_outcome, 2, '.', '') }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount-3" 
+                                            name="health-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['health']) - 1) + (floatval($uwEngine['health']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="equipment-comm"></textarea>
+                                <div class="col-md-3">
+                                    <textarea class="form-control autosize" name="health-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
-                                    <!-- <b>D. Classification</b> -->
-                                    <b>D. Management</b>
-                                    <br>
-                                    <!-- <small>Age, condition, and unusual structural features</small> -->
+                                <div class="col-md-3" style="text-align: center;">
+                                    <b>D. Equipment</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['equipment'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['equipment'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ number_format($submissionMod->management_outcome, 2, '.', '') }}
+                                            {{ number_format($ncci['equipment']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min-4" class="slider danger"></div>
@@ -172,32 +234,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.10
+                                            {{ number_format($ncci['equipment']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-4" name="classification-mod" value="{{ number_format($submissionMod->management_outcome, 2, '.', '') }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount-4" 
+                                            name="equipment-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['equipment']) - 1) + (floatval($uwEngine['equipment']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="classification-comm"></textarea>
+                                <div class="col-md-3">
+                                    <textarea class="form-control autosize" name="equipment-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
+                                <div class="col-md-3" style="text-align: center;">
                                     <b>E. Employees</b>
-                                    <br>
-                                    <!-- <small>Selection, training, supervision and experience</small> -->
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['employees'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['employees'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ number_format($submissionMod->employees_outcome, 2, '.', '') }}
+                                            {{ number_format($ncci['employees']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min-5" class="slider danger"></div>
@@ -205,33 +285,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            {{ number_format($ncci['employees']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-5" name="employees-mod" value="{{ number_format($submissionMod->employees_outcome, 2, '.', '') }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount-5" 
+                                            name="employees-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['employees']) - 1) + (floatval($uwEngine['employees']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <textarea class="form-control autosize" name="employees-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
-                                    <!-- <b>F. Cooperation</b> -->
-                                    <b>F. Classification</b>
-                                    <br>
-                                    <!-- <small>Care, condition, and type</small> -->
+                                <div class="col-md-3" style="text-align: center;">
+                                    <b>F. Management</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['management'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['management'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ number_format($submissionMod->protection_outcome, 2, '.', '') }}
+                                            {{ number_format($ncci['management']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min-6" class="slider danger"></div>
@@ -239,32 +336,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            {{ number_format($ncci['management']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-6" name="cooperation-mod" value="{{ number_format($submissionMod->protection_outcome, 2, '.', '') }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount-6" 
+                                            name="management-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['management']) - 1) + (floatval($uwEngine['management']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="cooperation-comm"></textarea>
+                                <div class="col-md-3">
+                                    <textarea class="form-control autosize" name="management-comm"></textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
                             <div class="row">
-                                <div class="col-md-4" style="text-align: center;">
+                                <div class="col-md-3" style="text-align: center;">
                                     <b>G. Organization</b>
-                                    <br>
-                                    <!-- <small></small> -->
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-info">{{ $uwEngine['organization'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <span class="badge badge-primary">{{ $gradientAI['organization'] }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <div class="col-md-2">
                                             Min
                                             <br>
-                                            {{ ($submissionMod->organization_outcome) ? number_format($submissionMod->organization_outcome, 2, '.', '') : 0.95 }}
+                                            {{ number_format($ncci['organization']['min'], 2, '.', '') }}
                                         </div>
                                         <div class="col-md-8">
                                             <div id="slider-range-min-7" class="slider danger"></div>
@@ -272,17 +387,50 @@
                                         <div class="col-md-2">
                                             Max
                                             <br>
-                                            1.05
+                                            {{ number_format($ncci['organization']['max'], 2, '.', '') }}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="slider-value" style="text-align: center;">
                                         Value:
-                                        <input type="text" class="slider-value slider-value-text" id="slider-range-min-amount-7" name="organization-mod" value="{{ ($submissionMod->organization_outcome) ? number_format($submissionMod->organization_outcome, 2, '.', '') : 0.95 }}" readonly/>
+                                        <input 
+                                            type="text" 
+                                            class="slider-value slider-value-text" 
+                                            id="slider-range-min-amount-7" 
+                                            name="organization-mod" 
+                                            value="{{ 
+                                                number_format(
+                                                    (((floatval($gradientAI['organization']) - 1) + (floatval($uwEngine['organization']) - 1)) + 1), 
+                                                    2, 
+                                                    '.', 
+                                                    ''
+                                                ) 
+                                            }}" 
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <textarea class="form-control autosize" name="organization-comm"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" style="text-align: center;padding-top: 20px;">
+                                    <b>Overall</b>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <hr class="outsider" style="margin-top: 0;">
+                                    <span class="badge badge-info">{{ $uwEngine['overall'] }}</span>
+                                </div>
+                                <div class="col-md-1" style="text-align: center;">
+                                    <hr class="outsider" style="margin-top: 0;">
+                                    <span class="badge badge-primary">{{ $gradientAI['overall'] }}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -471,84 +619,66 @@
     <script>
         // Mapping risks to currently labeled
         $(document).ready(function() {
-            let locationOutcomeMinValue = parseFloat('{{ $submissionMod->location_outcome }}');
-            let premisesEquipmentOutcomeMinValue = parseFloat('{{ $submissionMod->premises_equipment_outcome }}');
-            let buildingFeaturesOutcomeMinValue = parseFloat('{{ $submissionMod->building_features_outcome }}');
-            let managementOutcomeMinValue = parseFloat('{{ $submissionMod->management_outcome }}');
-            let employeesOutcomeMinValue = parseFloat('{{ $submissionMod->employees_outcome }}');
-            let protectionOutcomeMinValue = parseFloat('{{ $submissionMod->protection_outcome }}');
-            let organizationOutcomeMinValue = parseFloat('{{ $submissionMod->organization_outcome ?? 0.95 }}');
-
-            let newlocationOutcome = parseFloat('{{ $submissionMod->location_outcome }}');
-            let newPremisesEquipmentOutcome = parseFloat('{{ $submissionMod->premises_equipment_outcome }}');
-            let newBuildingFeaturesOutcome = parseFloat('{{ $submissionMod->building_features_outcome }}');
-            let newManagementOutcome = parseFloat('{{ $submissionMod->management_outcome }}');
-            let newEmployeesOutcome = parseFloat('{{ $submissionMod->employees_outcome }}');
-            let newProtectionOutcome = parseFloat('{{ $submissionMod->protection_outcome }}');
-            let newOrganizationOutcome = parseFloat('{{ $submissionMod->organization_outcome ?? 0.95 }}');
-
-            // WC
-            let locationOutcomeMaxValue = 1.10; // Health
-            let premisesEquipmentOutcomeMaxValue = 1.05;
-            let buildingFeaturesOutcomeMaxValue = 1.10;
-            let managementOutcomeMaxValue = 1.10;
-            let employeesOutcomeMaxValue = 1.05;
-            let protectionOutcomeMaxValue = 1.05; // Classification
-            let organizationOutcomeMaxValue = 1.05;
-
+            let premisesInitValue = newPremisesOutcome = parseFloat('{{ number_format((((floatval($gradientAI["premises"]) - 1) + (floatval($uwEngine["premises"]) - 1)) + 1), 2, '.', '') }}');
+            let classificationInitValue = newClassificationOutcome = parseFloat('{{ number_format((((floatval($gradientAI["classification"]) - 1) + (floatval($uwEngine["classification"]) - 1)) + 1), 2, '.', '') }}');
+            let healthInitValue = newHealthOutcome = parseFloat('{{ number_format((((floatval($gradientAI["health"]) - 1) + (floatval($uwEngine["health"]) - 1)) + 1), 2, '.', '') }}');
+            let equipmentInitValue = newEquipmentOutcome = parseFloat('{{ number_format((((floatval($gradientAI["equipment"]) - 1) + (floatval($uwEngine["equipment"]) - 1)) + 1), 2, '.', '') }}');
+            let employeesInitValue = newEmployeesOutcome = parseFloat('{{ number_format((((floatval($gradientAI["employees"]) - 1) + (floatval($uwEngine["employees"]) - 1)) + 1), 2, '.', '') }}');
+            let managementInitValue = newManagementOutcome = parseFloat('{{ number_format((((floatval($gradientAI["management"]) - 1) + (floatval($uwEngine["management"]) - 1)) + 1), 2, '.', '') }}');
+            let organizationInitValue = newOrganizationOutcome = parseFloat('{{ number_format((((floatval($gradientAI["organization"]) - 1) + (floatval($uwEngine["organization"]) - 1)) + 1), 2, '.', '') }}');
             $("#slider-range-min").slider({
                 range: "min",
-                value: {{ $submissionMod->location_outcome }},
-                min: {{ $submissionMod->location_outcome }},
-                max: locationOutcomeMaxValue,
+                value: premisesInitValue,
+                min: {{ $ncci['premises']['min'] }},
+                max: {{ $ncci['premises']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
-                    newlocationOutcome = ui.value;
+                    newPremisesOutcome = ui.value;
                     $("#slider-range-min-amount").val(ui.value);
                 }
             });
             $("#slider-range-min-amount").text($("#slider-range-min").slider("value"));
             $("#slider-range-min-2").slider({
                 range: "min",
-                value: {{ $submissionMod->premises_equipment_outcome }},
-                min: {{ $submissionMod->premises_equipment_outcome }},
-                max: premisesEquipmentOutcomeMaxValue,
+                value: classificationInitValue,
+                min: {{ $ncci['classification']['min'] }},
+                max: {{ $ncci['classification']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
-                    newPremisesEquipmentOutcome = ui.value;
+                    newClassificationOutcome = ui.value;
                     $("#slider-range-min-amount-2").val(ui.value);
                 }
             });
             $("#slider-range-min-amount-2").text($("#slider-range-min-2").slider("value"));
             $("#slider-range-min-3").slider({
                 range: "min",
-                value: {{ $submissionMod->building_features_outcome }},
-                min: {{ $submissionMod->building_features_outcome }},
-                max: buildingFeaturesOutcomeMaxValue,
+                value: healthInitValue,
+                min: {{ $ncci['health']['min'] }},
+                max: {{ $ncci['health']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
-                    newBuildingFeaturesOutcome = ui.value;
+                    newHealthOutcome = ui.value;
                     $("#slider-range-min-amount-3").val(ui.value);
                 }
             });
             $("#slider-range-min-amount-3").text($("#slider-range-min-3").slider("value"));
             $("#slider-range-min-4").slider({
                 range: "min",
-                value: {{ $submissionMod->management_outcome }},
-                min: {{ $submissionMod->management_outcome }},
-                max: managementOutcomeMaxValue,
+                value: equipmentInitValue,
+                min: {{ $ncci['equipment']['min'] }},
+                max: {{ $ncci['equipment']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
-                    newManagementOutcome = ui.value;
+                    newEquipmentOutcome = ui.value;
                     $("#slider-range-min-amount-4").val(ui.value);
                 }
             });
             $("#slider-range-min-amount-4").text($("#slider-range-min-4").slider("value"));
             $("#slider-range-min-5").slider({
                 range: "min",
-                value: {{ $submissionMod->employees_outcome }},
-                min: {{ $submissionMod->employees_outcome }},
-                max: employeesOutcomeMaxValue,
+                value: employeesInitValue,
+                min: {{ $ncci['employees']['min'] }},
+                max: {{ $ncci['employees']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
                     newEmployeesOutcome = ui.value;
@@ -558,21 +688,21 @@
             $("#slider-range-min-amount-5").text($("#slider-range-min-5").slider("value"));
             $("#slider-range-min-6").slider({
                 range: "min",
-                value: {{ $submissionMod->protection_outcome }},
-                min: {{ $submissionMod->protection_outcome }},
-                max: protectionOutcomeMaxValue,
+                value: managementInitValue,
+                min: {{ $ncci['management']['min'] }},
+                max: {{ $ncci['management']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
-                    newProtectionOutcome = ui.value;
+                    newManagementOutcome = ui.value;
                     $("#slider-range-min-amount-6").val(ui.value);
                 }
             });
             $("#slider-range-min-amount-6").text($("#slider-range-min-6").slider("value"));
             $("#slider-range-min-7").slider({
                 range: "min",
-                value: {{ $submissionMod->organization_outcome ?? 0.95 }},
-                min: {{ $submissionMod->organization_outcome ?? 0.95 }},
-                max: organizationOutcomeMaxValue,
+                value: organizationInitValue,
+                min: {{ $ncci['organization']['min'] }},
+                max: {{ $ncci['organization']['max'] }},
                 step: 0.01,
                 slide: function (event, ui) {
                     newOrganizationOutcome = ui.value;
@@ -580,85 +710,86 @@
                 }
             });
             $("#slider-range-min-amount-7").text($("#slider-range-min-7").slider("value"));
+            //calculate
             $("#btnCalculate").click(() => {
-                if (newlocationOutcome == locationOutcomeMinValue) {
-                    diffNewlocationOutcome = (locationOutcomeMinValue - 1);
-                    console.log("diffNewlocationOutcome: " + locationOutcomeMinValue + " - 1");
-                    console.log("= " + diffNewlocationOutcome.toFixed(2));
+                if (premisesInitValue == newPremisesOutcome) {
+                    diffnewPremisesOutcome = (premisesInitValue - 1);
+                    console.log("diffnewPremisesOutcome: " + premisesInitValue + " - 1");
+                    console.log("= " + premisesInitValue.toFixed(2));
                 } else {
-                    diffNewlocationOutcome = (newlocationOutcome - 1);
-                    console.log("diffNewlocationOutcome: " + newlocationOutcome + " - 1");
-                    console.log("= " + diffNewlocationOutcome.toFixed(2));
+                    diffnewPremisesOutcome = (newPremisesOutcome - 1);
+                    console.log("diffnewPremisesOutcome: " + newPremisesOutcome + " - 1");
+                    console.log("= " + newPremisesOutcome.toFixed(2));
                 }
                 console.log("-------------------------------------------------------");
-                if (newPremisesEquipmentOutcome == premisesEquipmentOutcomeMinValue) {
-                    diffNewPremisesEquipmentOutcome = (premisesEquipmentOutcomeMinValue - 1);
-                    console.log("diffNewPremisesEquipmentOutcome: " + premisesEquipmentOutcomeMinValue + " - 1");
-                    console.log("= " + diffNewPremisesEquipmentOutcome.toFixed(2));
+                if (classificationInitValue == newClassificationOutcome) {
+                    diffnewClassificationOutcome = (classificationInitValue - 1);
+                    console.log("diffnewClassificationOutcome: " + classificationInitValue + " - 1");
+                    console.log("= " + classificationInitValue.toFixed(2));
                 } else {
-                    diffNewPremisesEquipmentOutcome = (newPremisesEquipmentOutcome - 1);
-                    console.log("diffNewPremisesEquipmentOutcome: " + newPremisesEquipmentOutcome + " - 1");
-                    console.log("= " + diffNewPremisesEquipmentOutcome.toFixed(2));
+                    diffnewClassificationOutcome = (newClassificationOutcome - 1);
+                    console.log("diffnewClassificationOutcome: " + newClassificationOutcome + " - 1");
+                    console.log("= " + newClassificationOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                if (newBuildingFeaturesOutcome == buildingFeaturesOutcomeMinValue) {
-                    diffNewBuildingFeaturesOutcome = (buildingFeaturesOutcomeMinValue - 1);
-                    console.log("diffNewBuildingFeaturesOutcome: " + buildingFeaturesOutcomeMinValue + " - 1");
-                    console.log("= " + diffNewBuildingFeaturesOutcome.toFixed(2));
+                if (healthInitValue == newHealthOutcome) {
+                    diffnewHealthOutcome = (healthInitValue - 1);
+                    console.log("diffnewHealthOutcome: " + healthInitValue + " - 1");
+                    console.log("= " + healthInitValue.toFixed(2));
                 } else {
-                    diffNewBuildingFeaturesOutcome = (newBuildingFeaturesOutcome  - 1);
-                    console.log("diffNewBuildingFeaturesOutcome: " + newBuildingFeaturesOutcome + " - 1");
-                    console.log("= " + diffNewBuildingFeaturesOutcome.toFixed(2));
+                    diffnewHealthOutcome = (newHealthOutcome  - 1);
+                    console.log("diffnewHealthOutcome: " + newHealthOutcome + " - 1");
+                    console.log("= " + newHealthOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                if (newManagementOutcome == managementOutcomeMinValue) {
-                    diffNewManagementOutcome = (managementOutcomeMinValue - 1);
-                    console.log("diffNewManagementOutcome: " + managementOutcomeMinValue + " - 1");
-                    console.log("= " + diffNewManagementOutcome.toFixed(2));
+                if (equipmentInitValue == newEquipmentOutcome) {
+                    diffnewEquipmentOutcome = (equipmentInitValue - 1);
+                    console.log("diffnewEquipmentOutcome: " + equipmentInitValue + " - 1");
+                    console.log("= " + equipmentInitValue.toFixed(2));
                 } else {
-                    diffNewManagementOutcome = (newManagementOutcome - 1);
-                    console.log("diffNewManagementOutcome: " + newManagementOutcome + " - 1");
-                    console.log("= " + diffNewManagementOutcome.toFixed(2));
+                    diffnewEquipmentOutcome = (newEquipmentOutcome - 1);
+                    console.log("diffnewEquipmentOutcome: " + newEquipmentOutcome + " - 1");
+                    console.log("= " + newEquipmentOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                if (newEmployeesOutcome == employeesOutcomeMinValue) {
-                    diffNewEmployeesOutcome = (employeesOutcomeMinValue - 1);
-                    console.log("diffNewEmployeesOutcome: " + employeesOutcomeMinValue + " - 1");
-                    console.log("= " + diffNewEmployeesOutcome.toFixed(2));
+                if (employeesInitValue == newEmployeesOutcome) {
+                    diffnewEmployeesOutcome = (employeesInitValue - 1);
+                    console.log("diffnewEmployeesOutcome: " + employeesInitValue + " - 1");
+                    console.log("= " + employeesInitValue.toFixed(2));
                 } else {
-                    diffNewEmployeesOutcome = (newEmployeesOutcome - 1);
-                    console.log("diffNewEmployeesOutcome: " + newEmployeesOutcome + " - 1");
-                    console.log("= " + diffNewEmployeesOutcome.toFixed(2));
+                    diffnewEmployeesOutcome = (newEmployeesOutcome - 1);
+                    console.log("diffnewEmployeesOutcome: " + newEmployeesOutcome + " - 1");
+                    console.log("= " + newEmployeesOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                if (newProtectionOutcome == protectionOutcomeMinValue) {
-                    diffNewProtectionOutcome = (protectionOutcomeMinValue - 1);
-                    console.log("diffNewProtectionOutcome: " + protectionOutcomeMinValue + " - 1");
-                    console.log("= " + diffNewProtectionOutcome.toFixed(2));
+                if (managementInitValue == newManagementOutcome) {
+                    diffnewManagementOutcome = (managementInitValue - 1);
+                    console.log("diffnewManagementOutcome: " + managementInitValue + " - 1");
+                    console.log("= " + managementInitValue.toFixed(2));
                 } else {
-                    diffNewProtectionOutcome = (newProtectionOutcome - 1);
-                    console.log("diffNewProtectionOutcome: " + newProtectionOutcome + " - 1");
-                    console.log("= " + diffNewProtectionOutcome.toFixed(2));
+                    diffnewManagementOutcome = (newManagementOutcome - 1);
+                    console.log("diffnewManagementOutcome: " + newManagementOutcome + " - 1");
+                    console.log("= " + newManagementOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                if (newOrganizationOutcome == organizationOutcomeMinValue) {
-                    diffnewOrganizationOutcome = (organizationOutcomeMinValue - 1);
-                    console.log("diffnewOrganizationOutcome: " + organizationOutcomeMinValue + " - 1");
-                    console.log("= " + diffnewOrganizationOutcome.toFixed(2));
+                if (organizationInitValue == newOrganizationOutcome) {
+                    diffnewOrganizationOutcome = (organizationInitValue - 1);
+                    console.log("diffnewOrganizationOutcome: " + organizationInitValue + " - 1");
+                    console.log("= " + organizationInitValue.toFixed(2));
                 } else {
                     diffnewOrganizationOutcome = (newOrganizationOutcome - 1);
                     console.log("diffnewOrganizationOutcome: " + newOrganizationOutcome + " - 1");
-                    console.log("= " + diffnewOrganizationOutcome.toFixed(2));
+                    console.log("= " + newOrganizationOutcome.toFixed(2));
                 }
                 console.log("-----------------------------------");
-                let total = diffNewlocationOutcome
-                    + diffNewPremisesEquipmentOutcome
-                    + diffNewBuildingFeaturesOutcome
-                    + diffNewManagementOutcome
-                    + diffNewEmployeesOutcome
-                    + diffNewProtectionOutcome
+                let total = diffnewPremisesOutcome
+                    + diffnewClassificationOutcome
+                    + diffnewHealthOutcome
+                    + diffnewEquipmentOutcome
+                    + diffnewEmployeesOutcome
+                    + diffnewManagementOutcome
                     + diffnewOrganizationOutcome;
-                console.log("Sum: " + diffNewlocationOutcome.toFixed(2) + " + " + diffNewPremisesEquipmentOutcome.toFixed(2) + " + " + diffNewBuildingFeaturesOutcome.toFixed(2) + " + " + diffNewManagementOutcome.toFixed(2) + " + " + diffNewEmployeesOutcome.toFixed(2) + " + " + diffNewProtectionOutcome.toFixed(2) + " + " + diffnewOrganizationOutcome.toFixed(2));
+                console.log("Sum: " + diffnewPremisesOutcome.toFixed(2) + " + " + diffnewClassificationOutcome.toFixed(2) + " + " + diffnewHealthOutcome.toFixed(2) + " + " + diffnewEquipmentOutcome.toFixed(2) + " + " + diffnewEmployeesOutcome.toFixed(2) + " + " + diffnewManagementOutcome.toFixed(2) + " + " + diffnewOrganizationOutcome.toFixed(2));
                 console.log("= " + total.toFixed(2));
                 total += 1;
                 console.log("Raw total: " + total);

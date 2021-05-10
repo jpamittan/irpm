@@ -22,44 +22,76 @@ class ModsController extends Controller
     public function index(string $submissionId): View
     {
         config(['sqlsvr.connection' => Auth::user()->db_connection]);
+        $gradientAI = [];
+        $uwEngine = [];
+        $ncci = null;
         $view = 'mods.tgl';
         $submissionMod = SubmissionMod::where('submissions_id', $submissionId)
             ->with('submission')
             ->with('outcomeType')
             ->first();
         // Map Risks to Submission Reviews
-        $submissionReviews = SubmissionReview::where('submissions_id', $submissionId)
-            ->where('question_text', 'LIKE', '%modfactor|final|%')
-            ->get();
         if ($submissionMod->submission->line_of_business == 'WRKCMP') {
+            // WC
             $view = 'mods.wc';
-            if (! $submissionMod->underwriter_users_id) {
-                foreach ($submissionReviews as $review) {
-                    if ($review->question_text == 'Modfactor|Final|Health') {
-                        $submissionMod->location_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Premises') {
-                        $submissionMod->premises_equipment_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Equipment') {
-                        $submissionMod->building_features_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Management') {
-                        $submissionMod->management_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Employees') {
-                        $submissionMod->employees_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Classification') {
-                        $submissionMod->protection_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Organization') {
-                        $submissionMod->organization_outcome = $review->answer_text;
-                    } else if ($review->question_text == 'Modfactor|Final|Overall') {
-                        $submissionMod->overall_outcome = $review->answer_text;
-                    }
+            $submissionReviews = SubmissionReview::where('submissions_id', $submissionId)
+                ->where(function($query) {
+                    $query->where('question_text', 'LIKE', 'Modfactor|Matched|%')
+                        ->orwhere('question_text', 'LIKE', 'API|Gradient AI|Modfactor|%')
+                        ->orWhere('question_text', 'API|ISO Small Business|Address.State');
+                })
+                ->get();
+            foreach ($submissionReviews as $review) {
+                if ($review->question_text == 'Modfactor|Matched|Premises') {
+                    $uwEngine['premises'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Classification') {
+                    $uwEngine['classification'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Health') {
+                    $uwEngine['health'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Equipment') {
+                    $uwEngine['equipment'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Employees') {
+                    $uwEngine['employees'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Management') {
+                    $uwEngine['management'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Organization') {
+                    $uwEngine['organization'] = $review->answer_text;
+                } else if ($review->question_text == 'Modfactor|Matched|Overall') {
+                    $uwEngine['overall'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Premises') {
+                    $gradientAI['premises'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Classification') {
+                    $gradientAI['classification'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Health') {
+                    $gradientAI['health'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Equipment') {
+                    $gradientAI['equipment'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Employees') {
+                    $gradientAI['employees'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Management') {
+                    $gradientAI['management'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Organization') {
+                    $gradientAI['organization'] = $review->answer_text;
+                } else if ($review->question_text == 'API|Gradient AI|Modfactor|Overall') {
+                    $gradientAI['overall'] = $review->answer_text;
+                } else if ($review->question_text == 'API|ISO Small Business|Address.State') {
+                    $ncci = config('ncci.' . $review->answer_text);
                 }
             }
+        } else {
+            // TGL
+            $submissionReviews = SubmissionReview::where('submissions_id', $submissionId)
+                ->where('question_text', 'LIKE', '%modfactor|final|%')
+                ->get();
         }
 
         return view($view, [
             'submissionMod' => $submissionMod,
             'underWriterFname' => Auth::user()->first_name,
             'underWriterLname' => Auth::user()->last_name,
+            'gradientAI' => $gradientAI,
+            'uwEngine' => $uwEngine,
+            'ncci' => $ncci
         ]);
     }
 
