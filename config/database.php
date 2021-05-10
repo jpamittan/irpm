@@ -91,7 +91,33 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'sqlsrv_codeeast' => [
+        'sqlsrv_ach_prd' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('MS_DB_HOST', 'localhost'),
+            'port' => env('MS_DB_PORT', '1433'),
+            'database' => 'ACH',
+            'username' => 'aws-codeeast',
+            'password' => 'XhLEN>6t',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
+        'sqlsrv_codeeast_uat' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('MS_DB_HOST', 'localhost'),
+            'port' => env('MS_DB_PORT', '1433'),
+            'database' => 'CodeEast_UAT',
+            'username' => 'aws-codeeast',
+            'password' => 'XhLEN>6t',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
+        'sqlsrv_codeeast_prd' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('MS_DB_HOST', 'localhost'),

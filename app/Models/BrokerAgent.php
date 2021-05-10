@@ -12,10 +12,10 @@ class BrokerAgent extends Model
 {
     public function __construct()
     {
-        $this->connection = 'sqlsrv_codeeast';
+        $this->connection = config('sqlsvr.codeeast');
     }
 
-    protected $table = 'CodeEast.dbo.Meta_BrokerAgent';
+    protected $table = 'Meta_BrokerAgent';
     protected $guarded = [];
     protected $casts = [];
 

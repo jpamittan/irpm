@@ -22,7 +22,9 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password123'),
             'remember_token' => Str::random(60),
             'is_admin' => 1,
-            'db_connection' => 'sqlsrv_uat'
+            'db_connection' => 'sqlsrv_uat',
+            'ach_connection' => 'ach_uat',
+            'permissions' => '["ach"]'
         ]);
     }
 }

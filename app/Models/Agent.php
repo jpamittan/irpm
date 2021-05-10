@@ -9,10 +9,10 @@ class Agent extends Model
 {
     public function __construct()
     {
-        $this->connection = 'sqlsrv_ach_uat';
+        $this->connection = config('sqlsvr.ach');
     }
 
-    protected $table = 'ACH_UAT.dbo.Agents';
+    protected $table = 'Agents';
     protected $primaryKey = 'AgentKey';
     protected $guarded = [];
     protected $casts = [];

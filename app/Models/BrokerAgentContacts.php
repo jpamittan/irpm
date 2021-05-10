@@ -8,7 +8,7 @@ class BrokerAgentContacts extends Model
 {
     public function __construct()
     {
-        $this->connection = 'sqlsrv_codeeast';
+        $this->connection = config('sqlsvr.codeeast');
     }
 
     protected $table = 'Meta_BrokerAgent_Contacts';

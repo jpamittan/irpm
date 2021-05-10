@@ -130,24 +130,24 @@ class ModsController extends Controller
             $newSubmissionMod->min = $submissionMod->min;
             $newSubmissionMod->max = $submissionMod->max;
             if ($submission->line_of_business == 'WRKCMP') {
-                $newSubmissionMod->management_outcome = $request->input('classification-mod');
-                $newSubmissionMod->location_outcome = $request->input('location-mod');
-                $newSubmissionMod->building_features_outcome = $request->input('equipment-mod');
-                $newSubmissionMod->premises_equipment_outcome = $request->input('premises-mod');
+                $newSubmissionMod->premises_outcome = $request->input('premises-mod');
+                $newSubmissionMod->classification_outcome = $request->input('classification-mod');
+                $newSubmissionMod->health_outcome = $request->input('health-mod');
+                $newSubmissionMod->equipment_outcome = $request->input('equipment-mod');
                 $newSubmissionMod->employees_outcome = $request->input('employees-mod');
-                $newSubmissionMod->protection_outcome = $request->input('cooperation-mod');
+                $newSubmissionMod->management_outcome = $request->input('management-mod');
                 $newSubmissionMod->organization_outcome = $request->input('organization-mod');
 
                 $newSubmissionMod->overall_outcome = $request->input('total-mod');
-
                 $newSubmissionMod->outcome_type_id = $submissionMod->outcome_type_id;
+
                 $newSubmissionMod->comments_in_total = $request->input('total-comm');
-                $newSubmissionMod->comments_in_management = $request->input('classification-comm');
-                $newSubmissionMod->comments_in_location = $request->input('location-comm');
-                $newSubmissionMod->comments_building_features = $request->input('equipment-comm');
-                $newSubmissionMod->comments_premises_equipment = $request->input('premises-comm');
+                $newSubmissionMod->comments_in_premises = $request->input('premises-comm');
+                $newSubmissionMod->comments_in_classification = $request->input('classification-comm');
+                $newSubmissionMod->comments_in_health = $request->input('health-comm');
+                $newSubmissionMod->comments_in_equipment = $request->input('equipment-comm');
                 $newSubmissionMod->comments_employees = $request->input('employees-comm');
-                $newSubmissionMod->comments_protection = $request->input('cooperation-comm');
+                $newSubmissionMod->comments_in_management = $request->input('management-comm');
                 $newSubmissionMod->comments_organization = $request->input('organization-comm');
             } else if ($submission->line_of_business == 'CGL') {
                 $newSubmissionMod->location_outcome = $request->input('location-mod');
@@ -158,8 +158,8 @@ class ModsController extends Controller
                 $newSubmissionMod->protection_outcome = $request->input('cooperation-mod');
 
                 $newSubmissionMod->overall_outcome = $request->input('total-mod');
-
                 $newSubmissionMod->outcome_type_id = $submissionMod->outcome_type_id;
+
                 $newSubmissionMod->comments_in_total = $request->input('total-comm');
                 $newSubmissionMod->comments_in_management = $request->input('classification-comm');
                 $newSubmissionMod->comments_in_location = $request->input('location-comm');
@@ -181,6 +181,8 @@ class ModsController extends Controller
             $newSubmissionMod->updated_at = Carbon::now();
             $newSubmissionMod->save();
             $this->dispatch(new ModifyModQueue(
+                $request,
+                $submission->line_of_business,
                 $submissionId,
                 $newSubmission->id
             ));

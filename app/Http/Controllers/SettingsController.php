@@ -12,7 +12,16 @@ use Illuminate\Http\{
 
 class SettingsController extends Controller
 {
-    protected $environments = [
+    protected $achEnvironments = [
+        [            
+            'connections' => [
+                'sqlsrv_ach_uat' => 'UAT',
+                'sqlsrv_ach_prd' => 'Production',
+            ]
+        ],
+    ];
+
+    protected $submissionEnvironments = [
         [
             'name' => 'Excess Liability',
             'connections' => [
@@ -41,7 +50,8 @@ class SettingsController extends Controller
     {
         return view('settings.index', [
             'user' => $user,
-            'environments' => $this->environments
+            'achEnvironments' => $this->achEnvironments,
+            'submissionEnvironments' => $this->submissionEnvironments            
         ]);
     }
     
@@ -56,7 +66,13 @@ class SettingsController extends Controller
     public function saveEnvironment(User $user, Request $request): RedirectResponse
     {
         $blnSave = false;
-        $user->db_connection = $request->get('db_connection');
+        $user->db_connection = $request->get('submission_connection');
+        $user->ach_connection = $request->get('ach_connection');
+        if ($request->get('ach_connection') == 'sqlsrv_ach_uat') {
+            $user->codeeast_connection = 'sqlsrv_codeeast_uat';
+        } else if ($request->get('ach_connection') == 'sqlsrv_ach_prd') {
+            $user->codeeast_connection = 'sqlsrv_codeeast_prd';
+        }
         $blnSave = ($user->save()) ? 1 : 0;
 
         return redirect('/settings/' . $user->id . '?save=' . $blnSave);

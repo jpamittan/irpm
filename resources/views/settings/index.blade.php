@@ -14,7 +14,7 @@
             </div>
             <div id="user-msg" style="padding: 10px;"></div>
             <div class="col-md-12">
-                <div id="panel-advancedoptions">
+                <div>
                     <div class="panel panel-default" data-widget-editbutton="false" id="p1">
                         <form action="{{ route('settings.savePassword', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
                             @csrf
@@ -49,7 +49,7 @@
                         </form>
                     </div>
                 </div>
-                <div id="panel-advancedoptions">
+                <div>
                     <div class="panel panel-default" data-widget-editbutton="false" id="p1">
                         <form action="{{ route('settings.saveEnvironment', ['user' => $user->id]) }}" class="form-horizontal row-border" method="post">
                             @csrf
@@ -57,13 +57,36 @@
                                 <h2>Environment Configuration</h2>
                             </div>
                             <div class="panel-body">
+                                @if (
+                                    Auth::user()->is_admin || 
+                                    in_array('ach', json_decode(Auth::user()->permissions, true))
+                                )
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            <i class="fas fa-database"></i> ACH Connection
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" name="ach_connection" required>
+                                                @foreach ($achEnvironments as $env)
+                                                    @foreach ($env['connections'] as $key => $value)
+                                                        @if ($key == $user->ach_connection)
+                                                            <option value="{{ $key }}" selected>{{ $value }} *</option>
+                                                        @else
+                                                            <option value="{{ $key }}">{{ $value }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">
-                                        <i class="fas fa-database"></i> Environment Connection
+                                        <i class="fas fa-database"></i> Submission Connection
                                     </label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="db_connection" required>
-                                            @foreach ($environments as $env)
+                                        <select class="form-control" name="submission_connection" required>
+                                            @foreach ($submissionEnvironments as $env)
                                                 <optgroup label="{{ $env['name'] }}">
                                                     @foreach ($env['connections'] as $key => $value)
                                                         @if ($key == $user->db_connection)

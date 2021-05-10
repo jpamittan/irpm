@@ -26,6 +26,8 @@ class AchController extends Controller
 
     public function datatables(Request $request): string
     {
+        config(['sqlsvr.ach' => Auth::user()->ach_connection]);
+        config(['sqlsvr.codeeast' => Auth::user()->codeeast_connection]);
         $draw = $request->get('draw');
         $start = $request->get("start");
         $rowperpage = $request->get("length");
@@ -39,28 +41,42 @@ class AchController extends Controller
         $searchValue = $search_arr['value'];
         $totalRecords = BrokerAgent::count();
         $queryTotalRecordswithFilter = BrokerAgent::whereNotNull('AgentName');
+
+        $achTable = null;
+        $codeeastTable = null;
+        if (Auth::user()->ach_connection == "sqlsrv_ach_uat") {
+            $achTable = "ACH_UAT";
+        } else {
+            $achTable = "ACH";
+        }
+        if (Auth::user()->codeeast_connection == "sqlsrv_codeeast_uat") {
+            $codeeastTable = "CodeEast_UAT";
+        } else {
+            $codeeastTable = "CodeEast";
+        }
+
         if ($searchValue) {
-            $queryTotalRecordswithFilter = BrokerAgent::where('CodeEast.dbo.Meta_BrokerAgent.AgentName', 'like', '%' . $searchValue . '%')
-                ->orWhere('CodeEast.dbo.Meta_BrokerAgent.NIPR', 'like', '%' . $searchValue . '%')
-                ->orWhere('CodeEast.dbo.Meta_BrokerAgent.FEIN', 'like', '%' . $searchValue . '%');
+            $queryTotalRecordswithFilter = BrokerAgent::where($codeeastTable . '.dbo.Meta_BrokerAgent.AgentName', 'like', '%' . $searchValue . '%')
+                ->orWhere($codeeastTable . '.dbo.Meta_BrokerAgent.NIPR', 'like', '%' . $searchValue . '%')
+                ->orWhere($codeeastTable . '.dbo.Meta_BrokerAgent.FEIN', 'like', '%' . $searchValue . '%');
         }
         if (in_array($columnName, ['AgentRoutingNumber', 'AccountNumber', 'ModifiedBy', 'DateTimeModified'])) {
-            $columnName = 'ACH_UAT.dbo.Agents.' . $columnName;
+            $columnName = $achTable . '.dbo.Agents.' . $columnName;
         } else {
-            $columnName = 'CodeEast.dbo.Meta_BrokerAgent.' . $columnName;
+            $columnName = $codeeastTable . '.dbo.Meta_BrokerAgent.' . $columnName;
         }
         $totalRecordswithFilter = $queryTotalRecordswithFilter->count();
         $queryRecords = BrokerAgent::orderBy($columnName, $columnSortOrder)
-            ->leftJoin('ACH_UAT.dbo.Agents', 'ACH_UAT.dbo.Agents.AgentKey', '=', 'CodeEast.dbo.Meta_BrokerAgent.EntityId')
+            ->leftJoin($achTable . '.dbo.Agents', $achTable . '.dbo.Agents.AgentKey', '=', $codeeastTable . '.dbo.Meta_BrokerAgent.EntityId')
             ->select([
-                'CodeEast.dbo.Meta_BrokerAgent.EntityId',
-                'CodeEast.dbo.Meta_BrokerAgent.AgentName',
-                'CodeEast.dbo.Meta_BrokerAgent.NIPR',
-                'CodeEast.dbo.Meta_BrokerAgent.FEIN',
-                'ACH_UAT.dbo.Agents.AgentRoutingNumber',
-                'ACH_UAT.dbo.Agents.AccountNumber',
-                'ACH_UAT.dbo.Agents.ModifiedBy',
-                'ACH_UAT.dbo.Agents.DateTimeModified'
+                $codeeastTable . '.dbo.Meta_BrokerAgent.EntityId',
+                $codeeastTable . '.dbo.Meta_BrokerAgent.AgentName',
+                $codeeastTable . '.dbo.Meta_BrokerAgent.NIPR',
+                $codeeastTable . '.dbo.Meta_BrokerAgent.FEIN',
+                $achTable . '.dbo.Agents.AgentRoutingNumber',
+                $achTable . '.dbo.Agents.AccountNumber',
+                $achTable . '.dbo.Agents.ModifiedBy',
+                $achTable . '.dbo.Agents.DateTimeModified'
             ])
             ->skip($start)
             ->take($rowperpage);
@@ -96,11 +112,13 @@ class AchController extends Controller
 
     public function details(string $entityId): View
     {
+        config(['sqlsvr.ach' => Auth::user()->ach_connection]);
+        config(['sqlsvr.codeeast' => Auth::user()->codeeast_connection]);
         $brokerAgent = BrokerAgent::where('EntityId', $entityId)
             ->with('allStates')
             ->with('contacts')
             ->first();
-        $ach = DB::connection('sqlsrv_ach')
+        $ach = DB::connection(Auth::user()->ach_connection)
             ->select("
                 EXEC dbo.[usp_DataDecrypt] @table = 'Agents',
                     @whereclause = '[AgentKey] = ''{$brokerAgent->EntityId}'' AND [AgentName] = ''{$brokerAgent->AgentName}'''
@@ -119,7 +137,9 @@ class AchController extends Controller
     }
 
     public function update(string $entityId, Request $request): RedirectResponse
-    {        
+    {
+        config(['sqlsvr.ach' => Auth::user()->ach_connection]);
+        config(['sqlsvr.codeeast' => Auth::user()->codeeast_connection]);
         $agent = Agent::where('AgentKey', $entityId)
             ->first();
         $user = Auth::user()->full_name;
@@ -139,7 +159,7 @@ class AchController extends Controller
         $agent->BankState = $request->get('address_state');
         $agent->BankZIP = $request->get('address_zip');
         $agent->save();
-        $result = DB::connection('sqlsrv_ach')
+        $result = DB::connection(Auth::user()->ach_connection)
             ->statement("
                 EXEC dbo.[usp_UpdateEncryptedTable] 
                 @table = 'Agents',
