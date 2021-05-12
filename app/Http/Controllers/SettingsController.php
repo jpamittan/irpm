@@ -64,14 +64,16 @@ class SettingsController extends Controller
     }
 
     public function saveEnvironment(User $user, Request $request): RedirectResponse
-    {
+    {   
         $blnSave = false;
         $user->db_connection = $request->get('submission_connection');
-        $user->ach_connection = $request->get('ach_connection');
-        if ($request->get('ach_connection') == 'sqlsrv_ach_uat') {
-            $user->codeeast_connection = 'sqlsrv_codeeast_uat';
-        } else if ($request->get('ach_connection') == 'sqlsrv_ach_prd') {
-            $user->codeeast_connection = 'sqlsrv_codeeast_prd';
+        if ($request->get('ach_connection')) {
+            $user->ach_connection = $request->get('ach_connection');
+            if ($request->get('ach_connection') == 'sqlsrv_ach_uat') {
+                $user->codeeast_connection = 'sqlsrv_codeeast_uat';
+            } else if ($request->get('ach_connection') == 'sqlsrv_ach_prd') {
+                $user->codeeast_connection = 'sqlsrv_codeeast_prd';
+            }
         }
         $blnSave = ($user->save()) ? 1 : 0;
 
