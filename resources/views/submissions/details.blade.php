@@ -40,6 +40,14 @@
                                                 <td><b>Program: </b></td>
                                                 <td><span class="text-primary">{{ $submission->line_of_business ??  "N/A" }}</span></td>
                                             </tr>
+                                            <tr>
+                                                <td><b>Total Score: </b></td>
+                                                <td><span class="text-primary">{{ $totalScore ??  "N/A" }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Average Score: </b></td>
+                                                <td><span class="text-primary">{{ $averageScore ??  "N/A" }}</span></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

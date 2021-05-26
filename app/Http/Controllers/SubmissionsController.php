@@ -143,9 +143,17 @@ class SubmissionsController extends Controller
             ])
             ->get();
         $ONEviewContextToken = null;
+        $totalScore = null;
+        $averageScore = null;
         foreach ($submissionAPILogs as $log) {
             if ($log->question_text == "API|Finalize Quote Token") {
                 $ONEviewContextToken = $log->answer_text;
+            }
+            if ($log->question_text == "Modfactor|Final|Score|Average") {
+                $totalScore = $log->answer_text;
+            }
+            if ($log->question_text == "Modfactor|Final|Score|Total") {
+                $averageScore = $log->answer_text;
             }
         }
         $nullAnswers = [];
@@ -188,7 +196,9 @@ class SubmissionsController extends Controller
             'submission' => $submission,
             'submissionAPILogs' => $submissionAPILogs,
             'submissionReviews' => $sortedSubmissionReviews,
-            'ONEviewContextToken' => $ONEviewContextToken
+            'ONEviewContextToken' => $ONEviewContextToken,
+            'totalScore' => $totalScore,
+            'averageScore' => $averageScore,
         ]);
     }
 
