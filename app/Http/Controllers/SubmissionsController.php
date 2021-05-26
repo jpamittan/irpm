@@ -149,10 +149,10 @@ class SubmissionsController extends Controller
             if ($log->question_text == "API|Finalize Quote Token") {
                 $ONEviewContextToken = $log->answer_text;
             }
-            if ($log->question_text == "Modfactor|Final|Score|Average") {
+            if ($log->question_text == "Modfactor|Final|Score|Total") {   
                 $totalScore = $log->answer_text;
             }
-            if ($log->question_text == "Modfactor|Final|Score|Total") {
+            if ($log->question_text == "Modfactor|Final|Score|Average") {
                 $averageScore = $log->answer_text;
             }
         }
