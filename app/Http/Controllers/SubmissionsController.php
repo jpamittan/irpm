@@ -134,11 +134,19 @@ class SubmissionsController extends Controller
         $submission->operating_in = rtrim($concatStates, ", ");
         $submissionReviews = SubmissionReview::where('submissions_id', $submission->id)
             ->where('question_text', 'NOT LIKE', '%|%')
+            ->select([
+                'question_id',
+                'question_text',
+                'answer_value',
+                'answer_text'
+            ])
             ->get();
         $submissionAPILogs = SubmissionReview::where('submissions_id', $submission->id)
             ->where('question_text', 'LIKE', '%|%')
+            ->where('question_text', 'NOT LIKE', '%API|Performance%')
             ->select([
                 'question_text',
+                'answer_value',
                 'answer_text'
             ])
             ->get();

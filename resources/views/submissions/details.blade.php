@@ -195,6 +195,7 @@
                             <thead>
                                 <tr>
                                     <th style="overflow-wrap: break-word;">API Endpoint</th>
+                                    <th style="overflow-wrap: break-word;">Score</th>
                                     <th style="overflow-wrap: break-word;">Response</th>
                                 </tr>
                             </thead>
@@ -202,6 +203,7 @@
                                 @foreach($submissionAPILogs as $log)
                                     <tr>
                                         <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
+                                        <td style="overflow-wrap: break-word;">{{ $log->answer_value }}</td>
                                         <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
                                     </tr>
                                 @endforeach
