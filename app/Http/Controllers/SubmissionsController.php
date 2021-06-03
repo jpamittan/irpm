@@ -6,7 +6,8 @@ use Auth, DB;
 use App\Models\{
     Attachment,
     Submission,
-    SubmissionReview
+    SubmissionReview,
+    User
 };
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Storage;
 
 class SubmissionsController extends Controller
 {
+    protected $allUsers = null;
+
     public function index(): View
     {
         session(['filterOutcomeTypeID' => null]);
@@ -82,6 +85,7 @@ class SubmissionsController extends Controller
                 'submissions.business_name',
                 'submissions.line_of_business',
                 'submissions.agent',
+                'submission_mods.underwriter_users_id',
                 'outcome_type.description',
                 'submissions.created_at'
             ])
@@ -98,6 +102,9 @@ class SubmissionsController extends Controller
         }
         $records = $queryRecords->get();
         $data_arr = array();
+
+        $this->allUsers = User::all();
+
         foreach ($records as $record) {
             $data_arr[] = array(
                 'id' => $record->id,
@@ -105,7 +112,9 @@ class SubmissionsController extends Controller
                 'version' => $record->version,
                 'business_name' => $record->business_name,
                 'line_of_business' => $record->line_of_business,
-                'agent' => $record->agent,
+                'agent' => ($record->underwriter_users_id) 
+                    ? $this->getUsername($record->underwriter_users_id) 
+                    : $record->agent,
                 'description' => $record->description,
                 'created_at' => $record->created_at
             );
@@ -119,6 +128,17 @@ class SubmissionsController extends Controller
 
         echo json_encode($response);
         exit;
+    }
+
+    protected function getUsername(int $userId): ?string
+    {
+        foreach ($this->allUsers as $user) {
+            if ($user->id == $userId) {
+                return $user->fullname;
+            }
+        }
+
+        return null;
     }
 
     public function details(string $submissionId): View
