@@ -6,7 +6,6 @@ use App\Http\Service\ModifyModService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Http\Request;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
@@ -25,7 +24,7 @@ class ModifyModQueue implements ShouldQueue
      * @return void
      */
     public function __construct(
-        Request $request, 
+        Array $request, 
         string $lineOfBusiness, 
         string $submissionId, 
         string $newSubmissionId

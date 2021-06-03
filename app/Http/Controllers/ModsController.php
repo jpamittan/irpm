@@ -181,13 +181,14 @@ class ModsController extends Controller
             $newSubmissionMod->updated_at = Carbon::now();
             $newSubmissionMod->save();
             $this->dispatch(new ModifyModQueue(
-                $request,
+                $request->all(),
                 $submission->line_of_business,
                 $submissionId,
                 $newSubmission->id
             ));
             $redirect = '/submissions/details/' . $newSubmission->id . '?save=1';
         } catch (\Exception $e) {
+            dd($e);
             $redirect = '/submissions/details/' . $submission->id . '?save=0';
         }
 

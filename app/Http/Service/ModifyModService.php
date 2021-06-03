@@ -7,12 +7,11 @@ use App\Models\{
     SubmissionLocation,
     SubmissionReview
 };
-use Illuminate\Http\Request;
 
 class ModifyModService
 {
     public function run(
-        Request $request, 
+        Array $request, 
         string $lineOfBusiness, 
         string $submissionId, 
         string $newSubmissionId
@@ -28,19 +27,19 @@ class ModifyModService
 
             if ($lineOfBusiness == 'WRKCMP') {
                 if ($review->question_text == 'Modfactor|Matched|Premises') {
-                    $newSubmissionReviews->answer_text = $request->input('premises-mod');
+                    $newSubmissionReviews->answer_text = $request['premises-mod'];
                 } else if ($review->question_text == 'Modfactor|Matched|Classification') {
-                    $newSubmissionReviews->answer_text = $request->input('classification-mod');
+                    $newSubmissionReviews->answer_text = $request['classification-mod'];
                 } else if ($review->question_text == 'Modfactor|Matched|Health') {
-                    $newSubmissionReviews->answer_text = $request->input('health-mod');
+                    $newSubmissionReviews->answer_text = $request['health-mod'];
                 } else if ($review->question_text == 'Modfactor|Matched|Equipment') {
-                    $newSubmissionReviews->answer_text = $request->input('equipment-mod');
+                    $newSubmissionReviews->answer_text =$request['equipment-mod'];
                 } else if ($review->question_text == 'Modfactor|Matched|Employees') {
-                    $newSubmissionReviews->answer_text = $request->input('employees-mod');
+                    $newSubmissionReviews->answer_text = $request['employees-mod'];
                 } else if ($review->question_text == 'Modfactor|Matched|Management') {
-                    $newSubmissionReviews->answer_text = $request->input('management-mod');
+                    $newSubmissionReviews->answer_text = $request['management-mod'];
                 } else if ($review->question_text == 'Modfactor|Matched|Organization') {
-                    $newSubmissionReviews->answer_text = $request->input('organization-mod');
+                    $newSubmissionReviews->answer_text = $request['organization-mod'];
                 // } else if ($review->question_text == 'Modfactor|Matched|Overall') {
                     // $newSubmissionReviews->answer_text = ????
                 } else {
