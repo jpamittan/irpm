@@ -81,7 +81,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="location-comm"></textarea>
+                                    <textarea class="form-control autosize" name="location-comm">
+                                        {{ $submissionMod->comments_in_location }}
+                                    </textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -114,7 +116,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="premises-comm"></textarea>
+                                    <textarea class="form-control autosize" name="premises-comm">
+                                        {{ $submissionMod->comments_premises_equipment }}
+                                    </textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -147,7 +151,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="equipment-comm"></textarea>
+                                    <textarea class="form-control autosize" name="equipment-comm">
+                                        {{ $submissionMod->comments_building_features }}
+                                    </textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -180,7 +186,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="classification-comm"></textarea>
+                                    <textarea class="form-control autosize" name="classification-comm">
+                                        {{ $submissionMod->comments_in_management }}
+                                    </textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -213,7 +221,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="employees-comm"></textarea>
+                                    <textarea class="form-control autosize" name="employees-comm">
+                                        {{ $submissionMod->comments_employees }}
+                                    </textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -246,7 +256,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <textarea class="form-control autosize" name="cooperation-comm"></textarea>
+                                    <textarea class="form-control autosize" name="cooperation-comm">
+                                        {{ $submissionMod->comments_protection }}
+                                    </textarea>
                                 </div>
                             </div>
                             <hr class="outsider">
@@ -319,7 +331,9 @@
                                         <div class="col-md-4" style="text-align: center;">
                                             Comments on Total %:
                                             <br><br>
-                                            <textarea class="form-control autosize" name="total-comm" id="comment-total"></textarea>
+                                            <textarea class="form-control autosize" name="total-comm" id="comment-total">
+                                                {{ $submissionMod->comments_in_total }}
+                                            </textarea>
                                         </div>
                                         <div class="col-md-4"></div>
                                     </div>
