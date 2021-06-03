@@ -30,6 +30,7 @@ class ExportController extends Controller
             ->get();
         $submissionAPILogs = SubmissionReview::where('submissions_id', $submission->id)
             ->where('question_text', 'LIKE', '%|%')
+            ->where('question_text', 'NOT LIKE', '%API|Performance%')
             ->select([
                 'question_text',
                 'answer_text'

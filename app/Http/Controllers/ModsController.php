@@ -188,7 +188,6 @@ class ModsController extends Controller
             ));
             $redirect = '/submissions/details/' . $newSubmission->id . '?save=1';
         } catch (\Exception $e) {
-            dd($e);
             $redirect = '/submissions/details/' . $submission->id . '?save=0';
         }
 
