@@ -118,7 +118,7 @@ class AchController extends Controller
             ->with('allStates')
             ->with('contacts')
             ->first();
-        $agentName = mysql_real_escape_string($brokerAgent->AgentName);
+        $agentName = addslashes($brokerAgent->AgentName);
         $ach = DB::connection(Auth::user()->ach_connection)
             ->select("
                 EXEC dbo.[usp_DataDecrypt] @table = 'Agents',
@@ -160,7 +160,7 @@ class AchController extends Controller
         $agent->BankState = $request->get('address_state');
         $agent->BankZIP = $request->get('address_zip');
         $agent->save();
-        $agentName = mysql_real_escape_string($request->get('agent_name'));
+        $agentName = addslashes($request->get('agent_name'));
         $result = DB::connection(Auth::user()->ach_connection)
             ->statement("
                 EXEC dbo.[usp_UpdateEncryptedTable] 
