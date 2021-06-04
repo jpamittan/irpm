@@ -118,10 +118,11 @@ class AchController extends Controller
             ->with('allStates')
             ->with('contacts')
             ->first();
+        $agentName = mysql_real_escape_string($brokerAgent->AgentName);
         $ach = DB::connection(Auth::user()->ach_connection)
             ->select("
                 EXEC dbo.[usp_DataDecrypt] @table = 'Agents',
-                    @whereclause = '[AgentKey] = ''{$brokerAgent->EntityId}'' AND [AgentName] = ''{$brokerAgent->AgentName}'''
+                    @whereclause = '[AgentKey] = ''{$brokerAgent->EntityId}'' AND [AgentName] = ''{$agentName}'''
             ");
         $achDetails = Agent::where('AgentKey', $entityId)
             ->first();
