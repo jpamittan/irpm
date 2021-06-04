@@ -159,11 +159,12 @@ class AchController extends Controller
         $agent->BankState = $request->get('address_state');
         $agent->BankZIP = $request->get('address_zip');
         $agent->save();
+        $agentName = mysql_real_escape_string($request->get('agent_name'));
         $result = DB::connection(Auth::user()->ach_connection)
             ->statement("
                 EXEC dbo.[usp_UpdateEncryptedTable] 
                 @table = 'Agents',
-                @UpdateFilter = '[AgentKey] = ''{$entityId}'' AND [AgentName] = ''{$request->get('agent_name')}''',
+                @UpdateFilter = '[AgentKey] = ''{$entityId}'' AND [AgentName] = ''{$agentName}''',
                 @UpdateColumn = '[AgentRoutingNumber] = ''{$request->get('routing_number')}'' AND [AccountNumber] = ''{$request->get('account_number')}'' AND [ModifiedBy] = ''{$user}'''
             ");
         
