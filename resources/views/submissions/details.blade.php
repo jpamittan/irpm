@@ -162,8 +162,8 @@
                                                 <tbody>
                                                     @foreach($submissionAPILogs as $log)
                                                         @if (
-                                                            $log->answer_value || 
-                                                            $log->answer_value == 0
+                                                            $log->answer_value != "" &&
+                                                            ! empty($log->answer_value)
                                                         )
                                                             <tr>
                                                                 <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
