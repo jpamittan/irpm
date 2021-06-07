@@ -103,7 +103,7 @@
                                             </div>
                                         </div>
                                         <div class="panel-body panel-no-padding">
-                                            <table id="submissionDetails" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <table id="apiScoreLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead>
                                                     <tr>
                                                         <th>API Key</th>
@@ -261,7 +261,7 @@
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#submissionDetails').dataTable({
+            $('#submissionDetails, #apiScoreLogs').dataTable({
                 language: {
                     lengthMenu: "_MENU_",
                     searchPlaceholder: "Search..."
