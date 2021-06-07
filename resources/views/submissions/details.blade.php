@@ -149,8 +149,6 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h2><i class="fas fa-hashtag"></i> API score logs</h2>
-                                            <div class="panel-ctrls">
-                                            </div>
                                         </div>
                                         <div class="panel-body panel-no-padding">
                                             <table id="apiScoreLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -173,7 +171,6 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                            <div class="panel-footer"></div>
                                         </div>
                                     </div>
                                 </div>
