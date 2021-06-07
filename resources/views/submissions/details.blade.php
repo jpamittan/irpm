@@ -162,7 +162,7 @@
                                                 <tbody>
                                                     @foreach($submissionAPILogs as $log)
                                                         @if (
-                                                            $log->answer_value && 
+                                                            $log->answer_value || 
                                                             $log->answer_value == 0
                                                         )
                                                             <tr>
