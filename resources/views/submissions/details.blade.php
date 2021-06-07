@@ -93,42 +93,6 @@
                             style="width:100%;height:800px;border:1px solid #999999;display: none;"
                         >
                         </iframe>
-                        <div id="panel-api-score-logs">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h2><i class="fas fa-question-circle"></i> API score logs</h2>
-                                            <div class="panel-ctrls">
-                                            </div>
-                                        </div>
-                                        <div class="panel-body panel-no-padding">
-                                            <table id="apiScoreLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>API Key</th>
-                                                        <th>Score</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($submissionAPILogs as $log)
-                                                        @if ($log->answer_value)
-                                                            <tr>
-                                                                <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
-                                                                <td style="overflow-wrap: break-word;">{{ $log->answer_value }}</td>
-                                                                <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            <div class="panel-footer"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div id="panel-attachments">
                             <div class="panel panel-default">
                                 <form 
@@ -177,6 +141,42 @@
                                         @endif
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div id="panel-api-score-logs">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h2><i class="fas fa-hashtag"></i> API score logs</h2>
+                                            <div class="panel-ctrls">
+                                            </div>
+                                        </div>
+                                        <div class="panel-body panel-no-padding">
+                                            <table id="apiScoreLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>API Key</th>
+                                                        <th>Score</th>
+                                                        <th>Value</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($submissionAPILogs as $log)
+                                                        @if ($log->answer_value)
+                                                            <tr>
+                                                                <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
+                                                                <td style="overflow-wrap: break-word;">{{ $log->answer_value }}</td>
+                                                                <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            <div class="panel-footer"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="panel-advancedoptions">
@@ -261,7 +261,7 @@
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#submissionDetails, #apiScoreLogs').dataTable({
+            $('#submissionDetails').dataTable({
                 language: {
                     lengthMenu: "_MENU_",
                     searchPlaceholder: "Search..."
