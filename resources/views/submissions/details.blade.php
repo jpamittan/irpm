@@ -161,7 +161,10 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach($submissionAPILogs as $log)
-                                                        @if ($log->answer_value)
+                                                        @if (
+                                                            $log->answer_value && 
+                                                            $log->answer_value == 0
+                                                        )
                                                             <tr>
                                                                 <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
                                                                 <td style="overflow-wrap: break-word;">{{ $log->answer_value }}</td>
