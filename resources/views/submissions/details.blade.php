@@ -58,7 +58,7 @@
                                         <div class="btn-toolbar" style="display: inline-block;">
                                             <form 
                                                 id="frm-worksheet"
-                                                action="https://uat-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}" 
+                                                action="#" 
                                                 method="post" 
                                                 target="worksheet_iframe"
                                             >
@@ -300,6 +300,11 @@
                 setNotif('danger', '<i class="fa fa-fw fa-times"></i>&nbsp; An error has occured. Please try again.');
             }
             var isWorksheetOn = false;
+
+            let iframeWsWidth = $('#worksheet_iframe').width();
+            let wsURL = `https://uat-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}&headerDisabled=true&widthInPixels=${iframeWsWidth}`;
+            $('#frm-worksheet').attr('action', wsURL);
+
             $("#frm-worksheet").submit(function(e) {
                 $('#panel-advancedoptions').toggle();
                 $('#panel-attachments').toggle();
