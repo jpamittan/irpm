@@ -301,7 +301,7 @@
             }
             var isWorksheetOn = false;
 
-            let iframeWsWidth = $('#worksheet_iframe').width();
+            let iframeWsWidth = parseInt($('#worksheet_iframe').width()) - 100;
             let wsURL = `https://uat-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}&headerDisabled=true&widthInPixels=${iframeWsWidth}`;
             $('#frm-worksheet').attr('action', wsURL);
 
