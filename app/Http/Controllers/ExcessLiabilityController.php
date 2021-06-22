@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ExcessLiabilityController extends Controller
 {
-    public function index()
+    public function index(Request $Request)
     {
         config(['sqlsvr.connection' => 'sqlsrv_exl']);
         $submission = Submission::where('modfactor_id', 4)

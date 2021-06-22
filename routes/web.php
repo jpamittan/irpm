@@ -29,7 +29,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [LoginController::class, 'auth'])->name('auth');
     Route::get('/forgot-password', [LoginController::class, 'forgotPassword'])->name('forgotPassword');
     Route::post('/reset-password', [LoginController::class, 'resetPassword'])->name('resetPassword');
-    Route::get('/excess-liability', [ExcessLiabilityController::class, 'index'])->name('excessliability.index');
+    Route::post('/excess-liability', [ExcessLiabilityController::class, 'index'])->name('excessliability.index');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
