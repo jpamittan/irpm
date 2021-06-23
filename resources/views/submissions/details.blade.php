@@ -68,6 +68,11 @@
                                                 </button>
                                             </form>
                                         </div>
+                                        <div class="btn-toolbar" style="display: inline-block;">
+                                            <a href="#clearanceModal" id="clearanceLink" data-toggle="modal" class="btn btn-default" data-backdrop="static" data-keyboard="false">
+                                                <i class="fas fa-check-double"></i> Clearance
+                                            </a>
+                                        </div>
                                     @endif
                                     <div class="btn-toolbar" style="display: inline-block;">
                                         <a href="#apiLogsModal" id="apiLogsLink" data-toggle="modal" class="btn btn-default" data-backdrop="static" data-keyboard="false">
@@ -219,6 +224,51 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="clearanceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:90%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="fas fa-clipboard-list"></i> API Logs</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="submissionAPILogs" class="table table-striped table-bordered" cellspacing="0" width="100%" style="table-layout: fixed;">
+                            <thead>
+                                <tr>
+                                    <th style="overflow-wrap: break-word;">API Endpoint</th>
+                                    <th style="overflow-wrap: break-word;">Response</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($submissionAPILogs as $log)
+                                    @if(
+                                        $log->question_text == "Clearance|Hit" ||
+                                        $log->question_text == "Clearance|Cleared"
+                                    )
+                                        <tr>
+                                            <td style="overflow-wrap: break-word;">
+                                                {{ $log->question_text }}
+                                            </td>
+                                            <td style="overflow-wrap: break-word;">
+                                                {{ $log->answer_text }}
+                                                <select class="form-control" name="{{ $log->question_text }}" required>
+                                                    <option value="N" selected>N</option>
+                                                    <option value="Y" >Y</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-primary">Save</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div class="modal fade" id="apiLogsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="width:90%">
                 <div class="modal-content">

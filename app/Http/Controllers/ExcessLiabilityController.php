@@ -12,12 +12,17 @@ class ExcessLiabilityController extends Controller
     public function index(Request $Request)
     {
         config(['sqlsvr.connection' => 'sqlsrv_exl']);
-        $submission = Submission::where('modfactor_id', 4)
-            ->where('line_of_business', 'XSUMB')
+        $submission = Submission::with('latestSubmissionMods')
+            ->where('line_of_business', 'XSUMB')    
+            ->whereNotNull('modfactor_id')
             ->latest('created_at')
             ->first();
 
-        return view('lob.el.index', [
+        $view = ($submission->latestSubmissionMods->outcome_type_id == "3") 
+            ? 'lob.el.decline'
+            : 'lob.el.success';
+
+        return view($view, [
             'submission' => $submission
         ]);
     }
