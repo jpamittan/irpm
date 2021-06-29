@@ -50,15 +50,15 @@ class SubmissionsController extends Controller
         $columnSortOrder = $order_arr[0]['dir'];
         $searchValue = $search_arr['value'];
         $queryTotalRecords = Submission::whereRaw('submissions.business_name IS NOT NULL')
-            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
-            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id');
+            ->leftJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
+            ->leftJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id');
         if (session('filterOutcomeTypeID')) {
             $queryTotalRecords->where('submission_mods.outcome_type_id', '=', session('filterOutcomeTypeID'));
         }
         $totalRecords = $queryTotalRecords->count();
         $queryTotalRecordswithFilter = Submission::whereNotNull('submissions.business_name')
-            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
-            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id');
+            ->leftJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
+            ->leftJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id');
         if ($searchValue) {
             $queryTotalRecordswithFilter->where('submissions.submission_id', 'like', '%' . $searchValue . '%')
                 ->orWhere('submissions.business_name', 'like', '%' . $searchValue . '%')
@@ -76,8 +76,8 @@ class SubmissionsController extends Controller
         }
         $queryRecords = Submission::orderBy($columnName, $columnSortOrder)
             ->whereNotNull('submissions.business_name')
-            ->rightJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
-            ->rightJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id')
+            ->leftJoin('submission_mods', 'submission_mods.submissions_id', '=', 'submissions.id')
+            ->leftJoin('outcome_type', 'outcome_type.id', '=', 'submission_mods.outcome_type_id')
             ->select([
                 'submissions.id',
                 'submissions.submission_id',
@@ -89,6 +89,7 @@ class SubmissionsController extends Controller
                 'outcome_type.description',
                 'submissions.created_at'
             ])
+            ->distinct()
             ->skip($start)
             ->take($rowperpage);
         if ($searchValue) {
