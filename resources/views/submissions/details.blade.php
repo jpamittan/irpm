@@ -54,7 +54,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="options" style="text-align: right;">
-                                    @if($lob == "sqlsrv_exl")
+                                    @if(
+                                        $lob == "sqlsrv_exl" ||
+                                        $lob == "sqlsrv_exl_pre" ||
+                                        $lob == "sqlsrv_exl_prd"
+                                    )
                                         <div class="btn-toolbar" style="display: inline-block;">
                                             <form 
                                                 id="frm-worksheet"
