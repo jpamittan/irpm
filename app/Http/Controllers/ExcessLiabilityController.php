@@ -9,9 +9,12 @@ use Illuminate\Http\Request;
 
 class ExcessLiabilityController extends Controller
 {
-    public function index(Request $Request)
+    public function index(Request $request)
     {
+        dd($request->all());
+
         config(['sqlsvr.connection' => 'sqlsrv_exl']);
+
         $submission = Submission::with('latestSubmissionMods')
             ->where('line_of_business', 'XSUMB')    
             ->whereNotNull('modfactor_id')
