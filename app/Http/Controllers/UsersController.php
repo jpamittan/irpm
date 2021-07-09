@@ -16,7 +16,9 @@ class UsersController extends Controller
         [
             'name' => 'Excess Liability',
             'connections' => [
-                'sqlsrv_exl' => 'Development',
+                'sqlsrv_exl' => 'UAT',
+                'sqlsrv_exl_pre' => 'PreProd',
+                'sqlsrv_exl_prd' => 'Production'
             ]
         ],
         [
