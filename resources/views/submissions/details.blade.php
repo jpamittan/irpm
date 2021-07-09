@@ -354,11 +354,17 @@
                 setNotif('danger', '<i class="fa fa-fw fa-times"></i>&nbsp; An error has occured. Please try again.');
             }
             var isWorksheetOn = false;
-
             let iframeWsWidth = parseInt($('#worksheet_iframe').width()) - 100;
-            let wsURL = `https://uat-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}&headerDisabled=true&widthInPixels=${iframeWsWidth}`;
-            $('#frm-worksheet').attr('action', wsURL);
 
+            @if ($lob == "sqlsrv_exl")
+                let wsURL = `https://uat-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}&headerDisabled=true&widthInPixels=${iframeWsWidth}`;
+            @elseif ($lob == "sqlsrv_exl_pre")
+                let wsURL = `https://preprod-el.synchronosure.com/api/api/redirect/policy?submissionId={{ $submission->submission_id }}&headerDisabled=true&widthInPixels=${iframeWsWidth}`;
+            @else
+                let wsURL = `https://products.synchronosure.com/el/api/api/redirect/policy?submissionId={{ $submission->submission_id }}&headerDisabled=true&widthInPixels=${iframeWsWidth}`;
+            @endif
+            
+            $('#frm-worksheet').attr('action', wsURL);
             $("#frm-worksheet").submit(function(e) {
                 $('#panel-advancedoptions').toggle();
                 $('#panel-attachments').toggle();
