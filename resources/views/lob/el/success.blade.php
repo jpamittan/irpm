@@ -18,7 +18,7 @@
                     <p>
                         Submission ID: <span class="text-primary"><u>{{ $response['submissionId'] }}</u></span>
                         <br>
-                        Insured name: <span class="text-primary"><u>{{ $response['submissionId'] }}</u></span>
+                        Insured name: <span class="text-primary"><u>{{ $businessName }}</u></span>
                     </p>
 				</div>
             </div>
