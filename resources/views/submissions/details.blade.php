@@ -354,6 +354,7 @@
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
+            console.log('{{ $url }}');
             $('#submissionDetails').dataTable({
                 language: {
                     lengthMenu: "_MENU_",
