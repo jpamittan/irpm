@@ -153,7 +153,7 @@
                             </div>
                         </div>
                         @if (! empty($filteredAccordAttachments))
-                            <div>
+                            <div id="accord-attachments">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h2><i class="fas fa-paperclip"></i> Accord Attachments</h2>
@@ -411,6 +411,7 @@
             $("#frm-worksheet").submit(function(e) {
                 $('#panel-advancedoptions').toggle();
                 $('#panel-attachments').toggle();
+                $('#accord-attachments').toggle();
                 $('#panel-api-score-logs').toggle();
                 isWorksheetOn = !isWorksheetOn;
                 if (!isWorksheetOn) {
