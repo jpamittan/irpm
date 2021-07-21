@@ -20,7 +20,7 @@
                 <div class="panel panel-profile">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="table-responsive table-userinfo">
                                     <table class="table table-condensed" style="margin: 0;">
                                         <tbody>
@@ -52,7 +52,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="options" style="text-align: right;">
                                     @if(
                                         $lob == "sqlsrv_exl" ||
@@ -191,42 +191,44 @@
                                 </div>
                             </div>
                         @endif
-                        <div id="panel-api-score-logs">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h2><i class="fas fa-hashtag"></i> API score logs</h2>
-                                        </div>
-                                        <div class="panel-body panel-no-padding">
-                                            <table id="apiScoreLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>API Key</th>
-                                                        <th>Score</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($submissionAPILogs as $log)
-                                                        @if (
-                                                            $log->answer_value != "" &&
-                                                            $log->answer_value != null
-                                                        )
-                                                            <tr>
-                                                                <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
-                                                                <td style="overflow-wrap: break-word;">{{ $log->answer_value }}</td>
-                                                                <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                        @if (!empty($submissionAPILogs))
+                            <div id="panel-api-score-logs">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h2><i class="fas fa-hashtag"></i> API score logs</h2>
+                                            </div>
+                                            <div class="panel-body panel-no-padding">
+                                                <table id="apiScoreLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>API Key</th>
+                                                            <th>Score</th>
+                                                            <th>Value</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($submissionAPILogs as $log)
+                                                            @if (
+                                                                $log->answer_value != "" &&
+                                                                $log->answer_value != null
+                                                            )
+                                                                <tr>
+                                                                    <td style="overflow-wrap: break-word;">{{ $log->question_text }}</td>
+                                                                    <td style="overflow-wrap: break-word;">{{ $log->answer_value }}</td>
+                                                                    <td style="overflow-wrap: break-word;">{{ $log->answer_text }}</td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         <div id="panel-advancedoptions">
                             <div class="row">
                                 <div class="col-md-12">
@@ -251,7 +253,9 @@
                                                         <tr>
                                                             <td>{{ $review->question_id }}</td>
                                                             <td>{{ $review->question_text }}</td>
-                                                            <td>{{ $review->answer_text }}</td>
+                                                            <td style="word-break: break-all;">
+                                                                {{ $review->answer_text }}
+                                                            </td>
                                                             <td>{{ $review->answer_value }}</td>
                                                         </tr>
                                                     @endforeach
