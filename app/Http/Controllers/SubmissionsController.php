@@ -15,6 +15,7 @@ use Illuminate\Http\{
     Request
 };
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class SubmissionsController extends Controller
@@ -213,11 +214,24 @@ class SubmissionsController extends Controller
             $oneAnswers,
             $nullAnswers
         ]);
-
         $attachments = Attachment::where('version', $submission->version)
             ->where('line_of_business', $submission->line_of_business)
             ->where('submission_id', $submission->submission_id)
             ->get();
+        if (Auth::user()->db_connection == "sqlsrv_exl_prd") {
+            $url = "https://products.synchronosure.com/el/api/api/attachment/list?submissionId=" . $submission->submission_id;
+        } else if (Auth::user()->db_connection == "sqlsrv_exl_pre") {
+            $url = "https://preprod-el.synchronosure.com/api/api/attachment/list?submissionId=" . $submission->submission_id;
+        } else {
+            $url = "https://uat-el.synchronosure.com/api/api/attachment/list?submissionId=" . $submission->submission_id;
+        }
+        $response = Http::post($url);
+        $filteredAccordAttachments = array_filter(
+            json_decode($response->body(), true), 
+            function ($attachment) use ($submission) {
+                return $attachment['version'] == $submission->version;
+            }
+        );
 
         return view('submissions.details', [
             'attachments' => $attachments,
@@ -228,6 +242,7 @@ class SubmissionsController extends Controller
             'ONEviewContextToken' => $ONEviewContextToken,
             'totalScore' => $totalScore,
             'averageScore' => $averageScore,
+            'filteredAccordAttachments' => $filteredAccordAttachments,
         ]);
     }
 

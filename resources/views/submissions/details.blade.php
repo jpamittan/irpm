@@ -152,6 +152,45 @@
                                 </form>
                             </div>
                         </div>
+                        @if (!empty($filteredAccordAttachments))
+                            <div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2><i class="fas fa-paperclip"></i> Accord Attachments</h2>
+                                    </div>
+                                    <div class="panel-body panel-no-padding">
+                                        <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 120px;">Question No</th>
+                                                    <th style="width: 400px;">Question Description</th>
+                                                    <th>Date Time</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($filteredAccordAttachments as $filteredAccordAttachment)
+                                                    <tr>
+                                                        <td>{{ $filteredAccordAttachment['question_id'] }}</td>
+                                                        <td>{{ $filteredAccordAttachment['question_text'] }}</td>
+                                                        <td>{{ date('Y-m-d H:i:s', substr($filteredAccordAttachment['attachment_date'], 0, -6)) }}</td>
+                                                        <td>
+                                                            <a 
+                                                                target="_blank"
+                                                                href="{{ $filteredAccordAttachment['url'] }}"
+                                                                download
+                                                            >
+                                                                View
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div id="panel-api-score-logs">
                             <div class="row">
                                 <div class="col-md-12">
