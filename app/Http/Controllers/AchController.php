@@ -145,7 +145,7 @@ class AchController extends Controller
             ->first();
         $user = Auth::user()->full_name;
         $now = Carbon::now();
-        if (!$agent) {
+        if (! $agent) {
             $agent = new Agent;
             $agent->AgentKey = $entityId;
             $agent->AgentName = $request->get('agent_name');

@@ -226,14 +226,12 @@ class SubmissionsController extends Controller
             $url = "https://uat-el.synchronosure.com/api/api/attachment/list?submissionId=" . $submission->submission_id;
         }
         $response = Http::post($url);
-        if (!empty($response->body())) {
-            $filteredAccordAttachments = array_filter(
-                json_decode($response->body(), true), 
-                function ($attachment) use ($submission) {
-                    return $attachment['version'] == $submission->version;
-                }
-            );
-        }
+        $filteredAccordAttachments = array_filter(
+            json_decode($response->body(), true) ?? [], 
+            function ($attachment) use ($submission) {
+                return $attachment['version'] == $submission->version;
+            }
+        );
 
         return view('submissions.details', [
             'attachments' => $attachments,
@@ -244,7 +242,7 @@ class SubmissionsController extends Controller
             'ONEviewContextToken' => $ONEviewContextToken,
             'totalScore' => $totalScore,
             'averageScore' => $averageScore,
-            'filteredAccordAttachments' => $filteredAccordAttachments ?? [],
+            'filteredAccordAttachments' => $filteredAccordAttachments,
             'url' => $url
         ]);
     }
