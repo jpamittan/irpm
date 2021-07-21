@@ -173,7 +173,7 @@
                                                     <tr>
                                                         <td>{{ $filteredAccordAttachment['question_id'] }}</td>
                                                         <td>{{ $filteredAccordAttachment['question_text'] }}</td>
-                                                        <td>{{ date('Y-m-d H:i:s', substr($filteredAccordAttachment['attachment_date'], 0, -6)) }}</td>
+                                                        <td>{{ $filteredAccordAttachment['attachment_date'] }}</td>
                                                         <td>
                                                             <a 
                                                                 target="_blank"
