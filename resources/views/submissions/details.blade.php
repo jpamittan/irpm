@@ -152,7 +152,7 @@
                                 </form>
                             </div>
                         </div>
-                        @if (!empty($filteredAccordAttachments))
+                        @if (! empty($filteredAccordAttachments))
                             <div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                         @endif
-                        @if (!empty($submissionAPILogs))
+                        @if ($hasAPIScores)
                             <div id="panel-api-score-logs">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -358,7 +358,6 @@
 	<script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
-            console.log('{{ $url }}');
             $('#submissionDetails').dataTable({
                 language: {
                     lengthMenu: "_MENU_",
