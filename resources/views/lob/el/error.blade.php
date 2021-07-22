@@ -12,7 +12,7 @@
                 <div class="alert alert-dismissable alert-primary">
 					<h3><i class="fas fa-exclamation-triangle"></i> Ooops</h3> 
 					<p>
-                        No submission ID. If you cancelled the submission please try again.
+                        No submission ID. If you cancelled the submission or any problem occured please try again.
                     </p>
 				</div>
             </div>
