@@ -14,6 +14,7 @@ class ExcessLiabilityController extends Controller
         $view = 'lob.el.success';
         $response = $request->get('Response');
         $response = json_decode($response, true);
+        $submission = null;
         if (isset($_GET['env'])) {
             if ($_GET['env'] == "preprod") {
                 config(['sqlsvr.connection' => 'sqlsrv_exl_pre']);
@@ -42,7 +43,7 @@ class ExcessLiabilityController extends Controller
 
         return view($view, [
             'response' => $response,
-            'businessName' => $submission->business_name
+            'businessName' => $submission->business_name ?? ""
         ]);
     }
 }
